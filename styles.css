@@ -1,0 +1,89 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    width: 760px;
+}
+
+h1, h2, h3, h4, h5, h6, li, p {
+    font-family: "Trebuchet MS", Trebuchet, Arial, Geneva, sans-serif;
+}
+
+p {
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+button {
+    font-family: cursive;
+}
+
+#heading {
+    h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 0px;
+    }
+    div, form {
+        padding-top: 8px;
+    }
+}
+
+.article-heading * {
+    margin: 0px;
+}
+
+#content {
+    resize: none;
+}
+
+#random-article {
+    background-color: beige;
+    padding: 5px;
+}
+
+#articleForm {
+    background-color: aliceblue;
+    padding: 5px;
+}
+
+#searchForm {
+    background-color: antiquewhite;
+    padding: 5px;
+}
+
+#sidebar {
+    background-color: antiquewhite;
+    padding: 5px;
+    height: 60%;
+}
+
+#sidebar h3 {
+    padding: 3px;
+}
+
+.article {
+    width: 350px;
+    #contents {
+        background-color: burlywood;
+        padding: 5px;
+    }
+}
+
+.edit-input {
+    width: 98%;
+}
+
+#sidebar-heading {
+    height: 60px;
+    background-color:chocolate;
+    display: flex;
+    justify-content: center;
+    align-items: anchor-center;
+    color:antiquewhite;
+}
+
+#random-article * {
+    margin: 0px
+}
