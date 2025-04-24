@@ -85,8 +85,10 @@
               });
         
               if (response.ok) {
+                const re = await response.json();
                 alert("Article submitted successfully!");
                 this.reset();
+                window.location.href = `/article/?id=${re.id}`
               } else {
                 const error = await response.text();
                 alert("Error submitting article: " + error);
