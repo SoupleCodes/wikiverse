@@ -30,6 +30,34 @@
       </div>
     </div>
     <div id="spacing" style="width: 17.7px"></div>
-    
+    <div id="list"><div id="spacing" style="height: 66px"></div></div>
+    <script>
+      async function fetchAllArticles() {
+        try {
+          const response = await fetch('https://wiki.souple.workers.dev/');
+          if (response.ok) {
+            const articles = await response.json();
+            const list = document.getElementById("list");
+            
+            if (list) {
+              list.innerHTML += articles.map(article => article.title && article.author ? `
+                <li>
+                  <a href='/article/?id=${article.id}'>
+                    ${new String(article.title)} by ${article.author}
+                  </a>
+                </li>
+              ` : '').join('');
+            }
+        } else {
+          const error = await response.text();
+          console.error("Error fetching articles:", error);
+        }
+      } catch (error) {
+        console.error("Error fetching the articles", error);
+      }
+      }
+
+      fetchAllArticles();
+    </script>
     </body>
 </HTML>
