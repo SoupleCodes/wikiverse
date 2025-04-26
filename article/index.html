@@ -74,6 +74,7 @@
 
         if (response.ok) {
           console.log('Article updated successfully');
+          fetchArticle(articleId);
         } else {
           console.error('Failed to update article');
         }
@@ -184,10 +185,11 @@
               edit.addEventListener("click", function(event) {
                 event.preventDefault();
                 const editForm = document.getElementById(`article-edit-form-${article.id}`);
+                const contentElement = document.getElementById(`article-content-${article.id}`);
+
                 const editInput = document.getElementById(`article-edit-input-${article.id}`);
                 if (editForm && editInput) {
-                  
-                  editInput.value = articleContent;
+                    editInput.value = articleContent;
                 }
                   handleEditClick(article.id, this);
               });
@@ -221,9 +223,8 @@
 
       if (editMode) {
         const newContent = editInput.value;
-        contentElement.innerHTML = bbcodeparse(newContent);
-        articleContainer.setAttribute('data-edit-mode', 'false');
         updateArticle(articleId, newContent, contentElement);
+        articleContainer.setAttribute('data-edit-mode', 'false');
         contentElement.style.display = 'block';
       } else {
         contentElement.style.display = 'none';

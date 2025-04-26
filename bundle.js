@@ -5,7 +5,11 @@ function putStrOntoChild(a, b) {
     if (typeof a !== "string" || typeof b !== "string") {
       return "";
     }
-    const temp = document.createElement(b.match(/<([a-z]+)[^>]*>/i)[1] || 'div');
+    const match = b.match(/<([a-z]+)[^>]*>/i)
+    if(!match){
+        return b;
+    }
+    const temp = document.createElement(match[1] || 'div');
     temp.innerHTML = a;
     return b.replace(
       new RegExp(`(<${temp.tagName.toLowerCase()}\\b[^>]*>)(.*?)(</${temp.tagName.toLowerCase()}>)`, 'gi'),
