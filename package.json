@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "dompurify": "^3.2.5"
+  },
+  "scripts": {
+    "build": "browserify bbcodeparse.js -o bundle.js",
+    "build:format": "browserify formatDate.js -o formatBundle.js"
+  }
+}
