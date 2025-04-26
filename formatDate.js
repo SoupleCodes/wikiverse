@@ -1,5 +1,4 @@
 export function formatDate(dateString) {
-    console.log(dateString)
     const date = new Date(dateString);
     const hours = date.getUTCHours();
     const minutes = date.getUTCMinutes();

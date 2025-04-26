@@ -22,6 +22,31 @@
           <li><a href="/">home</a></li>
           <li><a href="/about/">about</a></li>
           <li><a href="/all/">all articles</a></li>
+          <li><a href="/article/?id=89">featured article!</a></li>
+          <li><a href="javascript:void(0);" onclick="(function(){
+            let allowXSS = localStorage.getItem('allowXSS') || '0';
+            allowXSS = allowXSS === '1' ? '0' : '1';
+            localStorage.setItem('allowXSS', allowXSS);
+            if (allowXSS === '1')
+                if (!confirm('Are you sure you want to enable XSS? This could be dangerous.'))
+              localStorage.setItem('allowXSS', '0');
+
+            console.log(allowXSS)
+
+            
+          })();">toggle xss?</a></li>
+          <script>
+            (function() {
+                let allowXSS = localStorage.getItem('allowXSS') || '0';
+                if (allowXSS === '1') {
+                    console.log('XSS is allowed.');
+                    
+                } else {
+                    console.log('XSS is not allowed.');
+                }
+            })();
+        </script>
+
           <br>
           <h3 style="background-color: burlywood;">popular subjects</h3>
           <li><a>soup</a></li>
@@ -44,7 +69,15 @@
               list.innerHTML += articles.map(article => article.title && article.author ? `
                 <li>
                   <a href='/article/?id=${article.id}'>
-                    ${new String(article.title)} by ${article.author}
+                  ${new String(article.title)} by ${article.author} 
+                  (${(() => {
+                    try {
+                      return JSON.parse(article.posts || "[]").length;
+                    } catch (e) {
+                      console.error("Error parsing posts for article:", article, e);
+                      return 0;
+                    }
+                  })()} comments)
                   </a>
                 </li>
               ` : '').join('');
