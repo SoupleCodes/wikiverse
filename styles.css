@@ -17,6 +17,11 @@ p {
     word-break: break-all;
 }
 
+time {
+    color: sienna;
+    font-size: smaller;
+}
+
 button {
     font-family: cursive;
 }

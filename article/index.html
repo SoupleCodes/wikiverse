@@ -20,7 +20,7 @@
     <div id="sidebar">
       <h3 style="background-color: indianred;">explore</h3>
       <li><a href="/">home</a></li>
-      <li><a>about</a></li>
+      <li><a href="/about/">about</a></li>
       <br>
       <h3 style="background-color: burlywood;">popular subjects</h3>
       <li><a>soup</a></li>
@@ -32,7 +32,9 @@
   <div id="spacing" style="width: 17.7px"></div>
   <div id="article-container"></div>
 
-  <script>
+  <script type="module">
+    import { formatDate } from '../formatDate.js';
+
     async function updateArticle(articleId, content, contentElement) {
       try {
         const response = await fetch(`https://wiki.souple.workers.dev/article/${articleId}`, {
@@ -54,21 +56,64 @@
         console.error('Error updating article:', error);
       }
     }
+    async function postComment(articleId, username, comment) {
+      try {
+        const response = await fetch(`https://wiki.souple.workers.dev/article/${articleId}/post`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            content: comment,
+            user: username,
+          })
+        });
+
+        if (response.ok) {
+          console.log('Comment posted successfully');
+          fetchArticle(articleId);
+        } else {
+          console.error('Failed to post comment');
+        }
+      } catch (error) {
+        console.error('Error posting comment:', error);
+      }
+    }
+    function handleCommentSubmit(articleId) {
+      const usernameInput = document.getElementById(`username-input-${articleId}`);
+      const commentInput = document.getElementById(`comment-input-${articleId}`);
+
+      if (usernameInput && commentInput) {
+        const username = usernameInput.value;
+        const comment = commentInput.value;
+
+        postComment(articleId, username, comment);
+
+        commentInput.value = '';
+      }
+    }
     async function fetchArticle(num) {
       try {
         const response = await fetch(`https://wiki.souple.workers.dev/article/${num}`);
         if (response.ok) {
           const article = await response.json();
+          const articleTitle = article.title;
+          const articleAuthor = article.author;
+          const articleContent = article.content;
+          const articleSubject = article.subject;
+          const articleComments = JSON.parse(article.posts);
+          console.log(articleComments)
           const articleElement = document.getElementById("article-container");
 
           if (articleElement) {
+            document.title = `${article.title} - Wikiverse`;
             articleElement.innerHTML = `
                             <div class="article" id="article-${article.id}" data-article-id="${article.id}" data-edit-mode="false">
                                 <div id="spacing" style="height: 66px"></div>
                                 <div id="heading" class="article-heading" style="background-color: saddlebrown;color: burlywood;display: flex;">
-                                    <h3>${article.title}</h3>
+                                    <h3 style="max-width: 200px;">${articleTitle}</h3>
                                     <div id="spacing" style="width: 20px;"></div>
-                                    <div><p>by ${article.author}</p></div>
+                                    <div><p>by ${articleAuthor}</p></div>
                                     <div class="edit" style="margin-left: auto;">
                                         <a href="#" onclick="handleEditClick(${article.id},this)">
                                             <p>Edit?</p>
@@ -76,7 +121,34 @@
                                     </div>
                                 </div>
                                 <div id="contents">
-                                    <p id="article-content-${article.id}">${article.content}</p>
+                                    <p id="article-content-${article.id}">${articleContent}</p>
+                                    <hr>
+                                    <div id="comments">
+                                      <div style="display: flex; flex-direction: column;">
+                                         <input type="text" id="username-input-${article.id}" placeholder="Your Username">
+                                        <div style="display: flex;">
+                                          <textarea 
+                                            style="flex-grow: 1; height: 32px; resize: vertical;" 
+                                            id="comment-input-${article.id}" 
+                                            placeholder="Tell 'em what you think!" data-article-id="${article.id}"></textarea>
+                                          <button id="comment-submit-${article.id}" type="button" onclick="handleCommentSubmit(${article.id})">Submit</button>
+                                        </div>
+                                      </div>
+                                                                            <p>Comments:</p>
+
+                                      ${articleComments ? `
+                                      <div>
+                                          ${articleComments.map(comment => `
+                                            <p style="                               
+                                                background-color: antiquewhite;
+                                                padding: 4px;
+                                                border-bottom: 1px solid saddlebrown;
+                                                margin: 0px;
+                                            ">${comment.post} -${comment.user} <time>${formatDate(comment.creation_date)}</time></p>
+                                          `).join('')}
+                                      </div>
+                                    ` : ''}
+                                  </div>
                                 </div>
                             </div>
                         `;
