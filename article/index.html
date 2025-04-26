@@ -21,6 +21,7 @@
       <h3 style="background-color: indianred;">explore</h3>
       <li><a href="/">home</a></li>
       <li><a href="/about/">about</a></li>
+      <li><a href="/all/">all articles</a></li>
       <br>
       <h3 style="background-color: burlywood;">popular subjects</h3>
       <li><a>soup</a></li>
@@ -102,6 +103,7 @@
           const articleAuthor = article.author;
           const articleContent = article.content;
           const articleSubject = article.subject;
+          const articleCreationDate = article.creation_date;
           const articleComments = JSON.parse(article.posts);
           console.log(articleComments)
           const articleElement = document.getElementById("article-container");
@@ -122,6 +124,7 @@
                                     </div>
                                 </div>
                                 <div id="contents">
+                                  <span style="float: right;font-size: x-small;">${formatDate(articleCreationDate)}</span>
                                     <p id="article-content-${article.id}">${articleContent}</p>
                                     <hr>
                                     <div id="comments">
