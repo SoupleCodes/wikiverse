@@ -30,10 +30,19 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<rainbow></rainbow>", tag: "rainbow" },
       { html: "<blink></blink>", tag: "blink" },
       { html: "<code></code>", tag: "code" },
-      { html: "<span style=\"color: $attr$;\"></span>", tag: "color" },
-      { html: "<a href=\"$attr$\"></a>", tag: "url" },
-      { html: "<a href='/article/?id=$attr$'></a>", tag: "article" }
-
+      { html: "<span style='color: $attr$;'></span>", tag: "color" },
+      { html: "<a href='$attr$'></a>", tag: "url" },
+      { html: "<a href='$attr$'>$attr$</a>", tag: "email" },
+      { html: "<img src='$attr$'></img>", tag: "img" },
+      { html: "<a href='/article/?id=$attr$'></a>", tag: "article" },
+      { html: "<span style='font-size: $attr$;'></span>", tag: "size" },
+      { html: "<span style='font-family: $attr$;'></span>", tag: "font" },
+      { html: "<h1 style='margin: 0'>", tag: "h1" },
+      { html: "<h2 style='margin: 0'>", tag: "h2" },
+      { html: "<h3 style='margin: 0'>", tag: "h3" },
+      { html: "<h4 style='margin: 0'>", tag: "h4" },
+      { html: "<h5 style='margin: 0'>", tag: "h5" },
+      { html: "<h6 style='margin: 0'>", tag: "h6" },
     ];
     let result = t;
     let changed = true;

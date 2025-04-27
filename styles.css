@@ -22,8 +22,9 @@ time {
     font-size: smaller;
 }
 
-center {
-    display: inline;
+code {
+    background-color: lightgrey;
+    padding: 1px;
 }
 
 rainbow {
