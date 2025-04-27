@@ -174,7 +174,7 @@
                                           <button id="comment-submit-${article.id}" type="button">Submit</button>
                                         </div>
                                       </div>
-                                       <p>${articleComments.length} comments:</p>
+                                       <p>${articleComments ? articleComments.length : '0'} comments:</p>
                                       ${articleComments ? `
                                       <div>
                                           ${articleComments.map((comment, index) => `
