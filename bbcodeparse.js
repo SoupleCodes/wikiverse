@@ -46,7 +46,8 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<video src='$attr$'></video>", tag: "video"},
       { html: "<span style='cursor:pointer;border-bottom: 1px dashed sienna;color: sienna;' title=$attr$></span>", tag: "abbr" },
       { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"},
-      { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" }
+      { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
+
     ];
     let result = t;
     let changed = true;

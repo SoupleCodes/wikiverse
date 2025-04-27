@@ -39,11 +39,13 @@
           <script>
             (function() {
                 let allowXSS = localStorage.getItem('allowXSS') || '0';
+                const aElement = document.getElementById("xss-toggle")
                 if (allowXSS === '1') {
                     console.log('XSS is allowed.');
-                    
+                    aElement.text = 'toggle xss? (on)'
                 } else {
                     console.log('XSS is not allowed.');
+                    aElement.text = 'toggle xss?'
                 }
             })();
         </script>
