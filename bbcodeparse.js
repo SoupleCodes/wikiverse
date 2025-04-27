@@ -17,18 +17,16 @@ function putStrOntoChild(a, b) {
 }
 
 window.bbcodeparse = function bbcodeparse(t) {
-    let prev;
     let result = t;
-    do {
-      prev = DOMPurify.sanitize(result);
+    for (let i = 0; i < 10; i++) {
       result = replaceBBCodeWithHTML(result, "<b></b>", "b");
       result = replaceBBCodeWithHTML(result, "<u></u>", "u");
       result = replaceBBCodeWithHTML(result, "<s></s>", "s");
       result = replaceBBCodeWithHTML(result, "<i></i>", "i");
       result = replaceBBCodeWithHTML(result, "<span style=\"color: $attr;\"></span>", "color");
       result = replaceBBCodeWithHTML(result, "<a href=\"$attr$\"></a>", "url");
-    } while (result !== prev);
-
+    }
+    result = DOMPurify.sanitize(result);
     return result;
 }
 
@@ -41,8 +39,7 @@ function replaceBBCodeWithHTML(t, htmlTemplate, bbtag) {
       let newHtml = htmlTemplate;
       if (attrValue) {
         newHtml = newHtml.replace(/\$attr\$/gi, attrValue);
-        }
-      return putStrOntoChild(contentWithAttr|| contentWithoutAttr, newHtml);
+      }
+      return putStrOntoChild(contentWithAttr || contentWithoutAttr || match[0], newHtml);
     });
 }
-
