@@ -77,6 +77,11 @@ button {
     margin: 0px;
 }
 
+.emoji {
+    vertical-align:text-bottom;
+    width: 20px !important;
+}
+
 #content {
     resize: none;
 }
