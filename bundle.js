@@ -27,7 +27,10 @@ window.bbcodeparse = function bbcodeparse(t) {
       result = replaceBBCodeWithHTML(result, "<span style=\"color: $attr;\"></span>", "color");
       result = replaceBBCodeWithHTML(result, "<a href=\"$attr$\"></a>", "url");
     }
-    result = DOMPurify.sanitize(result);
+    let allowXSS = localStorage.getItem('allowXSS') || '0';
+    if (allowXSS === '0') {
+      result = DOMPurify.sanitize(result);
+    }
     return result;
 }
 
