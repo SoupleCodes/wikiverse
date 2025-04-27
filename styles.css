@@ -9,6 +9,7 @@ body {
 
 h1, h2, h3, h4, h5, h6, li, p {
     font-family: "Trebuchet MS", Trebuchet, Arial, Geneva, sans-serif;
+    overflow-wrap: anywhere;
 }
 
 p {
@@ -75,6 +76,7 @@ button {
 
 .article-heading * {
     margin: 0px;
+    overflow-wrap: anywhere;
 }
 
 .emoji {

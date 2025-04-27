@@ -35,7 +35,7 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<a href='$attr$'>$attr$</a>", tag: "email" },
       { html: "<img src='$attr$'></img>", tag: "img" },
       { html: "<a href='/article/?id=$attr$'></a>", tag: "article" },
-      { html: "<span style='font-size: $attr$;'></span>", tag: "size" },
+      { html: "<span style='font-size: $attr$px;'></span>", tag: "size" },
       { html: "<span style='font-family: $attr$;'></span>", tag: "font" },
       { html: "<h1 style='margin: 0'>", tag: "h1" },
       { html: "<h2 style='margin: 0'>", tag: "h2" },
@@ -47,7 +47,8 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<video src='$attr$'></video>", tag: "video"},
       { html: "<span style='cursor:pointer;border-bottom: 1px dashed sienna;color: sienna;' title=$attr$></span>", tag: "abbr" },
       { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"},
-      { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" }
+      { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
+
     ];
     let result = t;
     let changed = true;
