@@ -22,6 +22,38 @@ time {
     font-size: smaller;
 }
 
+center {
+    display: inline;
+}
+
+rainbow {
+    color: rgba(0, 0, 0, 0.459);
+    background: linear-gradient(to right,
+            red, orange, yellow, green, blue, indigo, violet, indigo, blue, green, yellow, orange, red);
+    background-size: 500%;
+    animation: rainbow-flow infinite linear 36s;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+@keyframes rainbow-flow {
+    0% {
+        background-position: 50% 0%;
+    }
+  
+    100% {
+        background-position: -200%;
+    }
+  }
+
+@keyframes blink {
+	0% { opacity:1 } 75% { opacity:1 } 76% { opacity:0 } 100% { opacity:0 }
+}
+
+blink {
+	animation:blink 0.75s ease-in infinite alternate!important;
+}
+
 button {
     font-family: cursive;
 }

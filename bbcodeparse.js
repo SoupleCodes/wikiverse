@@ -17,14 +17,32 @@ function putStrOntoChild(a, b) {
 }
 
 window.bbcodeparse = function bbcodeparse(t) {
+    const bbcodeTags = [
+      { html: "<b></b>", tag: "b" },
+      { html: "<u></u>", tag: "u" },
+      { html: "<s></s>", tag: "s" },
+      { html: "<i></i>", tag: "i" },
+      { html: "<span style='display:flow;place-self:center;'></span>", tag: "center" },
+      { html: "<span style='float: left'>$attr$</span>", tag: "left" },
+      { html: "<span style='float: right'>$attr$</span>", tag: "right" },
+      { html: "<marquee></marquee>", tag: "marquee" },
+      { html: "<rainbow></rainbow>", tag: "rainbow" },
+      { html: "<blink></blink>", tag: "blink" },
+      { html: "<code></code>", tag: "code" },
+      { html: "<span style='color: $attr$;'></span>", tag: "color" },
+      { html: "<a href='$attr$'></a>", tag: "url" },
+      { html: "<a href='/article/?id=$attr$'></a>", tag: "article" }
+
+    ];
     let result = t;
-    for (let i = 0; i < 10; i++) {
-      result = replaceBBCodeWithHTML(result, "<b></b>", "b");
-      result = replaceBBCodeWithHTML(result, "<u></u>", "u");
-      result = replaceBBCodeWithHTML(result, "<s></s>", "s");
-      result = replaceBBCodeWithHTML(result, "<i></i>", "i");
-      result = replaceBBCodeWithHTML(result, "<span style=\"color: $attr;\"></span>", "color");
-      result = replaceBBCodeWithHTML(result, "<a href=\"$attr$\"></a>", "url");
+    let changed = true;
+    while (changed) {
+        changed = false;
+        for (const { html, tag } of bbcodeTags) {
+          const prevResult = result
+          result = replaceBBCodeWithHTML(result, html, tag);
+          changed = changed || prevResult !== result
+        }
     }
     let allowXSS = localStorage.getItem('allowXSS') || '0';
     if (allowXSS === '0') {

@@ -26,17 +26,15 @@
           <li><a href="/about/">about</a></li>
           <li><a href="/all/">all articles</a></li>
           <li><a href="/article/?id=89">featured article!</a></li>
-          <li><a href="javascript:void(0);" onclick="(function(){
+          <li><a id="xss-toggle" href="javascript:void(0);" onclick="(function(){
             let allowXSS = localStorage.getItem('allowXSS') || '0';
             allowXSS = allowXSS === '1' ? '0' : '1';
             localStorage.setItem('allowXSS', allowXSS);
             if (allowXSS === '1')
                 if (!confirm('Are you sure you want to enable XSS? This could be dangerous.'))
               localStorage.setItem('allowXSS', '0');
-    
-            console.log(allowXSS)
-    
-            
+              allowXSS = localStorage.getItem('allowXSS') || '0';
+              document.getElementById('xss-toggle').text = `toggle xss? ${allowXSS === '1' ? '(on)' : ''}`
           })();">toggle xss?</a></li>
           <script>
             (function() {
