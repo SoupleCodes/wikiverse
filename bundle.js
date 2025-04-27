@@ -43,6 +43,10 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<h4 style='margin: 0'>", tag: "h4" },
       { html: "<h5 style='margin: 0'>", tag: "h5" },
       { html: "<h6 style='margin: 0'>", tag: "h6" },
+      { html: "<audio src='$attr$'></audio>", tag: "audio"},
+      { html: "<video src='$attr$'></video>", tag: "video"},
+      { html: "<span style='cursor:pointer;border-bottom: 1px dashed sienna;color: sienna;' title=$attr$></span>", tag: "abbr" },
+      { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"}
     ];
     let result = t;
     let changed = true;
