@@ -167,7 +167,7 @@ window.bbcodeparse = function bbcodeparse(t) {
 }
 
 function replaceSmileysWithRegex(text) {
-  const smileyCodes = smileys.filter((_, index) => index % 2 === 0); //get only smiley codes
+  const smileyCodes = smileys.filter((_, index) => index % 2 === 0);
   const regexString = smileyCodes.map(code => code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
   const regex = new RegExp(regexString, 'g');
 
@@ -175,7 +175,7 @@ function replaceSmileysWithRegex(text) {
       const index = smileys.indexOf(match);
       if (index !== -1 && index % 2 === 0 && index + 1 < smileys.length) {
           const imagePath = smileys[index + 1];
-          return `<img src="${imagePath}" class="emoji">`;
+          return `<img src="${imagePath}" class="emoji" title="${match}">`;
       }
       return match;
   });
