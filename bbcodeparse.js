@@ -174,7 +174,7 @@ function replaceSmileysWithRegex(text) {
       const index = smileys.indexOf(match);
       if (index !== -1 && index % 2 === 0 && index + 1 < smileys.length) {
           const imagePath = smileys[index + 1];
-          return `<img src="${imagePath}" class="emoji" alt="${match}">`;
+          return `<img src="${imagePath}" class="emoji" title="${match}">`;
       }
       return match;
   });
