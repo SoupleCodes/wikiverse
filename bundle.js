@@ -17,7 +17,105 @@ function putStrOntoChild(a, b) {
     );
 }
 
+const smileys = [
+  ":alien:", "/images/smileys/alien.gif",
+  ":angel:", "/images/smileys/angel.gif",
+  ":angry:", "/images/smileys/angry.gif",
+  ":applause:", "/images/smileys/applause.gif",
+  ":april:", "/images/smileys/april.gif",
+  ":attention:", "/images/smileys/attention.gif",
+  ":atwitsend:", "/images/smileys/atwitsend.gif",
+  ":batseyes:", "/images/smileys/batseyes.gif",
+  ":beatup:", "/images/smileys/beatup.gif",
+  ":bighug:", "/images/smileys/bighug.gif",
+  ":billy:", "/images/smileys/billy.gif",
+  ":blush:", "/images/smileys/blush.gif",
+  ":bringiton:", "/images/smileys/bringiton.gif",
+  ":brokenheart:", "/images/smileys/brokenheart.gif",
+  ":bug:", "/images/smileys/bug.gif",
+  ":callme:", "/images/smileys/callme.gif",
+  ":chatterbox:", "/images/smileys/chatterbox.gif",
+  ":clover:", "/images/smileys/clover.gif",
+  ":clown:", "/images/smileys/clown.gif",
+  ":coffee:", "/images/smileys/coffee.gif",
+  ":confused:", "/images/smileys/confused.gif",
+  ":cool:", "/images/smileys/cool.gif",
+  ":cow:", "/images/smileys/cow.gif",
+  ":cowboy:", "/images/smileys/cowboy.gif",
+  ":crying:", "/images/smileys/crying.gif",
+  ":dancing:", "/images/smileys/dancing.gif",
+  ":daydream:", "/images/smileys/daydream.gif",
+  ":devil:", "/images/smileys/devil.gif",
+  ":doh:", "/images/smileys/doh.gif",
+  ":drool:", "/images/smileys/drool.gif",
+  ":eyebrow:", "/images/smileys/eyebrow.gif",
+  ":eyeroll:", "/images/smileys/eyeroll.gif",
+  ":frustrated:", "/images/smileys/frustrated.gif",
+  ":giggle:", "/images/smileys/giggle.gif",
+  ":grin:", "/images/smileys/grin.gif",
+  ":haha:", "/images/smileys/haha.gif",
+  ":hahayeahright:", "/images/smileys/hahayeahright.gif",
+  ":hiro:", "/images/smileys/hiro.gif",
+  ":hurryup:", "/images/smileys/hurryup.gif",
+  ":hypnotized:", "/images/smileys/hypnotized.gif",
+  ":idea:", "/images/smileys/idea.gif",
+  ":idontknow:", "/images/smileys/idontknow.gif",
+  ":idontwannasee:", "/images/smileys/idontwannasee.gif",
+  ":itwasntme:", "/images/smileys/itwasntme.gif",
+  ":kiss:", "/images/smileys/kiss.gif",
+  ":liar:", "/images/smileys/liar.gif",
+  ":loser:", "/images/smileys/loser.gif",
+  ":love:", "/images/smileys/love.gif",
+  ":moneyeyes:", "/images/smileys/moneyeyes.gif",
+  ":monkey:", "/images/smileys/monkey.gif",
+  ":nailbiting:", "/images/smileys/nailbiting.gif",
+  ":nerd:", "/images/smileys/nerd.gif",
+  ":nono:", "/images/smileys/nono.gif",
+  ":notlistening:", "/images/smileys/notlistening.gif",
+  ":nottalking:", "/images/smileys/nottalking.gif",
+  ":onthephone:", "/images/smileys/onthephone.gif",
+  ":party:", "/images/smileys/party.gif",
+  ":peace:", "/images/smileys/peace.gif",
+  ":pig:", "/images/smileys/pig.gif",
+  ":pirate:", "/images/smileys/pirate.gif",
+  ":praise:", "/images/smileys/praise.gif",
+  ":praying:", "/images/smileys/praying.gif",
+  ":pumpkin:", "/images/smileys/pumpkin.gif",
+  ":puppydogeyes:", "/images/smileys/puppydogeyes.gif",
+  ":rockon:", "/images/smileys/rockon.gif",
+  ":rofl:", "/images/smileys/rofl.gif",
+  ":rose:", "/images/smileys/rose.gif",
+  ":sad:", "/images/smileys/sad.gif",
+  ":shhhh:", "/images/smileys/shhhh.gif",
+  ":shocked:", "/images/smileys/shocked.gif",
+  ":sick:", "/images/smileys/sick.gif",
+  ":sigh:", "/images/smileys/sigh.gif",
+  ":silly:", "/images/smileys/silly.gif",
+  ":skull:", "/images/smileys/skull.gif",
+  ":sleepy:", "/images/smileys/sleepy.gif",
+  ":smile:", "/images/smileys/smile.gif",
+  ":smug:", "/images/smileys/smug.gif",
+  ":star:", "/images/smileys/star.gif",
+  ":straightface:", "/images/smileys/straightface.gif",
+  ":talktohand:", "/images/smileys/talktohand.gif",
+  ":thinking:", "/images/smileys/thinking.gif",
+  ":thumbsdown:", "/images/smileys/thumbsdown.gif",
+  ":thumbsup:", "/images/smileys/thumbsup.gif",
+  ":timeout:", "/images/smileys/timeout.gif",
+  ":tongue:", "/images/smileys/tongue.gif",
+  ":tongue2:", "/images/smileys/tongue2.gif",
+  ":usa:", "/images/smileys/usa.gif",
+  ":waiting:", "/images/smileys/waiting.gif",
+  ":wave:", "/images/smileys/wave.gif",
+  ":whew:", "/images/smileys/whew.gif",
+  ":whistling:", "/images/smileys/whistling.gif",
+  ":worried:", "/images/smileys/worried.gif",
+  ":yawn:", "/images/smileys/yawn.gif",
+  ":yinyang:", "/images/smileys/yinyang.gif",
+]
+
 window.bbcodeparse = function bbcodeparse(t) {
+
     const bbcodeTags = [
       { html: "<b></b>", tag: "b" },
       { html: "<u></u>", tag: "u" },
@@ -51,6 +149,7 @@ window.bbcodeparse = function bbcodeparse(t) {
 
     ];
     let result = t;
+    result = replaceSmileysWithRegex(result);
     let changed = true;
     while (changed) {
         changed = false;
@@ -65,6 +164,21 @@ window.bbcodeparse = function bbcodeparse(t) {
       result = DOMPurify.sanitize(result);
     }
     return result;
+}
+
+function replaceSmileysWithRegex(text) {
+  const smileyCodes = smileys.filter((_, index) => index % 2 === 0); //get only smiley codes
+  const regexString = smileyCodes.map(code => code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const regex = new RegExp(regexString, 'g');
+
+  return text.replace(regex, (match) => {
+      const index = smileys.indexOf(match);
+      if (index !== -1 && index % 2 === 0 && index + 1 < smileys.length) {
+          const imagePath = smileys[index + 1];
+          return `<img src="${imagePath}" class="emoji">`;
+      }
+      return match;
+  });
 }
 
 function replaceBBCodeWithHTML(t, htmlTemplate, bbtag) {

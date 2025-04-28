@@ -61,7 +61,7 @@ button {
 }
 
 #random-article p img, #contents p img {
-    width: 100%;
+    max-width: 100%;
 }
 
 #heading {
