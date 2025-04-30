@@ -21,12 +21,44 @@
             <h3 style="background-color: indianred;">explore</h3>
             <li><a href="/">home</a></li>
             <li><a href="/about/">about</a></li>
+            <li><a href="/all/">all articles</a></li>
+            <li><a href="/article/?id=89">featured article!</a></li>
+            <li><a id="xss-toggle" href="javascript:void(0);" onclick="(function(){
+                  let allowXSS = localStorage.getItem('allowXSS') || '0';
+                  allowXSS = allowXSS === '1' ? '0' : '1';
+                  localStorage.setItem('allowXSS', allowXSS);
+                  if (allowXSS === '1')
+                      if (!confirm('Are you sure you want to enable XSS? This could be dangerous.'))
+                    localStorage.setItem('allowXSS', '0');
+                    allowXSS = localStorage.getItem('allowXSS') || '0';
+                    document.getElementById('xss-toggle').text = `toggle xss? ${allowXSS === '1' ? '(on)' : ''}`
+                })();">toggle xss?</a></li>
+            <script>
+              (function () {
+                let allowXSS = localStorage.getItem('allowXSS') || '0';
+                const aElement = document.getElementById("xss-toggle")
+                if (allowXSS === '1') {
+                  console.log('XSS is allowed.');
+                  aElement.text = 'toggle xss? (on)'
+                } else {
+                  console.log('XSS is not allowed.');
+                  aElement.text = 'toggle xss?'
+                }
+              })();
+            </script>
+      
             <br>
             <h3 style="background-color: burlywood;">popular subjects</h3>
             <li><a>soup</a></li>
             <li><a>cats</a></li>
             <li><a>meower</a></li>
             <li><a>is mybearworld a bear?</a></li>
+      
+            <br>
+            <h3 style="background-color: cornflowerblue">account</h3>
+            <li><a href="/login/">login</a></li>
+            <li><a href="/register/">register</a></li>
+            <li><a>logout</a></li>
         </div>
     </div>
     <div id="spacing" style="width: 17.7px"></div>

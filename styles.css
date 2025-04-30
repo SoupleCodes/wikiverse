@@ -81,7 +81,7 @@ button {
 
 .emoji {
     vertical-align:text-bottom;
-    width: 20px !important;
+    height: 20px !important;
 }
 
 #content {
@@ -93,8 +93,13 @@ button {
     padding: 5px;
 }
 
-#articleForm {
+#articleForm, #registerForm {
     background-color: aliceblue;
+    padding: 5px;
+}
+
+#loginForm {
+    background-color: darkseagreen;
     padding: 5px;
 }
 
@@ -106,7 +111,7 @@ button {
 #sidebar {
     background-color: antiquewhite;
     padding: 5px;
-    height: 60%;
+    height: 70%;
 }
 
 #sidebar h3 {
@@ -126,6 +131,7 @@ button {
 }
 
 #sidebar-heading {
+    width: 197px;
     height: 60px;
     background-color:chocolate;
     display: flex;

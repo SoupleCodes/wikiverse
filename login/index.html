@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<HTML>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Wikiverse</title>
+  <link rel="icon" type="image/[png]" href="../images/icon.png">
+  <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+
+<body background="">
+  <div>
+    <div id="spacing" style="height: 50px"></div>
+    <div id="sidebar-heading">
+      <h1>
+        wikiverse
+      </h1>
+    </div>
+    <div id="sidebar">
+      <h3 style="background-color: indianred;">explore</h3>
+      <li><a href="/">home</a></li>
+      <li><a href="/about/">about</a></li>
+      <li><a href="/all/">all articles</a></li>
+      <li><a href="/article/?id=89">featured article!</a></li>
+      <li><a id="xss-toggle" href="javascript:void(0);" onclick="(function(){
+            let allowXSS = localStorage.getItem('allowXSS') || '0';
+            allowXSS = allowXSS === '1' ? '0' : '1';
+            localStorage.setItem('allowXSS', allowXSS);
+            if (allowXSS === '1')
+                if (!confirm('Are you sure you want to enable XSS? This could be dangerous.'))
+              localStorage.setItem('allowXSS', '0');
+              allowXSS = localStorage.getItem('allowXSS') || '0';
+              document.getElementById('xss-toggle').text = `toggle xss? ${allowXSS === '1' ? '(on)' : ''}`
+          })();">toggle xss?</a></li>
+      <script>
+        (function () {
+          let allowXSS = localStorage.getItem('allowXSS') || '0';
+          const aElement = document.getElementById("xss-toggle")
+          if (allowXSS === '1') {
+            console.log('XSS is allowed.');
+            aElement.text = 'toggle xss? (on)'
+          } else {
+            console.log('XSS is not allowed.');
+            aElement.text = 'toggle xss?'
+          }
+        })();
+      </script>
+
+      <br>
+      <h3 style="background-color: burlywood;">popular subjects</h3>
+      <li><a>soup</a></li>
+      <li><a>cats</a></li>
+      <li><a>meower</a></li>
+      <li><a>is mybearworld a bear?</a></li>
+
+      <br>
+      <h3 style="background-color: cornflowerblue">account</h3>
+      <li><a href="/login/">login</a></li>
+      <li><a href="/register/">register</a></li>
+      <li><a>logout</a></li>
+    </div>
+  </div>
+  <div id="spacing" style="width: 17.7px"></div>
+  <div>
+    <div id="spacing" style="height: 50px"></div>
+    <div id="heading">
+      <h2 style="background-color:darkgreen; color: aliceblue;">Log In!</h2>
+      <form id="loginForm">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit" style="float: right">Submit</button>
+        <br>
+        <br>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        response = await fetch("https://wiki.souple.workers.dev/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          const responseData = await response.json();
+          localStorage.setItem("authToken", responseData.token)
+        
+          alert("Logged in to your account successfully!");
+          this.reset();
+          window.location.href = `/`
+        } else {
+          const error = await response.text();
+          alert("Error logging in user: " + error);
+        }
+      } catch (error) {
+        alert("Error logging in user: " + error);
+      }
+    });
+  </script>
+
+</body>
+
+</HTML>
