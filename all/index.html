@@ -49,10 +49,26 @@
 
           <br>
           <h3 style="background-color: burlywood;">popular subjects</h3>
-          <li><a>soup</a></li>
-          <li><a>cats</a></li>
-          <li><a>meower</a></li>
-          <li><a>is mybearworld a bear?</a></li>
+          <div id="popularSubjects"></div>
+          <script>
+            const response = fetch('https://wiki.souple.workers.dev/');
+            response.then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Network response was not ok.');
+              }
+            }).then((data) => {
+              const subjects = data.popularSubjects
+              let popularSubjects = document.getElementById('popularSubjects');
+              popularSubjects.innerHTML = ''
+              subjects.forEach(subject => {
+                popularSubjects.innerHTML += `<li><a href="/all/?subject=${subject}">${subject}</a></li>`});
+              }
+            ).catch((error) => {
+              console.error('There was a problem with the fetch operation:', error);
+            });
+          </script>
 
           <br>
           <h3 style="background-color: cornflowerblue">account</h3>
@@ -62,13 +78,23 @@
       </div>
     </div>
     <div id="spacing" style="width: 17.7px"></div>
-    <div id="list"><div id="spacing" style="height: 66px"></div></div>
+    <div>
+    <div id="list">
+      <div id="spacing" style="height: 66px"></div>
+    </div>
+    <ul id="pagination"></ul>
+  </div>
     <script>
+      const subject = new URLSearchParams(window.location.search).get("subject") || ''
+      const pageNumber = Number(new URLSearchParams(window.location.search).get("page") || 1)
+
       async function fetchAllArticles() {
         try {
-          const response = await fetch('https://wiki.souple.workers.dev/');
+          const response = await fetch('https://wiki.souple.workers.dev/' + (subject ? `subject/${subject}` : 'all') + '/page/' + pageNumber);
           if (response.ok) {
-            const articles = await response.json();
+            let json = await response.json();
+            const articles = json.articles
+            const pagesCount = json.totalPages
             const list = document.getElementById("list");
             
             if (list) {
@@ -87,6 +113,30 @@
                   </a>
                 </li>
               ` : '').join('');
+            }
+            if (pagesCount > 1) {
+              const pagination = document.getElementById("pagination");
+              if (pagination) {
+                const maxButtons = 2;
+                pagination.innerHTML = '';
+                let start = Math.max(1, pageNumber - Math.floor(maxButtons / 2));
+                let end = Math.min(pagesCount, start + maxButtons - 1);
+
+                if (end - start < maxButtons - 1) {
+                  start = Math.max(1, end - maxButtons + 1);
+                }
+
+                if (pageNumber > 1) {
+                  pagination.innerHTML += `<li><a href="/all/?subject=${subject}&page=${pageNumber - 1}">&lt;</a></li>`;
+                }
+                for (let i = start; i <= end; i++) {
+                  pagination.innerHTML += `<li ${i == pageNumber ? 'style="background-color: rgba(0, 0, 0, 0.2);"' : ''}><a href="/all/?subject=${subject}&page=${i}">${i}</a></li>`;
+                }
+                if (pageNumber < pagesCount) {
+                  pagination.innerHTML += `<li><a href="/all/?subject=${subject}&page=${pageNumber + 1}">&gt;</a></li>`;
+                  pagination.innerHTML += `<li style="background-color: rgba(0, 0, 0, 0.2);"><a href="/all/?subject=${subject}&page=${pagesCount}">&ge;</a></li>`;
+                }
+              }
             }
         } else {
           const error = await response.text();

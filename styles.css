@@ -88,6 +88,18 @@ button {
     resize: none;
 }
 
+ul#pagination {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#pagination li {
+    display: inline;
+}
+
 #random-article {
     background-color: beige;
     padding: 5px;
