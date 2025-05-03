@@ -72,6 +72,13 @@
 
           <br>
           <h3 style="background-color: cornflowerblue">account</h3>
+          <span id="user-name"></span>
+          <script>
+            const span = document.getElementById("user-name");
+            if (localStorage.getItem("authToken")) {
+              span.innerHTML = `<li><a href="/user?=${localStorage.getItem("username")}">you</a></li>`
+            }
+          </script>
           <li><a href="/login/">login</a></li>
           <li><a href="/register/">register</a></li>
           <li><a>logout</a></li>
@@ -127,14 +134,13 @@
                 }
 
                 if (pageNumber > 1) {
-                  pagination.innerHTML += `<li><a href="/all/?subject=${subject}&page=${pageNumber - 1}">&lt;</a></li>`;
+                  pagination.innerHTML += `<div><li><a href="/all/?subject=${subject}&page=1">&le;</a><li><li><a href="/all/?subject=${subject}&page=${pageNumber - 1}">&lt;</a></li></div>`;
                 }
                 for (let i = start; i <= end; i++) {
                   pagination.innerHTML += `<li ${i == pageNumber ? 'style="background-color: rgba(0, 0, 0, 0.2);"' : ''}><a href="/all/?subject=${subject}&page=${i}">${i}</a></li>`;
                 }
                 if (pageNumber < pagesCount) {
-                  pagination.innerHTML += `<li><a href="/all/?subject=${subject}&page=${pageNumber + 1}">&gt;</a></li>`;
-                  pagination.innerHTML += `<li style="background-color: rgba(0, 0, 0, 0.2);"><a href="/all/?subject=${subject}&page=${pagesCount}">&ge;</a></li>`;
+                  pagination.innerHTML += `<div><li><a href="/all/?subject=${subject}&page=${pageNumber + 1}">&gt;</a></li><li><a href="/all/?subject=${subject}&page=${pagesCount}">&ge;</a></li></div>`;
                 }
               }
             }

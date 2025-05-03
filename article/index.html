@@ -72,6 +72,13 @@
 
       <br>
       <h3 style="background-color: cornflowerblue">account</h3>
+      <span id="user-name"></span>
+      <script>
+        const span = document.getElementById("user-name");
+        if (localStorage.getItem("authToken")) {
+          span.innerHTML = `<li><a href="/user?=${localStorage.getItem("username")}">you</a></li>`
+        }
+      </script>
       <li><a href="/login/">login</a></li>
       <li><a href="/register/">register</a></li>
       <li><a>logout</a></li>
@@ -162,7 +169,7 @@
                                 <div id="heading" class="article-heading" style="background-color: saddlebrown;color: burlywood;display: flex;">
                                     <h3 style="max-width: 200px;">${articleTitle}</h3>
                                     <div id="spacing" style="width: 20px;"></div>
-                                    <div style="max-width: 100px;"><p>by ${articleAuthor}</p></div>
+                                    <div style="max-width: 100px;"><p>by <a href="/user?=${articleAuthor}" style="color: burlywood">${articleAuthor}</a></p></div>
                                     <div class="history" style="margin-left: auto">
                                         <a href="/article/history/?id=${article.id}">
                                             <p>History</p>
@@ -198,7 +205,7 @@
                                       ${articleComments ? `
                                       <div>
                                           ${articleComments.map((comment, index) => `
-                                            <p class="comment" id="comment-${index + 1}">${bbcodeparse(comment.post)} -${comment.user} <time>${formatDate(comment.creation_date)}</time></p>
+                                            <p class="comment" id="comment-${index + 1}">${bbcodeparse(comment.post)} -<a href="/user?=${comment.user}">${comment.user}</a> <time>${formatDate(comment.creation_date)}</time></p>
                                           `).join("")}
                                       </div>
                                     ` : ''}

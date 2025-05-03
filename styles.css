@@ -67,7 +67,7 @@ button {
 #heading {
     width: 350px;
     h1, h2, h3, h4, h5, h6 {
-        margin-bottom: 0px;
+        margin-bottom: 1px;
     }
     div, form {
         padding-top: 8px;
@@ -77,6 +77,18 @@ button {
 .article-heading * {
     margin: 0px;
     overflow-wrap: anywhere;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
 }
 
 .emoji {
@@ -98,6 +110,9 @@ ul#pagination {
 
 #pagination li {
     display: inline;
+    a {
+        text-decoration: none;
+    }
 }
 
 #random-article {
@@ -115,27 +130,28 @@ ul#pagination {
     padding: 5px;
 }
 
-#searchForm {
+#searchForm, #sidebar {
     background-color: antiquewhite;
     padding: 5px;
 }
 
-#sidebar {
-    background-color: antiquewhite;
+#contents {
     padding: 5px;
-    height: 70%;
 }
 
 #sidebar h3 {
     padding: 3px;
 }
 
-.article {
+.article, #user-container {
     width: 350px;
     #contents {
         background-color: burlywood;
-        padding: 5px;
     }
+}
+
+#user-container {
+    width: 500px;
 }
 
 .edit-input {

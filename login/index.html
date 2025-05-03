@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Wikiverse</title>
+  <title>Login - Wikiverse</title>
   <link rel="icon" type="image/[png]" href="../images/icon.png">
   <link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
@@ -72,6 +72,13 @@
 
       <br>
       <h3 style="background-color: cornflowerblue">account</h3>
+      <span id="user-name"></span>
+      <script>
+        const span = document.getElementById("user-name");
+        if (localStorage.getItem("authToken")) {
+          span.innerHTML = `<li><a href="/user?=${localStorage.getItem("username")}">you</a></li>`
+        }
+      </script>
       <li><a href="/login/">login</a></li>
       <li><a href="/register/">register</a></li>
       <li><a>logout</a></li>
@@ -113,7 +120,9 @@
 
         if (response.ok) {
           const responseData = await response.json();
+          console.log(responseData)
           localStorage.setItem("authToken", responseData.token)
+          localStorage.setItem("username", responseData.username)
         
           alert("Logged in to your account successfully!");
           this.reset();

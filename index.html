@@ -72,6 +72,13 @@
 
       <br>
       <h3 style="background-color: cornflowerblue">account</h3>
+      <span id="user-name"></span>
+      <script>
+        const span = document.getElementById("user-name");
+        if (localStorage.getItem("authToken")) {
+          span.innerHTML = `<li><a href="/user?=${localStorage.getItem("username")}">you</a></li>`
+        }
+      </script>
       <li><a href="/login/">login</a></li>
       <li><a href="/register/">register</a></li>
       <li><a>logout</a></li>
