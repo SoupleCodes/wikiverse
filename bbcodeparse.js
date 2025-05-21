@@ -120,7 +120,7 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<u></u>", tag: "u" },
       { html: "<s></s>", tag: "s" },
       { html: "<i></i>", tag: "i" },
-      { html: "<span style='display:flow;place-self:center;'></span>", tag: "center" },
+      { html: "<span style='display:flow;place-self:center;text-align: center;'></span>", tag: "center" },
       { html: "<span style='float: left'>$attr$</span>", tag: "left" },
       { html: "<span style='float: right'>$attr$</span>", tag: "right" },
       { html: "<marquee></marquee>", tag: "marquee" },
@@ -145,9 +145,13 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<span style='cursor:pointer;border-bottom: 1px dashed sienna;color: sienna;' title=$attr$></span>", tag: "abbr" },
       { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"},
       { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
+      { html: "<span id='$attr$></span>", tag: "section" }
 
     ];
     let result = t;
+    if (!t) {
+      return "";
+    }
     result = replaceSmileysWithRegex(result);
     let changed = true;
     while (changed) {
@@ -160,7 +164,7 @@ window.bbcodeparse = function bbcodeparse(t) {
     }
     let allowXSS = localStorage.getItem('allowXSS') || '0';
     if (allowXSS === '0') {
-      result = DOMPurify.sanitize(result);
+      result = DOMPurify.sanitize(result, {ADD_TAGS: ['rainbow', 'safe']});
     }
     return result;
 }

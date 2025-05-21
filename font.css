@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'GFS Neohellenic';
+    src: url('./fonts/gfsneohellenic/regular.ttf');
+}
+
+@font-face {
+    font-family: 'GFS Neohellenic Bold';
+    src: url('./fonts/gfsneohellenic/bold.ttf');
+}
+
+@font-face {
+    font-family: 'GFS Neohellenic Italic';
+    src: url('./fonts/gfsneohellenic/italic.ttf');
+}
+
+@font-face {
+    font-family: 'GFS Neohellenic Bold Italic';
+    src: url('./fonts/gfsneohellenic/bold-italic.ttf');
+}

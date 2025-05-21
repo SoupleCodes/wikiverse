@@ -1,165 +1,446 @@
-<!DOCTYPE HTML>
-<HTML>
+<!DOCTYPE html>
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User - Wikiverse</title>
-  <link rel="icon" type="image/gif" href="../images/icon.png">
-  <link rel="stylesheet" type="text/css" href="../styles.css">
+    <meta charset="UTF-8">
+    <title>Home - Wikiverse</title>
+    <link rel="icon" type="image/gif" href="/images/icon.png">
+    <link rel="stylesheet" type="text/css" href="/main.css">
+    <link rel="stylesheet" type="text/css" href="/font.css">
+    <link rel="stylesheet" type="text/css" href="/user/user.css">
+    <link rel="stylesheet" type="text/css" href="/article/article.css">
+    <meta name="keywords" content="friends online social networking wiki articles">
 </head>
 
-<body background="">
-  <div>
-    <div id="spacing" style="height: 50px"></div>
-    <div id="sidebar-heading">
-      <h1>
-        wikiverse
-      </h1>
-    </div>
-    <div id="sidebar">
-      <h3 style="background-color: indianred;">explore</h3>
-      <li><a href="/">home</a></li>
-      <li><a href="/about/">about</a></li>
-      <li><a href="/all/">all articles</a></li>
-      <li><a href="/article/?id=89">featured article!</a></li>
-      <li><a id="xss-toggle" href="javascript:void(0);" onclick="(function(){
-            let allowXSS = localStorage.getItem('allowXSS') || '0';
-            allowXSS = allowXSS === '1' ? '0' : '1';
-            localStorage.setItem('allowXSS', allowXSS);
-            if (allowXSS === '1')
-                if (!confirm('Are you sure you want to enable XSS? This could be dangerous.'))
-              localStorage.setItem('allowXSS', '0');
-              allowXSS = localStorage.getItem('allowXSS') || '0';
-              document.getElementById('xss-toggle').text = `toggle xss? ${allowXSS === '1' ? '(on)' : ''}`
-          })();">toggle xss?</a></li>
-      <script>
-        (function () {
-          let allowXSS = localStorage.getItem('allowXSS') || '0';
-          const aElement = document.getElementById("xss-toggle")
-          if (allowXSS === '1') {
-            console.log('XSS is allowed.');
-            aElement.text = 'toggle xss? (on)'
-          } else {
-            console.log('XSS is not allowed.');
-            aElement.text = 'toggle xss?'
-          }
-        })();
-      </script>
-
-      <br>
-      <h3 style="background-color: burlywood;">popular subjects</h3>
-      <div id="popularSubjects"></div>
-      <script>
-        const response = fetch('https://wiki.souple.workers.dev/');
-        response.then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error('Network response was not ok.');
-          }
-        }).then((data) => {
-          const subjects = data.popularSubjects
-          let popularSubjects = document.getElementById('popularSubjects');
-          popularSubjects.innerHTML = ''
-          subjects.forEach(subject => {
-            popularSubjects.innerHTML += `<li><a href="/all/?subject=${subject}">${subject}</a></li>`});
-          }
-        ).catch((error) => {
-          console.error('There was a problem with the fetch operation:', error);
-        });
-      </script>
-
-      <br>
-      <h3 style="background-color: cornflowerblue">account</h3>
-      <span id="user-name"></span>
-      <script>
-        const span = document.getElementById("user-name");
-        if (localStorage.getItem("authToken")) {
-          span.innerHTML = `<li><a href="/user?=${localStorage.getItem("username")}">you</a></li>`
-        }
-      </script>
-      <li><a href="/login/">login</a></li>
-      <li><a href="/register/">register</a></li>
-      <li><a>logout</a></li>
-    </div>
-  </div>
-  <div id="spacing" style="width: 17.7px"></div>
-  <div id="user-container"></div>
-
-  <script>
-    const token = localStorage.getItem("authToken")
-    const user = new URLSearchParams(window.location.search).get("")
-
-    if (user) {
-      document.title = `${user} - Wikiverse`
-      fetchProfile(user).then(
-        (data) => {
-          console.log(data)
-          document.getElementById("user-container").innerHTML = 
-          `
-            <div id="spacing" style="height: 50px"></div>
-            <div id="contents" style="height: 500px; display: flex">
-              <div class="flex-row" style="gap: 5px;">
-                <div class="flex-column" id="user-profile" style="background-color: white; flex: 3 0 0;">
-                </div>
-                <div class="flex-column" id="user-commentd" style="background-color: white;">
-                </div>
-              </div>
+<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD" topmargin="0">
+    <div id="wrap">
+        <div id="left" align="right">
+        </div>
+        <div id="main">
+            <div id="navbar">
             </div>
-          `
-        }).catch((error) => {
-          console.error('There was a problem with the fetch operation:', error);
-        });
-    }
+            <div id="main-content">
+                <div style="box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.621);height: 21px;width: 100%;margin-top: -21px;">
+                </div>
+                <div class="column grow" style="padding: 10px">
+                    <div id="row1" class="row">
+                        <div id="row1column1" class="column grow" style="width: 142px;">
+                            <div class="column grow">
+                                <img id="profile-pic" src="/images/default.png" title="">
+                            </div>
+                            <div class="row grow">
+                                <div class="column grow" style="width: 128px;padding-top: 13px">
+                                    <a class="button blue wide" id="follow">
+                                        <span>Follow</span>
+                                    </a>
+                                    <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                        <div class="header">Description:</div>
+                                        <div id="description" class="contents">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                        <div class="header"
+                                            style="border: 1px solid rgb(97 152 125); background: -webkit-gradient(linear, left top, left bottom, from(#d7fae6), to(#b0d4c0))">
+                                            Other sites I visit:</div>
+                                        <div class="socials"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="row1column2" class="column grow" style="padding: 7px 7px 7px 20px">
+                            <div id="display-join"></div>
+                            <div id="userat-active"></div>
+                            <hr>
+                            <div id="favorite-articles">
+                                <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                    <div class="header"
+                                        style="border: 1px solid darkgoldenrod;background: -webkit-gradient(linear, left top, left bottom, from(#ede285), to(#d7bf94))">
+                                        My favorites:</div>
+                                    <div class="contents">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="latest-articles">
+                                <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                    <div class="header"
+                                        style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b))">
+                                        My latest articles:</div>
+                                    <div class="contents">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="row2column1">
+                        <div id="section-followers" style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                            <div class="header"
+                                style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b));">
+                                Followers:</div>
+                            <div id="followers" class="contents carousel row">
+                                <button id="prev-btn" class="prev-btn">&lt;</button>
+                                <div id="followers-list" class="carousel-item">
+                                    <div id="item-list" class="item-list row">
+                                    </div>
+                                </div>
+                                <button id="next-btn" class="next-btn">&gt;</button>
+                            </div>
+                        </div>
+                        <div id="section-following" style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                            <div class="header"
+                                style="border: 1px solid rgb(79 66 100);background: -webkit-gradient(linear, left top, left bottom, from(#b9aad3), to(#85679c));">
+                                Following:</div>
+                            <div id="following" class="contents carousel row">
+                                <button id="prev-btn" class="prev-btn">&lt;</button>
+                                <div id="following-list" class="carousel-item">
+                                    <div id="item-list" class="item-list row">
+                                    </div>
+                                </div>
+                                <button id="next-btn" class="next-btn">&gt;</button>
+                            </div>
+                        </div>
+                        <script>
+                            function setupCarousel(containerId) {
+                                const prev = document.querySelector(`#${containerId} #prev-btn`);
+                                const next = document.querySelector(`#${containerId} #next-btn`);
+                                const list = document.querySelector(`#${containerId} #item-list`);
+                                const itemWidth = 45; const padding = 5;
+                                prev.addEventListener('click', () => list.scrollLeft -= (itemWidth + padding));
+                                next.addEventListener('click', () => list.scrollLeft += (itemWidth + padding));
+                            }
+                            setupCarousel('followers');
+                            setupCarousel('following');
+                        </script>
+                    </div>
+                </div>
+                <hr style="margin: 0">
+                <div id="comment-section">
+                    <div id="comment-heading">
+                      <h4><a>(0) comments.</a></h4>
+                      <div style="width:20px;"></div>
+                    </div>
+                    <div id="comment-textbox">
+                      <div id="avatar">
+                          <img src="/images/default.png">
+                          <p id="username"></p>
+                      </div>
+                      <div>
+                        <img src="/images/tri2.png" style="width: 16px;">
+                      </div>
+                      <div id="textarea">
+                          <div id="bbcode-editor"></div>
+                          <div id="typebox" contenteditable="true"></div>
+                      </div>            
+                    </div>
+                    <div class="buttons" id="textbox-buttons">
+                      <a class="button" id="submit"><span>Submit</span></a>
+                      <a class="button" id="preview"><span>Preview</span></a>
+                    </div>
+                    <script>
+                      let account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
+                      const token = account.token
+          
+                      let pElement = document.querySelector('#avatar #username');
+                      let imgElement = document.querySelector("#avatar img")
+                      pElement.textContent = account.user.username;
+                      imgElement.src = account.user.pfp_url || '/images/default.png';
+          
+                      async function postComment(user, comment) {
+                        try {
+                          const response = await fetch(`https://wiki.souple.workers.dev/user/${user}/post`, {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                              Authorization: `Bearer ${token}`
+                            },
+                            body: JSON.stringify({
+                              post: comment,
+                            })
+                          });
+          
+                          if (response.ok) {
+                            console.log('Comment posted successfully');
+                          } else {
+                            console.error('Failed to post comment');
+                          }
+                        } catch (error) {
+                          console.error('Error posting comment:', error);
+                        }
+                      }
+                      function handlePost() {
+                        const comment = document.querySelector('#comment-textbox #textarea #typebox')
+                        const comments = document.querySelectorAll('#comments .comment #post')
+                        
+                        let isSpam = false
+                        let secondsSinceLastPost = 99
+                        if (comments[1]) {
+                            isSpam = comment.textContent === comments[0].textContent === comments[1].textContent
+                            secondsSinceLastPost = (new Date().getTime() - new Date(comments[comments.length - 1].querySelector('#comment-box time').textContent.replace('posted at ', '').replace('at', '')).getTime()) / 1000;
+                        }
 
-    async function updateProfile(profileData) {
-      const response = await fetch(`https://wiki.souple.workers.dev/user/profile`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(profileData)
-      });
-      try {
-        if (response.ok) {
-          alert('Profile updated successfully');
-          } else {
-            const error = await response.text();
-            console.error("Error updating user:", error);
-          }
-        } catch (error) {
-          console.error("Error updating the user", error);
-        }
-    }
-  
-    async function fetchProfile(user) {
-      const response = await fetch(`https://wiki.souple.workers.dev/user/${user}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      });
-      try {
-        if (response.ok) {
-          const data = await response.json();
-          return data;
-        } else {
-          const error = await response.text();
-          console.error("Error fetching user:", error);
-        }
-      } catch (error) {
-        console.error("Error fetching the user", error);
-      }
-    }
+                        if (comment && comment.textContent.trim() !== '' && !isSpam && secondsSinceLastPost > 10) {
+                          
+                          const userProfile = new URLSearchParams(window.location.search).get('')
+                          postComment(userProfile, comment.textContent)
+          
+                          const commentCount = document.querySelector('#comment-heading h4 a').textContent
+                          const newCount = parseInt(commentCount.split('(')[1].split(')')[0]) + 1
+                          document.querySelector('#comment-heading h4 a').textContent = `(${newCount}) comments.`
+          
+                          const comments = document.querySelector('#comments');
+                          comments.innerHTML += 
+                          `
+                          <div class="comment" id="comment-${newCount}">
+                            <div id="profile">
+                              <img src=${account.user.pfp_url || '/images/default.png'}>
+                              <p id="username"><a href="/user/?=${account.user.username}">${account.user.username}</a></p>
+                            </div>
+                            <div id="post">
+                              <div>
+                                <img src="/images/tri.png" style="width: 11px;">
+                              </div>
+                            <div id="comment-box">
+                              <time>posted at ${new Date().toLocaleString('en-US', {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                                hour12: true,
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                second: 'numeric',
+                                timeZoneName: 'short',
+                              })}</time>
+                              <p>${bbcodeparse(comment.textContent)}</p>
+                            </div>
+                         </div>
+                          `
+                          const newComment = document.getElementById(`comment-${newCount}`)
+                          comment.textContent = ''
+                        }
+                      }
+                      document.querySelector('#textbox-buttons #submit').addEventListener('click', handlePost)
+                    </script>
+                    <div class="column-reverse" id="comments"></div>
+                </div>
+            </div>
+            <img id="depth" src="/images/boxes/3d.png" style="width: 502px;align-self: anchor-center;">
+        </div>
+        <div id="right" align="left">
+        </div>
+        <style id="customcss"></style>
+        <script src="/populate.js"></script>
+        <script src="/updateLocalStorage.js"></script>
+        <script src="../bundle.js"></script>
+        <script>
 
+            const userData = JSON.parse(localStorage.getItem(localStorage.getItem('loggedInAs')))
 
-  </script>
-  <script src="../formatBundle.js"></script>
-  <script src="../bundle.js"></script>
+            async function fetchUser(user) {
+                try {
+                    const response = await fetch(`https://wiki.souple.workers.dev/user/${user}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok')
+                        console.error(response.status, response.statusText)
+                    }
 
+                    const data = await response.json()
+                    console.log(data)
+                    const social_links = data.social_links
+                    const followers = data.followers
+                    const following = data.following
+                    const style = data.style
+                    const userPosts = data.posts ?? []
+                    const commentsCount = document.querySelector('#comment-heading h4 a');
+                    const comments = document.querySelector('#comments');
+                    const favoriteArticles = data.fav_articles ?? []
+
+                    const fetchUserArticles = async (user, page = 1) => {
+                        try {
+                            const response = await fetch(`https://wiki.souple.workers.dev/user/${user}/articles/${page}`)
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok')
+                            }
+                            const articles = await response.json()
+                            return articles.articles
+                        } catch (error) {
+                            console.log(error)
+                            return []
+                        }
+                    }
+                    const latestArticles = await fetchUserArticles(user)
+
+                    data.pfp_url ? document.getElementById('profile-pic').src = data.pfp_url : ''
+                    document.querySelector('#description p').innerHTML = bbcodeparse(data.about_me)
+                    social_links && social_links.forEach((link, index) => {
+                        let social = document.createElement('div');
+                        let whichColor
+                        if (index % 2 == 1) {
+                            whichColor = 'antiquewhite'
+                        } else {
+                            whichColor = index % 3 == 0 ? 'white' : 'navajowhite'
+                        }
+                        social.style.background = whichColor
+                        social.className = 'social'
+                        social.innerHTML = `
+                            <img src="${link.icon_link}" class="favicon">
+                            <a href="${link.url}" class="social-link">${link.username}</a>
+                        `
+                        document.querySelector('.socials').appendChild(social)
+                    })
+
+                    followers ? followers.forEach((follower) => {
+                        document.querySelector('#followers #item-list').innerHTML +=
+                            `
+                            <a href="/user/?=${follower.username}">
+                                <div class="column">
+                                    <img id="item" src="${follower.pfp_url || '/images/default.png'}" title="${follower.username}">
+                                    <small id="item-text">${follower.display_name || follower.username}</small>
+                                </div>
+                            </a>
+                        `
+                    }) : ''
+                    following ? following.forEach((followed) => {
+                        document.querySelector('#following #item-list').innerHTML +=
+                            `
+                            <a href="/user/?=${followed.username}">
+                                <div class="column">
+                                    <img id="item" src="${followed.pfp_url || '/images/default.png'}" title="${followed.username}">
+                                    <small id="item-text">${followed.display_name || followed.username}</small>
+                                </div>
+                            </a>
+                        `
+                    }) : ''
+
+                    comments && (commentsCount.innerHTML = `(${userPosts.length}) comments.`);
+                    comments.innerHTML = ''
+                    userPosts ? userPosts.forEach((comment, index) => {
+                        comments.innerHTML +=
+                        `
+                    <div class="comment" id="comment-${index + 1}">
+                  <div id="profile">
+                    <img src=${comment.pfp_url || '/images/default.png'}>
+                    <p id="username"><a href="/user/?=${comment.user}" style="color: black;">${comment.user}</a></p>
+                  </div>
+                  <div id="post">
+                    <div>
+                      <img src="/images/tri.png" style="width: 11px;">
+                    </div>
+                  <div id="comment-box">
+                    <time>posted at ${new Date(comment.creation_date).toLocaleString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                      hour12: true,
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      second: 'numeric',
+                      timeZoneName: 'short'
+                    })}</time>
+                    <p>${bbcodeparse(comment.post && comment.post)}</p>
+ ${comment.signature ?
+                    `<hr style="border-top-color: white;background-color: #e5e5e5;margin: 3px;width: inherit;">
+                      <small><i>${bbcodeparse(comment.signature)}</i></small>`
+ :
+                    ''
+                    }
+                  </div>
+               </div>
+                        `
+            }) : ''
+
+                    const options = { month: 'long', day: 'numeric', year: 'numeric', hour12: true }
+                    document.getElementById('display-join').innerHTML = `
+                        <h3 style="width: fit-content;float: left;">${data.display_name || data.username}<font size="1" color="#8d715c"> ${!data.role ? 'user' : `(${data.role})`}</font>
+                        </h3>
+                        <small style="float: right">
+                            <time>Joined: ${new Date(data.created_at).toLocaleString('en-US', options)} </time>
+                        </small>
+                    `
+                    
+                    document.getElementById('userat-active').innerHTML = `
+                        <small>@${data.username}</small>
+                        <small style="float: right;">
+                            <time>Active: ${new Date(data.last_login).toLocaleString('en-US', options)}</time>
+                        </small>
+                    `
+
+                    favoriteArticles ? favoriteArticles.forEach((article) => {
+                        document.querySelector('#favorite-articles .contents').innerHTML +=
+                        `<p><a href="/article/?id=${article.id}">`
+                            + bbcodeparse(article.title) + " by " + article.author +
+                            `</a></p>
+                        ` + `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
+                    }) : ''
+                    latestArticles ? latestArticles.forEach((article) => {
+                        document.querySelector('#latest-articles .contents').innerHTML +=
+                        `<p><a href="/article/?id=${article.id}">`
+                                + bbcodeparse(article.title) +
+                            `</a>` + `<small style="color: grey"> - Views:` + article.view_count + `</small>` + `</p>`
+                    }) : ''
+
+                    document.querySelector('#customcss').innerText = style
+
+                    const handleFollow = async (user) => {
+                        try {
+                            const response = await fetch(`https://wiki.souple.workers.dev/user/${user}/toggle-follow`, { 
+                                method: 'POST', 
+                                headers: { 
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bearer ${userData.token}`
+                                } 
+                            })
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok')
+                            }
+                            document.querySelector("#follow").classList.toggle("blue")
+                            if (document.querySelector("#follow span").textContent === 'Followed!') {
+                                document.querySelector("#follow span").textContent = 'Follow'
+                                const userFollowing = userData.user.following ?? []
+                                const index = userFollowing.findIndex(followedUser => followedUser.username === data.username)
+                                if (index !== -1) userFollowing.splice(index, 1)
+                                updateStorage('following', userFollowing)
+                                userData = localStorage.getItem(localStorage.getItem('loggedInAs'))
+                                console.log('Updating storage')
+                            } else {
+                                document.querySelector("#follow span").textContent = 'Followed!'
+                                const userFollowing = userData.user.following ?? []
+                                userFollowing.push({
+                                    username: data.username,
+                                    display_name: data.display_name,
+                                    pfp_url: data.pfp_url
+                                })
+                                updateStorage('following', userFollowing)
+                                userData = localStorage.getItem(localStorage.getItem('loggedInAs'))
+                                console.log('Updating storage')
+                            }
+                        } catch (error) { console.log(error) }
+                    }
+                    if (data.username === userData.user.username || !user) {
+                        document.querySelector('#follow').remove()
+                    } else {
+                        document.querySelector('#follow').addEventListener('click', () => handleFollow(data.username))
+                        const userFollowing = userData.user.following ?? []
+                        const isUserFollowed = userFollowing.some(followedUser => followedUser.username === data.username)
+                            if (isUserFollowed) {
+                                document.querySelector("#follow").classList.toggle("blue")
+                                document.querySelector("#follow span").textContent = 'Followed!'
+                            }
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
+
+            const userToFetch = new URLSearchParams(window.location.search).get('')
+            if (userToFetch) {
+                window.addEventListener("load", fetchUser(userToFetch))
+            }
+        </script>
 </body>
 
-</HTML>
+</html>
