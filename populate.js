@@ -73,7 +73,7 @@ function populateElements()  {
           <div>
             <img src="/images/navbar/logo.png" width="138">
           </div>
-          <div style="width: 37px"></div>
+          <div style="flex-grow:0.5"></div>
           <form id="searchbar">
             <div class="input">
               <input type="text" placeholder="Search">

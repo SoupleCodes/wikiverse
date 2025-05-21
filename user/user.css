@@ -77,8 +77,8 @@ img#item {
     }
 }
 
-.carousel-item { width: 415px }
-.carousel { width: 450px; overflow: hidden }
+.carousel-item { width: inherit }
+.carousel { width: 573px; overflow: hidden }
 
 #prev-btn, #next-btn {
     padding: 2px

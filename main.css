@@ -341,7 +341,7 @@ ul#leftNav :first-child {
 }
 
 #main {
-    width: 483px;
+    width: 605px;
     display: flex;
     flex-direction: column;
 }
