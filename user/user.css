@@ -36,6 +36,10 @@
     }
 }
 
+.social-link {
+    line-height: 1.5
+}
+
 .favicon {
     height: 23px;
     margin-right: 6px;
@@ -79,7 +83,7 @@ img#item {
 }
 
 .carousel-item { width: inherit }
-.carousel { width: 573px; overflow: hidden }
+.carousel { width: auto; overflow: hidden }
 
 #prev-btn, #next-btn {
     padding: 2px

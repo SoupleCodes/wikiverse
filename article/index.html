@@ -340,12 +340,12 @@
                 document.querySelector('#article-').classList.toggle('nodisplay');
               });
               
-              async function favoriteArticle(id) {
+              async function favoriteArticle(id, reason) {
                 const storage = data.fav_articles || [];
                 const fav = storage.map(item => item.id);
                 const favObject = {
                   id: String(id),
-                  reason: ''
+                  reason: reason
                 }
                 const favoriteArticles = data.fav_articles || [];
 
@@ -358,10 +358,10 @@
 
                 const finalFavArticles = updatedFavArticles.map(item => {
                     if (item && typeof item === 'object' && item.id !== undefined) {
-                        return { id: String(item.id) };
+                      return { id: String(item.id), reason: item.reason };
                     }
                     return null;
-                }).filter(item => item !== null && item !== undefined); // Filter out any null or undefined
+                }).filter(item => item !== null && item !== undefined);
 
                 const response = await fetch(`https://wiki.souple.workers.dev/user/profile`, {
                   method: 'PUT',
@@ -390,7 +390,6 @@
 
               const isFavorite = data.fav_articles && data.fav_articles.some(item => item.id === Number(num));
               favoriteButton.src = isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png';
-              console.log(isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png')
 
               favoriteButton.addEventListener('mouseover', () => {
                 if (!isFavorite) {

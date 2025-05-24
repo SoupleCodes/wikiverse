@@ -24,8 +24,8 @@
                 </div>
                 <div class="column grow" style="padding: 10px">
                     <div id="row1" class="row">
-                        <div id="row1column1" class="column grow" style="width: 142px;">
-                            <div class="column grow">
+                        <div id="row1column1" class="column" style="width:212px;">
+                            <div class="column">
                                 <img id="profile-pic" src="/images/default.png" title="">
                             </div>
                             <div class="row grow">
@@ -52,6 +52,16 @@
                             <div id="display-join"></div>
                             <div id="userat-active"></div>
                             <hr>
+                            <div id="location">
+                                <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                    <div class="header"
+                                    style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#d78484), to(#b9524d))">
+                                    Location:</div>
+                                    <div class="contents">
+                                        This user lives in <small style="color: brown;"></small>
+                                    </div>                                    
+                                </div>
+                            </div>
                             <div id="favorite-articles">
                                 <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
                                     <div class="header"
@@ -70,6 +80,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="music">
+                                <div style="box-shadow: 1px 2px 13px -5px;margin-bottom: 10px">
+                                    <div class="header"
+                                    style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b))">
+                                    My music:</div>
+                                    <div class="contents">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="row2column1">
@@ -79,7 +98,7 @@
                                 Followers:</div>
                             <div id="followers" class="contents carousel row">
                                 <button id="prev-btn" class="prev-btn">&lt;</button>
-                                <div id="followers-list" class="carousel-item">
+                                <div id="followers-list" class="carousel-item grow">
                                     <div id="item-list" class="item-list row">
                                     </div>
                                 </div>
@@ -92,7 +111,7 @@
                                 Following:</div>
                             <div id="following" class="contents carousel row">
                                 <button id="prev-btn" class="prev-btn">&lt;</button>
-                                <div id="following-list" class="carousel-item">
+                                <div id="following-list" class="carousel-item grow">
                                     <div id="item-list" class="item-list row">
                                     </div>
                                 </div>
@@ -257,6 +276,8 @@
                     const userPosts = data.posts ?? []
                     const commentsCount = document.querySelector('#comment-heading h4 a');
                     const comments = document.querySelector('#comments');
+                    const location = document.querySelector('#location .contents small');
+                    const music = document.querySelector('#music .contents');
                     const favoriteArticles = data.fav_articles ?? []
 
                     const fetchUserArticles = async (user, page = 1) => {
@@ -275,6 +296,7 @@
                     const latestArticles = await fetchUserArticles(user)
 
                     data.pfp_url ? document.getElementById('profile-pic').src = data.pfp_url : ''
+                    location ? location.innerHTML = data.location || '' : ''
                     document.querySelector('#description p').innerHTML = bbcodeparse(data.about_me)
                     social_links && social_links.forEach((link, index) => {
                         let social = document.createElement('div');
@@ -285,7 +307,7 @@
                             whichColor = index % 3 == 0 ? 'white' : 'navajowhite'
                         }
                         social.style.background = whichColor
-                        social.className = 'social'
+                        social.classList = 'social row grow'
                         social.innerHTML = `
                             <img src="${link.icon_link}" class="favicon">
                             <a href="${link.url}" class="social-link">${link.username}</a>
@@ -374,7 +396,8 @@
                         `<p><a href="/article/?id=${article.id}">`
                             + bbcodeparse(article.title) + " by " + article.author +
                             `</a></p>
-                        ` + `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
+                        `
+                        if (article.reason) document.querySelector('#favorite-articles .contents').innerHTML += `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
                     }) : ''
                     latestArticles ? latestArticles.forEach((article) => {
                         document.querySelector('#latest-articles .contents').innerHTML +=

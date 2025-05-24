@@ -69,6 +69,7 @@
                       <p><b>Last activity:</b> ${new Date(user.updated_at).toLocaleString('en-US', {
                       year: 'numeric',
                       month: 'long',
+                      day: 'numeric',
                       hour12: true
                     })}</p>
                       <p><b>Posts:</b> ${(user.posts || []).length}</p>
