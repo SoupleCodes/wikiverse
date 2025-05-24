@@ -11,7 +11,7 @@
   <meta name="keywords" content="friends online social networking wiki articles">
 </head>
 
-<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD" topmargin="0">
+<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD" topmargin="20">
   <div id="wrap">
     <div id="left" align="right">
     </div>
@@ -400,7 +400,8 @@
                   favoriteButton.src = '/images/ui/fav/0.png'
                 }})
               favoriteButton.addEventListener('click', () => {
-                favoriteArticle(num)
+                const reason = alert('Why do you want to favorite this article?');
+                favoriteArticle(num, reason)
               })
 
               historyLink.href = `/history?id=${num}`;

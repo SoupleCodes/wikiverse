@@ -6,7 +6,7 @@ html, body, #wrap {
     font-family: 'GFS Neohellenic', Verdana, Geneva, Tahoma, sans-serif
 }
 
-html, body { height: 100%; margin-top: 20px; }
+html, body { height: 100% }
 
 h1, h2, h3, h4, h5, h6 {
     color: #362111;
