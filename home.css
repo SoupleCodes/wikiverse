@@ -1,0 +1,42 @@
+#home #row1 { width: 189px }
+
+#sampletext {
+    height: 67px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 5;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+#article-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    * {
+        border: none;
+        box-shadow: 0px -1px 2px grey, 1px 0px 0px antiquewhite;
+    }
+}
+    
+.user-profile, .create-article, .featured-article, .random-article, .popular-article {
+    position: relative;
+    background-color: #BAA58E;
+    box-shadow: 0px 1px 6px -1px black;
+    padding: 8px 8px 0px 8px;
+    margin: 0px 0px 10px 0px;
+    padding-bottom: 8px;
+}
+
+#user-profile-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#info {
+    display: flex;
+    justify-content: space-between;
+}

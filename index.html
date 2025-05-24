@@ -7,6 +7,7 @@
   <link rel="icon" type="image/gif" href="./images/icon.png">
   <link rel="stylesheet" type="text/css" href="./main.css">
   <link rel="stylesheet" type="text/css" href="./font.css">
+  <link rel="stylesheet" type="text/css" href="./home.css">
   <meta name="keywords" content="friends online social networking wiki articles">
 </head>
 
@@ -39,7 +40,8 @@
             </script>
           </div>
           <hr>
-          <div class="parent">
+          <div id="home" class="row grow">
+          <div id="row1">
             <div class="user-profile">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/yourprofile.png" />
@@ -72,8 +74,13 @@
                       <p><b>Posts:</b> ${(user.posts || []).length}</p>
                       <p><b>Followers:</b> ${followersCount}</p>
                       <p><b>Following:</b> ${followingCount}</p>
-                      <div id="edit" style="margin-left:auto">
-                        <small><a href="/you">edit</a></small>
+                      <div style="width: 100%;" class="row">
+                        <small>
+                          <a href="/user/?=${user.username}">view</a>
+                        </small>
+                        <small style="margin-left: auto;">
+                          <a href="/you">edit</a>
+                          </small>
                       </div>
                     `
                 }
@@ -127,6 +134,9 @@
                 });
               </script>
             </div>
+          </div>
+          <div style="margin-right: 19px"></div>
+          <div id="row2">
             <div class="featured-article">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/featuredarticle.png" />
@@ -166,7 +176,7 @@
                               </div>
                             </div>
                             <p id="sampletext">${article.content}</p>
-                            <div id="see-more" style="justify-self: end; margin: 2px;">
+                            <div id="see-more" class="row-reverse">
                               <small><a href="/article/?id=${article.id}">see more</a></small>
                             </div>
               `
@@ -189,10 +199,10 @@
               <div style="height: 10px;"></div>
             </div>
           </div>
-          </span>
+          </div>
         </div>
       </div>
-      <img id="depth" src="./images/boxes/3d.png" style="width: 502px;align-self: anchor-center;">
+      <img id="depth" src="./images/boxes/3d.png" style="width: 610px;height: 45px;">
     </div>
     <div id="right" align="left">
     </div>

@@ -24,9 +24,9 @@
           <div id="article-view">
             <div id="article-heading">
               <h3>
-                <div style="width:20px;"></div><small>by <a href="/"></a></small>
+                <small>by <a href="/"></a></small>
               </h3>
-              <div style="width:20px;"></div>
+              <div></div>
               <small style="margin-left: auto">
                 <span id="creation-date">created at [date not given]</span>
                 <div style="width:20px;"></div><a id="edit-link" href="#">Edit</a> / <a id="history-link" href="#">History</a>
@@ -157,7 +157,7 @@
           <div class="column-reverse" id="comments"></div>
         </div>
       </div>
-    <img id="depth" src="/images/boxes/3d.png" style="width: 502px;align-self: anchor-center;">
+    <img id="depth" src="/images/boxes/3d.png" style="width: 610px;height: 45px;">
 
     <script>
         async function loadArticle(num) {
@@ -190,7 +190,7 @@
               const historyElement = document.querySelector('#article-history');
               const comments = document.querySelector('#comments');
 
-              articleHeading.innerHTML = `${articleTitle}<div style="width:20px;"></div><small>by <a href="/user?=${articleAuthor}">${articleAuthor}</a></small>`;
+              articleHeading.innerHTML = `<img id="favorite" src="/images/ui/fav/0.png" style="margin-right:5px;vertical-align: top;">${articleTitle}<div style="width:20px;"></div><small>by <a href="/user?=${articleAuthor}">${articleAuthor}</a></small>`;
               articleAuthorElement.innerHTML = articleAuthor;
               articleContentElement.innerHTML = bbcodeparse(articleContent);
               articleEditArea.innerHTML = articleContent;
@@ -278,6 +278,7 @@
               const submitButton = document.querySelector('#article-edit-buttons #submit');
               const previewButton = document.querySelector('#article-edit-buttons #preview');
               const cancelButton = document.querySelector('#article-edit-buttons #cancel');
+              const favoriteButton = document.querySelector('#article-heading h3 #favorite')
 
               let oldContent = articleContent;
 
@@ -337,6 +338,16 @@
                 articleContentElement.classList.toggle('nodisplay');
                 document.querySelector('#article-').classList.toggle('nodisplay');
               });
+              
+              
+
+              favoriteButton.addEventListener('mouseover', () => {
+                favoriteButton.src = '/images/ui/fav/1.png'})
+              favoriteButton.addEventListener('mouseout', () => {
+                favoriteButton.src = '/images/ui/fav/0.png'})
+              favoriteButton.addEventListener('click', () => {
+                console.log('not implemented yet!')
+              })
 
               historyLink.href = `/history?id=${num}`;
 

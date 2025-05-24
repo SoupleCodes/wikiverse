@@ -22,6 +22,14 @@ div#icon-url[contenteditable="true"], div#user-url[contenteditable="true"], div#
     content: 'eg,.. https://www.google.com/favicon.ico'
 }
 
+#user-url[contentEditable=true]:empty:not(:focus):before {
+    content: 'eg,.. https://www.darflen.com/users/souple'
+}
+
+#username[contentEditable=true]:empty:not(:focus):before {
+    content: 'eg,.. souple, the_username403, defaultMaster64'
+}
+
 #hold div[contenteditable=true] {
     display: inline-block; 
     outline: none;

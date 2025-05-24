@@ -58,6 +58,7 @@ img#item {
     text-overflow: ellipsis;
     overflow: hidden;
     text-align: center;
+    white-space: nowrap;
 }
 
 .item-list { 

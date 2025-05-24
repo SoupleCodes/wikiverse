@@ -152,7 +152,7 @@ function populateElements()  {
                 </div>
               </div>
               <p id="sampletext">${featuredArticle.content}</p>
-              <div id="see-more" style="justify-self: end; margin: 2px;">
+              <div id="see-more" class="row-reverse">
                 <small><a href="/article/?id=${featuredArticle.id}">see more</a></small>
               </div>
         `
@@ -173,7 +173,7 @@ function populateElements()  {
                   </div>
                 </div>
                 <p id="sampletext">${popularArticle.content}</p>
-                <div id="see-more" style="justify-self: end; margin: 2px;">
+                <div id="see-more" class="row-reverse">
                   <small><a href="/article/?id=${popularArticle.id}">see more</a></small>
                 </div>
           `
