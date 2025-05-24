@@ -71,7 +71,7 @@ function populateElements()  {
         `
         <div id="top">
           <div>
-            <img src="/images/navbar/logo.png" width="138">
+            <img id="logo" src="/images/navbar/logo.png" width="138">
           </div>
           <div style="flex-grow:0.5"></div>
           <form id="searchbar">

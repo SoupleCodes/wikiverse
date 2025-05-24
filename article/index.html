@@ -74,6 +74,7 @@
           <script>
             const account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
             const token = account.token
+            const data = account.user
 
             let pElement = document.querySelector('#avatar #username');
             let imgElement = document.querySelector("#avatar img")
@@ -338,16 +339,8 @@
                 articleContentElement.classList.toggle('nodisplay');
                 document.querySelector('#article-').classList.toggle('nodisplay');
               });
-              
-              
 
-              favoriteButton.addEventListener('mouseover', () => {
-                favoriteButton.src = '/images/ui/fav/1.png'})
-              favoriteButton.addEventListener('mouseout', () => {
-                favoriteButton.src = '/images/ui/fav/0.png'})
-              favoriteButton.addEventListener('click', () => {
-                console.log('not implemented yet!')
-              })
+              
 
               historyLink.href = `/history?id=${num}`;
 
@@ -372,5 +365,6 @@
   </div>
     <script src="/populate.js"></script>
     <script src="../bundle.js"></script>
+    <script src="../updateLocalStorage.js"></script>
 </body>
 </html>
