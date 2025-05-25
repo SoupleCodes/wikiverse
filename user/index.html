@@ -85,7 +85,7 @@
                                     <div class="header"
                                     style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b))">
                                     My music:</div>
-                                    <div class="contents column grow" style="height: 190px">
+                                    <div class="contents column grow" style="min-height: 190px">
                                         <div id="music-player-container" class="column grow">
                                             <div style="height: 48px"></div>
                                             <div id="thums" class="row grow">
@@ -314,7 +314,7 @@
                     const location = document.querySelector('#location .contents small');
                     const musicList = document.querySelector('#thums #item-list');
 
-                    if ((data.music).length) {
+                    if (data.music) {
                         data.music.forEach((song) => {
                             musicList.innerHTML +=
                                 `
