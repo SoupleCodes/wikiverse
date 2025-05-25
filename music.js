@@ -23,7 +23,18 @@ class MusicPlayer {
             this.seekSlider = seekSlider;
             this.seekSlider.addEventListener('change', ()=>this.seekTo.call(this))
         }
-        this.controls.play.addEventListener('click', ()=>this.playTrack(this.currTrack))
+        this.controls.play.addEventListener('click', ()=>{
+            if (this.player.paused && this.player.src) {
+                this.player.play();
+                this.playing = true;
+                if(this.seekSlider && !this.updateTimer) {
+                     this.updateTimer = setInterval(()=>this.seekUpdate.call(this), 1000);
+                }
+                 this.updatePlayPause();
+            } else if (!this.playing) {
+                this.playTrack(this.currTrack);
+            }
+        });
         this.controls.pause.addEventListener('click', ()=>this.pause.call(this))
         this.controls.next.addEventListener('click', ()=>this.nextTrack.call(this))
         this.controls.prev.addEventListener('click', ()=>this.prevTrack.call(this))
