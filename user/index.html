@@ -335,6 +335,12 @@
 
                         const seekSlider = document.getElementById('seek-slider');
                         const songs = data.music ?? []
+                        const songThums = document.querySelectorAll('#music .contents img');
+                        songThums.forEach((thum, index) => {
+                            thum.addEventListener('click', () => {
+                                player.playTrack(index);
+                            })
+                        })
                         const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, seekSlider);
                     } else {
                         document.querySelector('#music').remove()
