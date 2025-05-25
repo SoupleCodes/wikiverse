@@ -341,7 +341,7 @@
                                 player.playTrack(index);
                             })
                         })
-                        const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, seekSlider);
+                        const player = new MusicPlayer(songs, controls, seekSlider);
                     } else {
                         document.querySelector('#music').remove()
                     }

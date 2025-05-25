@@ -30,7 +30,6 @@ class MusicPlayer {
                 if(this.seekSlider && !this.updateTimer) {
                      this.updateTimer = setInterval(()=>this.seekUpdate.call(this), 1000);
                 }
-                 this.updatePlayPause();
             } else if (!this.playing) {
                 this.playTrack(this.currTrack);
             }
@@ -80,7 +79,7 @@ class MusicPlayer {
         this.player.currentTime = seekto;
     }
     playTrack(id) {
-        this.play(this.songs[id].path);
-        document.querySelector('#song-info').textContent = `${this.songs[id].name} - ${this.songs[id].author}`;
+        this.play(this.songs[id].song_url);
+        document.querySelector('#song-info marquee').textContent = `${this.songs[id].artist_name} - ${this.songs[id].album} - ${this.songs[id].song_name} (${this.songs[id].published})`;
     }
 }
