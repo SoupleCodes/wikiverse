@@ -314,7 +314,7 @@
                     const location = document.querySelector('#location .contents small');
                     const musicList = document.querySelector('#thums #item-list');
 
-                    if (data.music) {
+                    if ((data.music).length) {
                         data.music.forEach((song) => {
                             musicList.innerHTML +=
                                 `
