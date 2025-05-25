@@ -304,6 +304,7 @@ a.button {
     box-shadow: 1px 2px 4px #00000045;
     margin-bottom: 9px;
     display: block;
+    overflow: auto;
 }
 a.button.wide {
     width: -webkit-fill-available;
@@ -314,7 +315,6 @@ a.button span {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
     padding: 2px 0px;
     border-top: 1px solid #EBF1E6;
-    border-radius: 4px;
     background: -webkit-gradient(linear, left top, left bottom, from(#d2dfc5), to(#aac29f));
     cursor: pointer;
     display: block;

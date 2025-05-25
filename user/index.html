@@ -86,6 +86,18 @@
                                     style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b))">
                                     My music:</div>
                                     <div class="contents">
+                                        <div id="music-player-container">
+                                            <div id="song-info">
+                                                <p id="mp-name"></p>
+                                                <p id="mp-author"></p>
+                                            </div>
+                                            <input type="range" id="seek-slider" value="0">
+                                            <div id="controls">
+                                                <button id="prev-button">⏮</button>
+                                                <button id="play-button">▶</button>
+                                                <button id="next-button">⏭</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -250,6 +262,7 @@
         <script src="/populate.js"></script>
         <script src="/updateLocalStorage.js"></script>
         <script src="../bundle.js"></script>
+        <script src="../music.js"></script>
         <script>
 
             const userData = JSON.parse(localStorage.getItem(localStorage.getItem('loggedInAs')))
@@ -278,6 +291,16 @@
                     const comments = document.querySelector('#comments');
                     const location = document.querySelector('#location .contents small');
                     const music = document.querySelector('#music .contents');
+                    const controls = {
+                        prev: document.getElementById('prev-button'),
+                        play: document.getElementById('play-button'),
+                        next: document.getElementById('next-button'),
+                     };
+
+                    const seekSlider = document.getElementById('seek-slider');
+                    const songs = data.music ?? []
+                    const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, ['⏸', '▶', '⏮', '⏭'], seekSlider);
+
                     const favoriteArticles = data.fav_articles ?? []
 
                     const fetchUserArticles = async (user, page = 1) => {
