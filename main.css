@@ -307,9 +307,9 @@ a.button {
     overflow: auto;
 }
 .wide {
-    width: -webkit-fill-available;
-    width: -moz-available;
-    width: fill-available;
+    width: -webkit-fill-available !important;
+    width: -moz-available !important;
+    width: fill-available !important;
 }
 a.button span {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
