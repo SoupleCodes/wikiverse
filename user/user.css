@@ -89,6 +89,11 @@ img#item {
     padding: 2px
 }
 
+#controls a img {
+    width: 35px;
+    box-shadow: 0px 1px 4px -1px black;
+}
+
 #music-player-container {
     background: #8D8D8D url('../images/ui/base.png') no-repeat;
     background-position: bottom;
@@ -104,7 +109,7 @@ img#item {
         background-position: center;
         border: none;
         width: 21px;
-        height: 28px;
+        height: 20px;
     }
     input[type=range]::-moz-range-thumb {
         background-image: url('../images/ui/wheel.png');
@@ -112,7 +117,7 @@ img#item {
         background-position: center;
         border: none;
         width: 21px;
-        height: 28px;
+        height: 20px;
     }
 }
 
@@ -120,7 +125,7 @@ img#item {
 #song-info {
     background: linear-gradient(#212121, #333333);
     box-shadow: 0px 0px 0.1px 2px rgba(0, 0, 0, 0.21);
-    margin: 3px;
+    margin: 6px 8px;
     height: 21px;
     align-content: center;
     marquee {
