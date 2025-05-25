@@ -85,17 +85,29 @@
                                     <div class="header"
                                     style="border: 1px solid rgb(153 104 104);background: -webkit-gradient(linear, left top, left bottom, from(#fae9d7), to(#d7a68b))">
                                     My music:</div>
-                                    <div class="contents">
-                                        <div id="music-player-container">
-                                            <div id="song-info">
-                                                <p id="mp-name"></p>
-                                                <p id="mp-author"></p>
+                                    <div class="contents column grow" style="height: 200px">
+                                        <div id="music-player-container" class="column grow">
+                                            <div style="height: 48px"></div>
+                                            <div id="thums" class="row grow">
+                                               <button id="music-prev-btn" class="prev-btn">&lt;</button>
+                                               <div id="music-list" class="carousel-item grow">
+                                                    <div id="item-list" class="item-list row">
+                                                    </div>
+                                               </div>
+                                               <button id="music-next-btn" class="next-btn">&gt;</button>
                                             </div>
-                                            <input type="range" id="seek-slider" value="0">
-                                            <div id="controls">
-                                                <button id="prev-button">⏮</button>
-                                                <button id="play-button">▶</button>
-                                                <button id="next-button">⏭</button>
+                                            <div style="height: 58px"></div>
+                                            <div id="song-info">
+                                                <marquee></marquee>
+                                            </div>
+                                            <div id="slider">
+                                                <input type="range" id="seek-slider" class="wide" value="0">
+                                            </div>
+                                            <div id="controls" class="row grow">
+                                                <a id="prev-button" href="#"><img src="/images/ui/prev.png" style="width: 25px;height: 25px;"></a>
+                                                <a id="pause-button" href="#"><img src="/images/ui/pause.png" style="width: 25px;height: 25px;"></a>
+                                                <a id="play-button" href="#"><img src="/images/ui/play.png" style="width: 25px;height: 25px;"></a>
+                                                <a id="next-button" href="#"><img src="/images/ui/next.png" style="width: 25px;height: 25px;"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -139,8 +151,17 @@
                                 prev.addEventListener('click', () => list.scrollLeft -= (itemWidth + padding));
                                 next.addEventListener('click', () => list.scrollLeft += (itemWidth + padding));
                             }
+                            function setupMusicCarousel(containerId) {
+                                const prev = document.querySelector(`#${containerId} #music-prev-btn`);
+                                const next = document.querySelector(`#${containerId} #music-next-btn`);
+                                const list = document.querySelector(`#${containerId} #item-list`);
+                                const itemWidth = 45; const padding = 5;
+                                prev.addEventListener('click', () => list.scrollLeft -= (itemWidth + padding));
+                                next.addEventListener('click', () => list.scrollLeft += (itemWidth + padding));
+                            }
                             setupCarousel('followers');
                             setupCarousel('following');
+                            setupMusicCarousel('thums');
                         </script>
                     </div>
                 </div>
@@ -290,18 +311,31 @@
                     const commentsCount = document.querySelector('#comment-heading h4 a');
                     const comments = document.querySelector('#comments');
                     const location = document.querySelector('#location .contents small');
+                    const musicList = document.querySelector('#thums #item-list');
 
                     if (data.music) {
+                        data.music.forEach((song) => {
+                            musicList.innerHTML +=
+                                `
+                                <img id="item" src="${song.cover_art || '/images/placeholder.jpg'}" title="${song.song_name} by ${song.artist_name}">
+                                `
+                        })
+                        const songInfo = document.querySelector('#song-info marquee')
+                        const thums = document.querySelector('#thums')
+
+                        songInfo.innerHTML = 'Taskless Sheep - Meadow Mayhem - Stronger (2009)'
+
                         const music = document.querySelector('#music .contents');
                         const controls = {
                             prev: document.getElementById('prev-button'),
                             play: document.getElementById('play-button'),
+                            pause: document.getElementById('pause-button'),
                             next: document.getElementById('next-button'),
                         };
 
                         const seekSlider = document.getElementById('seek-slider');
                         const songs = data.music ?? []
-                        const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, ['⏸', '▶', '⏮', '⏭'], seekSlider);
+                        const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, seekSlider);
                     } else {
                         document.querySelector('#music').remove()
                     }
@@ -322,6 +356,7 @@
                         }
                     }
                     const latestArticles = await fetchUserArticles(user)
+                    console.log(followers, following)
 
                     data.pfp_url ? document.getElementById('profile-pic').src = data.pfp_url : ''
                     location ? location.innerHTML = data.location || '' : ''
@@ -343,7 +378,7 @@
                         document.querySelector('.socials').appendChild(social)
                     })
 
-                    followers ? followers.forEach((follower) => {
+                    followers && document.querySelector('#followers #item-list') ? followers.forEach((follower) => {
                         document.querySelector('#followers #item-list').innerHTML +=
                             `
                             <a href="/user/?=${follower.username}">
@@ -354,7 +389,7 @@
                             </a>
                         `
                     }) : ''
-                    following ? following.forEach((followed) => {
+                    following && document.querySelector('#following #item-list') ? following.forEach((followed) => {
                         document.querySelector('#following #item-list').innerHTML +=
                             `
                             <a href="/user/?=${followed.username}">

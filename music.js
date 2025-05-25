@@ -1,5 +1,4 @@
 class MusicPlayer {
-    updateTimer
     /**
      * 
      * @param {Array.<{name:String,author:String,path:String}>} data song data
@@ -7,28 +6,28 @@ class MusicPlayer {
      * @param {Element} controls.prev Previous button
      * @param {Element} controls.play Play/Pause button
      * @param {Element} controls.next Next button
-     * @param {Array} [style=["⏸","▶","⏮","⏭"]] Styles for controls, example: ['⏸','▶','⏮','⏭']
+     * @param {Element} controls.pause Pause button
      * @param {Element} [seekSlider] Seek slider
      */
-    constructor(data, controls={}, style='⏸▶⏮⏭'.split(""), seekSlider) {
+     
+    constructor(data, controls={}, seekSlider) {
         this.songs = data;
-        if(!controls.prev) throw new Error('"previous" button element not provided in controls! (controls.prev)');
+        console.log(data)
         if(!controls.play) throw new Error('"play/pause" button element not provided in controls! (controls.play)');
         if(!controls.next) throw new Error('"next" button element not provided in controls! (controls.next)');
         this.controls = controls;
         this.playing = false;
-        this.currTrack = -1;
-        this.style = style;
-        this.controls.play.innerHTML = this.style[1];
-        this.controls.prev.innerHTML = this.style[2];
-        this.controls.next.innerHTML = this.style[3];
+        this.currTrack = 0;
         this.player = document.createElement('audio');
-        this.player.src = data[0].path
         if(seekSlider) {
             this.seekSlider = seekSlider;
             this.seekSlider.addEventListener('change', ()=>this.seekTo.call(this))
         }
-        this.controls.play.addEventListener('click', ()=>this.playPause.call(this))
+        this.controls.play.addEventListener('click', ()=>this.playTrack(this.currTrack))
+        this.controls.pause.addEventListener('click', ()=>this.pause.call(this))
+        this.controls.next.addEventListener('click', ()=>this.nextTrack.call(this))
+        this.controls.prev.addEventListener('click', ()=>this.prevTrack.call(this))
+        this.player.addEventListener("timeupdate", ()=>this.seekUpdate.call(this))
         this.player.addEventListener("ended", ()=>this.nextTrack.call(this));
     }
     nextTrack() {
@@ -36,23 +35,21 @@ class MusicPlayer {
         if(this.currTrack >= this.songs.length) this.currTrack = 0;
         this.playTrack(this.currTrack)
     }
-    playPause() {
-        if(this.playing) {
-            this.pause()
-        } else if(this.currTrack == -1) {
-            this.currTrack = 0;
-            this.playTrack(this.currTrack)
-        } else {
-            this.unpause()
-        }
+    prevTrack() {
+        this.currTrack--;
+        if(this.currTrack < 0) this.currTrack = this.songs.length - 1;
+        this.playTrack(this.currTrack)
     }
-    updatePlayPause() {
-        this.controls.play.innerHTML = this.style[Number(!this.playing)];
+    pause() {
+        this.playing = false;
+        this.player.pause();
     }
     async play(url) {
-        if(this.updateTimer) clearInterval(this.updateTimer);
+        if(this.updateTimer) {
+            clearInterval(this.updateTimer)
+        }
+        console.log(url)
         this.playing = true;
-        this.updatePlayPause();
         this.player.src = url;
         this.player.load()
         await this.player.play();
@@ -62,16 +59,6 @@ class MusicPlayer {
             this.seekSlider.max = Math.ceil(this.player.duration);
             this.seekUpdate();
         }
-    }
-    pause() {
-        this.playing = false;
-        this.player.pause();
-        this.updatePlayPause()
-    }
-    unpause() {
-        this.playing = true;
-        this.player.play();
-        this.updatePlayPause()
     }
     seekUpdate() {
         let seekPosition = this.player.currentTime * (this.seekSlider.max / this.player.duration);
@@ -83,7 +70,6 @@ class MusicPlayer {
     }
     playTrack(id) {
         this.play(this.songs[id].path);
-        document.querySelectorAll('#mp-author').forEach(elem => elem.innerText = this.songs[id].author)
-        document.querySelectorAll('#mp-name').forEach(elem => elem.innerText = this.songs[id].name)
+        document.querySelector('#song-info').textContent = `${this.songs[id].name} - ${this.songs[id].author}`;
     }
 }
