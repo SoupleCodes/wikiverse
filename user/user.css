@@ -100,16 +100,16 @@ img#item {
     }
     input[type=range]::-webkit-slider-thumb {
         background-image: url('../images/ui/wheel.png');
+        background-color: transparent;
         background-position: center;
-        background: none;
         border: none;
         width: 21px;
         height: 28px;
     }
     input[type=range]::-moz-range-thumb {
         background-image: url('../images/ui/wheel.png');
+        background-color: transparent;
         background-position: center;
-        background: none;
         border: none;
         width: 21px;
         height: 28px;
