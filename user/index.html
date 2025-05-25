@@ -290,16 +290,21 @@
                     const commentsCount = document.querySelector('#comment-heading h4 a');
                     const comments = document.querySelector('#comments');
                     const location = document.querySelector('#location .contents small');
-                    const music = document.querySelector('#music .contents');
-                    const controls = {
-                        prev: document.getElementById('prev-button'),
-                        play: document.getElementById('play-button'),
-                        next: document.getElementById('next-button'),
-                     };
 
-                    const seekSlider = document.getElementById('seek-slider');
-                    const songs = data.music ?? []
-                    const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, ['⏸', '▶', '⏮', '⏭'], seekSlider);
+                    if (data.music) {
+                        const music = document.querySelector('#music .contents');
+                        const controls = {
+                            prev: document.getElementById('prev-button'),
+                            play: document.getElementById('play-button'),
+                            next: document.getElementById('next-button'),
+                        };
+
+                        const seekSlider = document.getElementById('seek-slider');
+                        const songs = data.music ?? []
+                        const player = new MusicPlayer(songs.map(song => ({ name: song.song_name, author: song.artist_name, path: song.song_url })), controls, ['⏸', '▶', '⏮', '⏭'], seekSlider);
+                    } else {
+                        document.querySelector('#music').remove()
+                    }
 
                     const favoriteArticles = data.fav_articles ?? []
 

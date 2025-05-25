@@ -57,7 +57,7 @@ class MusicPlayer {
         this.player.load()
         await this.player.play();
         if(this.seekSlider) {
-            this.updateTimer = setInterval(()=>this.seekUpdate.call(this), 1000)
+            if(this.updateTimer) this.updateTimer = setInterval(()=>this.seekUpdate.call(this), 1000)
             console.log(this.player.duration, Math.round(this.player.duration))
             this.seekSlider.max = Math.ceil(this.player.duration);
             this.seekUpdate();
