@@ -340,7 +340,11 @@
                         const songThums = document.querySelectorAll('#music .contents img');
                         songThums.forEach((thum, index) => {
                             thum.addEventListener('click', () => {
+                                songThums.forEach((thum) => {
+                                    thum.classList.remove('playing')
+                                })
                                 player.playTrack(index);
+                                thum.classList.add('playing')
                             })
                         })
                         const player = new MusicPlayer(songs, controls, seekSlider);
