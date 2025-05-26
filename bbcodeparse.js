@@ -194,6 +194,10 @@ function replaceBBCodeWithHTML(t, htmlTemplate, bbtag) {
       if (attrValue) {
         newHtml = newHtml.replace(/\$attr\$/gi, attrValue);
       }
-      return putStrOntoChild(contentWithAttr || contentWithoutAttr || match[0], newHtml);
+      if (contentWithAttr === "" && contentWithoutAttr === undefined) {
+        return newHtml;
+      } else {
+        return putStrOntoChild(contentWithAttr || contentWithoutAttr, newHtml);
+      }
     });
 }
