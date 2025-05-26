@@ -139,7 +139,6 @@ img#item {
     marquee {
         text-shadow: none;
         font-size: 9px;
-        height: 17px;
         color: white;
     }
 }

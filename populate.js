@@ -1,3 +1,5 @@
+import './bundle.js'
+
 function populateElements()  {
     const leftNav = document.querySelector('#left');
     const rightNav = document.querySelector('#right');
