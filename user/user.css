@@ -119,6 +119,14 @@ img#item {
         width: 21px;
         height: 20px;
     }
+    input[type=range]::-ms-thumb {
+        background-image: url('../images/ui/wheel.png');
+        background-color: transparent;
+        background-position: center;
+        border: none;
+        width: 21px;
+        height: 20px;
+    }
 }
 
 

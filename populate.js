@@ -124,8 +124,8 @@ function populateElements()  {
                 <li>
                   <a href="/user/?=${user.username}">
                     <div style="display: grid">
-                      <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1; margin-block: 5px;">${user.username}</p>
-                      <img src=${user.pfp_url || "/images/default.png"}>
+                      <p style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1; margin-block: 5px;">${bbcodeparse(user.username)}</p>
+                      <img src=${bbcodeparse(user.pfp_url) || "/images/default.png"}>
                     </div>
                   </a>
                 </li>`
@@ -272,6 +272,6 @@ function populateElements()  {
         yourPageAElement.innerHTML = `<a href="/login/">your page</a>`
         welcomeAElement.textContent = `Hello, Guest!`
       }
-    }
+}
 
 populateElements()

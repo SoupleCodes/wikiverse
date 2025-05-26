@@ -313,7 +313,7 @@
                     const location = document.querySelector('#location .contents small');
                     const musicList = document.querySelector('#thums #item-list');
 
-                    if (data.music) {
+                    if (data.music !== null && (data.music && data.music.length > 0)) {
                         data.music.forEach((song) => {
                             musicList.innerHTML +=
                                 `
@@ -389,8 +389,8 @@
                             `
                             <a href="/user/?=${follower.username}">
                                 <div class="column">
-                                    <img id="item" src="${follower.pfp_url || '/images/default.png'}" title="${follower.username}">
-                                    <small id="item-text">${follower.display_name || follower.username}</small>
+                                    <img id="item" src="${bbcodeparse(follower.pfp_url) || '/images/default.png'}" title="${follower.username}">
+                                    <small id="item-text">${bbcodeparse(follower.display_name) || bbcodeparse(follower.username)}</small>
                                 </div>
                             </a>
                         `
@@ -400,8 +400,8 @@
                             `
                             <a href="/user/?=${followed.username}">
                                 <div class="column">
-                                    <img id="item" src="${followed.pfp_url || '/images/default.png'}" title="${followed.username}">
-                                    <small id="item-text">${followed.display_name || followed.username}</small>
+                                    <img id="item" src="${bbcodeparse(followed.pfp_url) || '/images/default.png'}" title="${followed.username}">
+                                    <small id="item-text">${bbcodeparse(followed.display_name) || bbcodeparse(followed.username)}</small>
                                 </div>
                             </a>
                         `
