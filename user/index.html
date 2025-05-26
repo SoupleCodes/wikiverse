@@ -313,6 +313,8 @@
                     const location = document.querySelector('#location .contents small');
                     const musicList = document.querySelector('#thums #item-list');
 
+                    document.title = `${data.display_name || data.username} - Wikiverse`
+
                     if (data.music !== null && (data.music && data.music.length > 0)) {
                         data.music.forEach((song) => {
                             musicList.innerHTML +=

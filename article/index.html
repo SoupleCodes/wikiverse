@@ -167,6 +167,8 @@
             if (response.ok) {
               const datetime = new URLSearchParams(window.location.search).get('datetime')
               const article = await response.json();
+
+              document.title = `${article.title} - Wikiverse`;
               console.log(article);
               const articleHistory = article.edit_history;
               const history = articleHistory.find((history) => history.edit_date === datetime);
