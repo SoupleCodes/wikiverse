@@ -463,16 +463,17 @@
                     favoriteArticles ? favoriteArticles.forEach((article) => {
                         document.querySelector('#favorite-articles .contents').innerHTML +=
                         `<p><a href="/article/?id=${article.id}">`
-                            + bbcodeparse(article.title) + " by " + article.author +
+                            + bbcodeparse(article.title) + " by " + article.author + `</a>`
+                        if (article.reason) document.querySelector('#favorite-articles .contents').innerHTML += `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
+                        document.querySelector('#favorite-articles .contents').innerHTML +=
                             `</a></p>
                         `
-                        if (article.reason) document.querySelector('#favorite-articles .contents').innerHTML += `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
                     }) : ''
                     latestArticles ? latestArticles.forEach((article) => {
                         document.querySelector('#latest-articles .contents').innerHTML +=
                         `<p><a href="/article/?id=${article.id}">`
                                 + bbcodeparse(article.title) +
-                            `</a>` + `<small style="color: grey"> - Views:` + article.view_count + `</small>` + `</p>`
+                            `</a>` + `<small style="color: grey"> - Views: ` + article.view_count + `</small>` + `</p>`
                     }) : ''
 
                     document.querySelector('#customcss').innerText = style

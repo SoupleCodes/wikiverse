@@ -82,7 +82,7 @@ img#item {
     }
 }
 
-.carousel-item { width: inherit }
+.carousel-item { min-width: 0 }
 .carousel { width: auto; overflow: hidden }
 
 #prev-btn, #next-btn {

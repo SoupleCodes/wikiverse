@@ -28,7 +28,7 @@
             width: 36px;
             height: 27px;
             object-fit: cover;
-            border: 1px solid #74583e;
+            border: 1px solid #00000070;
             box-shadow: 0 1px 4px rgb(0 0 0 / 56%) inset, 0 2px 0 rgba(255, 255, 255, 0.3), inset 0px 8px 6px -6px rgb(106 106 106 / 88%);
         }
     }

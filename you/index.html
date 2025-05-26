@@ -41,6 +41,10 @@
                     <label for="about_me">About Me:  </label>
                     <div id="hold" style="min-height: 60px;"><div contenteditable="true"></div></div>
                 </div>
+                <div id="edit-signature">
+                    <label for="signature">Signature: <small>(will show below all your posts)</small></label>
+                    <div id="hold" style="min-height: 90px;"><div contenteditable="true"></div></div>
+                </div>
                 <div id="edit-location">
                     <label for="location">Location:  </label>
                     <div id="hold"><div contenteditable="true"></div></div>
@@ -184,6 +188,7 @@
             })
 
             document.querySelector('#edit-displayname #hold div').textContent = userData.display_name;
+            document.querySelector('#edit-signature #hold div').textContent = userData.signature;
             document.querySelector('#edit-location #hold div').textContent = userData.location;
             document.querySelector('#edit-aboutme #hold div').textContent = userData.about_me;
             document.querySelector('#edit-pfpurl #hold div').textContent = userData.pfp_url;
@@ -207,6 +212,7 @@
 
                 const profileData = {
                     display_name: document.querySelector('#edit-displayname div').textContent,
+                    signature: document.querySelector('#edit-signature div').textContent,
                     location: document.querySelector('#edit-location div').textContent,
                     about_me: document.querySelector('#edit-aboutme div').textContent,
                     pfp_url: document.querySelector('#edit-pfpurl div').textContent,

@@ -114,6 +114,7 @@ blink {
     max-width: 380px;
 }
 
+#navbar { z-index: 2 }
 #navbar, #main-content {
     box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.4)
 }
@@ -204,7 +205,7 @@ blink {
     border: 1px solid #66320E;
     background: linear-gradient(to top, #6C360F 31%, #AA5E28 87%, #CD8450 98%);
     border-top: none;
-    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.621);
+    box-shadow: 0px 0px 9px -2px rgba(0, 0, 0, 0.621);
     z-index: 1;
     position: relative;
 }
