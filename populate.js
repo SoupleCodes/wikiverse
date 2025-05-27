@@ -92,7 +92,7 @@ function populateElements()  {
             <li><a href="/">Home</a></li>
             <li><a href="/">Browse Users</a></li>
             <li><a href="/">Create</a></li>
-            <li><a href="/">Inbox</a></li>
+            <li><a href="/inbox">Inbox</a></li>
           </ul>
           <ul id="rightNav">
             <li><a href="/">Terms of Service</a></li>
@@ -214,23 +214,23 @@ function populateElements()  {
           if (response.ok) {
             const responseData = await response.json();
             console.log(responseData)
-            localStorage.setItem(responseData.user.username, JSON.stringify({ token: responseData.token, user: responseData.user }))
-            localStorage.setItem("loggedInAs", responseData.user.username)
-      
-            const accounts = localStorage.getItem("accounts")
-            if (!accounts) {
-              localStorage.setItem("accounts", JSON.stringify([responseData.user.username]))
-            } else {
-              const accountsArray = JSON.parse(accounts)
-              if (!accountsArray.includes(responseData.user.username)) {
-                accountsArray.push(responseData.user.username)
-              }
-              localStorage.setItem("accounts", JSON.stringify(accountsArray))
-            }
-      
+
             if (submitButtonValue === "login") {
-              alert("Logged in to your account successfully!");
-              window.location.href = "/"
+              localStorage.setItem(responseData.user.username, JSON.stringify({ token: responseData.token, user: responseData.user }))
+              localStorage.setItem("loggedInAs", responseData.user.username)
+        
+              const accounts = localStorage.getItem("accounts")
+              if (!accounts) {
+                localStorage.setItem("accounts", JSON.stringify([responseData.user.username]))
+              } else {
+                const accountsArray = JSON.parse(accounts)
+                if (!accountsArray.includes(responseData.user.username)) {
+                  accountsArray.push(responseData.user.username)
+                }
+                localStorage.setItem("accounts", JSON.stringify(accountsArray))
+              }
+                alert("Logged in to your account successfully!");
+                window.location.href = "/"
             } else if (submitButtonValue === "register") {
               alert("Registered successfully! Please log in.");
             }

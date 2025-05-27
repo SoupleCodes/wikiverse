@@ -74,7 +74,7 @@
           <script>
             const account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
             const token = account.token
-            const data = account.user
+            let data = account.user
 
             let pElement = document.querySelector('#avatar #username');
             let imgElement = document.querySelector("#avatar img")

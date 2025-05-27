@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Home - Wikiverse</title>
+  <link rel="icon" type="image/gif" href="/images/icon.png">
+  <link rel="stylesheet" type="text/css" href="/main.css">
+  <link rel="stylesheet" type="text/css" href="/all/all.css">
+  <link rel="stylesheet" type="text/css" href="/font.css">
+  <meta name="keywords" content="friends online social networking wiki articles">
+</head>
+
+<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD">
+  <div id="wrap">
+    <div id="left" align="right">
+    </div>
+    <div id="main">
+      <div id="navbar">
+      </div>
+      <div id="main-content">
+        
+        <div class="column grow" style="padding: 10px">
+
+            <h4>My inbox</h4>
+            <hr>            
+            
+            <div class="inbox">
+                <ul></ul>
+            </div>
+            
+        </div>
+      </div>
+    <img id="depth" src="/images/boxes/3d.png" style="width: 610px;height: 45px;">   
+    </div>
+    <div id="right" align="left">
+    </div>
+  </div>
+    <script type="module" src="/populate.js"></script>
+    <script src="../bundle.js"></script>
+    <script>
+        const user = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
+        const token = user.token;
+
+        async function getInbox() {
+            const response = await fetch('https://wiki.souple.workers.dev/inbox', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const data = await response.json()
+            console.log(data)
+            const inbox = document.querySelector('.inbox ul')
+            data.forEach(message => {
+                const li = document.createElement('li')
+                li.innerHTML = `
+                    <div class="row">
+                        <a href="#" style="padding-left: 12px;">@${message.sender || 'unnamed'}</a>
+                        <a href="#" class="date">${message.created_at}</a>
+                    </div>
+                    <div class="row">
+                        <p>${message.content}</p>
+                        <a href="/user/?=${message.recipient}#comment-${message.comment_id}" class="date">(View this comment.)</a>
+                    </div>
+                `
+                inbox.appendChild(li)
+            })
+        }
+
+        getInbox()
+    </script>
+</body>
+</html>
