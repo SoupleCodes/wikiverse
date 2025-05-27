@@ -12,7 +12,7 @@
     <meta name="keywords" content="friends online social networking wiki articles">
 </head>
 
-<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD" topmargin="20">
+<body background="/images/textures/cardboard-flat.png" bgcolor="#FBDAAD">
     <div id="wrap">
         <div id="left" align="right">
         </div>
@@ -469,11 +469,8 @@
                     favoriteArticles ? favoriteArticles.forEach((article) => {
                         document.querySelector('#favorite-articles .contents').innerHTML +=
                         `<p><a href="/article/?id=${article.id}">`
-                            + bbcodeparse(article.title) + " by " + article.author + `</a>`
-                        if (article.reason) document.querySelector('#favorite-articles .contents').innerHTML += `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>`
-                        document.querySelector('#favorite-articles .contents').innerHTML +=
-                            `</a></p>
-                        `
+                            + bbcodeparse(article.title) + " by " + article.author + `</a>` + `${article.reason ? `<small style="color: grey"> - ` + bbcodeparse(article.reason) + `</small>` : ''}`
+                        document.querySelector('#favorite-articles .contents').innerHTML += `</a></p>`
                     }) : ''
                     latestArticles ? latestArticles.forEach((article) => {
                         document.querySelector('#latest-articles .contents').innerHTML +=
