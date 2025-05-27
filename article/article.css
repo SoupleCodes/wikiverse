@@ -85,6 +85,14 @@
     flex-direction: column;
     min-width: 0px;
     box-shadow: 1px 2px 4px #0000008c;
+    transition: box-shadow 1.3s ease-in-out;
+}
+
+.glow {
+    box-shadow: 0 0 16px 8px white !important;
+    -webkit-box-shadow: 0 0 16px 8px white !important;
+    -moz-box-shadow: 0 0 16px 8px white !important;
+    transition: box-shadow 1.3s ease-in-out;
 }
 
 #comment-textbox { display: flex; word-break: break-all }

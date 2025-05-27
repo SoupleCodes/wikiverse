@@ -485,6 +485,20 @@
 
                     document.querySelector('#customcss').innerText = style
 
+                    const hash = window.location.hash
+                    if (hash && hash.startsWith('#comment-')) {
+                        const comment = document.querySelector(hash + '.comment')
+                        if (comment) {
+                            comment.scrollIntoView({ behavior: 'smooth' })
+                            // glow
+                            const commentBoxElement = document.querySelector(hash + '.comment #comment-box');
+                            commentBoxElement.classList.add('glow');
+                            setTimeout(() => {
+                                commentBoxElement.classList.remove('glow');
+                            }, 1000)
+                        }
+                    }
+
                     const handleFollow = async (user) => {
                         try {
                             const response = await fetch(`https://wiki.souple.workers.dev/user/${user}/toggle-follow`, { 
