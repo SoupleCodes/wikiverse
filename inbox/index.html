@@ -55,6 +55,12 @@
             const inbox = document.querySelector('.inbox ul')
             data.forEach(message => {
                 const li = document.createElement('li')
+                let link
+                if(message.username) {
+                    link = '/user/?=' + message.username
+                } else {
+                    link = '/article/?id=' + message.article_id
+                }
                 li.innerHTML = `
                     <div class="row">
                         <a href="#" style="padding-left: 12px;">@${message.sender || 'unnamed'}</a>
@@ -62,7 +68,7 @@
                     </div>
                     <div class="row">
                         <p>${message.content}</p>
-                        <a href="/user/?=${message.recipient}#comment-${message.comment_id}" class="date">(View this comment.)</a>
+                        <a href="/user/?=${message.sender}#comment-${message.comment_id}" class="date">(View this comment.)</a>
                     </div>
                 `
                 inbox.appendChild(li)
