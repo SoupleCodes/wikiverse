@@ -35,7 +35,7 @@
             <div id="article-" class="column nodisplay" style="margin-top: 25px">
               <div id="textarea">
                 <div id="bbcode-editor"></div>
-                <div id="typebox" contenteditable="true"></div>
+                <div id="typebox" contentEditable="plaintext-only"></div>
               </div>
               <div class="buttons" id="article-edit-buttons">
                 <a class="button" id="submit"><span>Submit</span></a>
@@ -64,365 +64,17 @@
             </div>
             <div id="textarea">
                 <div id="bbcode-editor"></div>
-                <div id="typebox" contenteditable="true"></div>
+                <div id="typebox" contentEditable="plaintext-only"></div>
             </div>
           </div>
           <div class="buttons" id="textbox-buttons">
             <a class="button" id="submit"><span>Submit</span></a>
             <a class="button" id="preview"><span>Preview</span></a>
           </div>
-          <script>
-            const account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
-            const token = account.token
-            let data = account.user
-
-            let pElement = document.querySelector('#avatar #username');
-            let imgElement = document.querySelector("#avatar img")
-            pElement.textContent = account.user.username;
-            imgElement.src = account.user.pfp_url || '/images/default.png';
-
-            async function postComment(articleId, comment) {
-              try {
-                const response = await fetch(`https://wiki.souple.workers.dev/article/${articleId}/post`, {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                  },
-                  body: JSON.stringify({
-                    content: comment,
-                  })
-                });
-
-                if (response.ok) {
-                  console.log('Comment posted successfully');
-                } else {
-                  console.error('Failed to post comment');
-                }
-              } catch (error) {
-                console.error('Error posting comment:', error);
-              }
-            }
-            function handlePost() {
-              const comment = document.querySelector('#comment-textbox #textarea #typebox')
-              const comments = document.querySelectorAll('#comments .comment #post')
-              let isSpam = false
-                        let secondsSinceLastPost = 99
-                        if (comments[1]) {
-                            isSpam = comment.textContent === comments[0].textContent === comments[1].textContent
-                            secondsSinceLastPost = (new Date().getTime() - new Date(comments[comments.length - 1].querySelector('#comment-box time').textContent.replace('posted at ', '').replace('at', '')).getTime()) / 1000;
-                        }
-
-              if (comment && comment.textContent.trim() !== '' && !isSpam && secondsSinceLastPost > 10) {
-
-                const articleId = new URLSearchParams(window.location.search).get('id')
-                postComment(articleId, comment.textContent)
-
-                const commentCount = document.querySelector('#comment-heading h4 a').textContent
-                const newCount = parseInt(commentCount.split('(')[1].split(')')[0]) + 1
-                document.querySelector('#comment-heading h4 a').textContent = `(${newCount}) comments.`
-
-                const comments = document.querySelector('#comments');
-                comments.innerHTML +=
-                `
-                <div class="comment" id="comment-${newCount}">
-                  <div id="profile">
-                    <img src=${account.user.pfp_url || '/images/default.png'}>
-                    <p id="username"><a href="/user/?=${account.user.username}">${account.user.username}</a></p>
-                  </div>
-                  <div id="post">
-                    <div>
-                      <img src="/images/tri.png" style="width: 11px;">
-                    </div>
-                  <div id="comment-box">
-                    <time>posted at ${new Date().toLocaleString('en-US', {
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric',
-                      hour12: true,
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      second: 'numeric',
-                      timeZoneName: 'short',
-                    })}</time>
-                    <p>${bbcodeparse(comment.textContent)}</p>
-                  </div>
-               </div>
-                `
-                const newComment = document.getElementById(`comment-${newCount}`)
-                comment.textContent = ''
-              }
-            }
-            document.querySelector('#textbox-buttons #submit').addEventListener('click', handlePost)
-          </script>
           <div class="column-reverse" id="comments"></div>
         </div>
       </div>
     <img id="depth" src="/images/boxes/3d.png" style="width: 610px;height: 45px;">
-
-    <script>
-        async function loadArticle(num) {
-          const response = await fetch(`https://wiki.souple.workers.dev/article/${num}`);
-          try {
-            if (response.ok) {
-              const datetime = new URLSearchParams(window.location.search).get('datetime')
-              const article = await response.json();
-
-              document.title = `${article.title} - Wikiverse`;
-              console.log(article);
-              const articleHistory = article.edit_history;
-              const history = articleHistory.find((history) => history.edit_date === datetime);
-              const articleTitle = article.title;
-              const articleAuthor = article.author;
-              const articleContent = article.content;
-              const articleSubject = article.subject;
-              const articleCreationDate = article.creation_date;
-              let articleComments = article.posts
-              if (datetime) {
-                const commentsAfterEdit = articleComments.filter((comment) => new Date(comment.creation_date) <= new Date(history.edit_date));
-                articleComments = commentsAfterEdit;
-              }              
-
-              const articleEditArea = document.querySelector('#article- #textarea #typebox');
-              const articleHeading = document.querySelector('#article-heading h3');
-              const articleAuthorElement = document.querySelector('#article-heading small a');
-              const articleContentElement = document.querySelector('#article-content');
-              const articleSubjectElement = document.querySelector('#article-heading h3 a');
-              const articleCreationDateElement = document.querySelector('#article-heading small span');
-              const articleCommentCount = document.querySelector('#comment-heading h4 a');
-              const historyElement = document.querySelector('#article-history');
-              const comments = document.querySelector('#comments');
-
-              articleHeading.innerHTML = `<img class="int" id="favorite" src="/images/ui/fav/0.png" style="margin-right:5px;vertical-align: top;">${articleTitle}<div style="width:20px;"></div><small>by <a href="/user?=${articleAuthor}">${articleAuthor}</a></small>`;
-              articleAuthorElement.innerHTML = articleAuthor;
-              articleContentElement.innerHTML = bbcodeparse(articleContent);
-              articleEditArea.innerHTML = articleContent;
-              articleSubjectElement.innerHTML = articleSubject;
-              articleCreationDateElement.textContent = `created at ${new Date(articleCreationDate).toLocaleString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-                hour12: true
-              })}`;
-
-              articleComments && (articleCommentCount.innerHTML = `(${articleComments.length}) comments.`);
-              comments.innerHTML = ''
-              historyElement.innerHTML = ''
-              articleComments && articleComments.forEach((comment, index) => {
-                comments.innerHTML +=
-                `
-                <div class="comment" id="comment-${index + 1}">
-                  <div id="profile">
-                    <img src=${comment.pfp_url || '/images/default.png'}>
-                    <p id="username"><a href="/user/?=${comment.user}" style="color: black;">${comment.user}</a></p>
-                  </div>
-                  <div id="post">
-                    <div>
-                      <img src="/images/tri.png" style="width: 11px;">
-                    </div>
-                  <div id="comment-box">
-                    <time>posted at ${new Date(comment.creation_date).toLocaleString('en-US', {
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric',
-                      hour12: true,
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      second: 'numeric',
-                      timeZoneName: 'short'
-                    })}</time>
-                    <p>${bbcodeparse(comment.post && comment.post)}</p>
- ${comment.signature ?
-                    `<hr style="border-top-color: white;background-color: #e5e5e5;margin: 3px;width: inherit;">
-                      <small><i>${bbcodeparse(comment.signature)}</i></small>`
- :
-                    ''
-                    }
-                  </div>
-               </div>
-                `
-              })
-              historyElement.innerHTML = ''
-              articleHistory && articleHistory.forEach((history, index) => {
-                historyElement.innerHTML +=
-                `
-                <div class="history grow" id="history-${index}">
- <p>(<a href="?id=${num}&datetime=${history.edit_date}">cur</a> | <a href="?id=${num}&datetime=${articleHistory[index-1] ? articleHistory[index-1].edit_date : history.edit_date}">prev</a>) - <a href='/user/?=${history.editor}'>@${history.editor}</a> <a href="?id=${num}&datetime=${history.edit_date}">- ${new Date(history.edit_date).toLocaleString('en-US',
-                    {
-                      weekday: 'long',
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric',
-                      hour12: true,
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      second: 'numeric',
-                      timeZoneName: 'short'
-                    })}</a></p>
-                </div>
-                `
-              })
-
-              historyElement.innerHTML += `<p>${datetime && history.edit_date == datetime ? 'Current' : ''} <a href="?id=${num}">latest revision</a></p>`
-              if (datetime && history) {
-                  articleContentElement.innerHTML = bbcodeparse(history.new_content);
-                  articleEditArea.innerHTML = history.new_content;
-                  articleHeading.innerHTML = `${articleTitle}<div style="width:20px;"></div><small>edited by <a href="/user?=${history.editor}">${history.editor}</a></small>`;
-                  articleCreationDateElement.textContent = `edited at ${new Date(history.edit_date).toLocaleString('en-US', {
-                    month: 'long',
-                    day: 'numeric',
-                    year: 'numeric',
-                    hour12: true
-                  })}`;
-              }
-
-              const editLink = document.querySelector('#edit-link');
-              const historyLink = document.querySelector('#history-link');
-              const submitButton = document.querySelector('#article-edit-buttons #submit');
-              const previewButton = document.querySelector('#article-edit-buttons #preview');
-              const cancelButton = document.querySelector('#article-edit-buttons #cancel');
-              const favoriteButton = document.querySelector('#article-heading h3 #favorite')
-
-              let oldContent = articleContent;
-
-              async function updateArticle(articleId, content) {
-                try {
-                  const response = await fetch(`https://wiki.souple.workers.dev/article/${articleId}`, {
-                    method: 'PUT',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: `Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                      content: content}
-                    )});
-                    if (response.ok) {
-                      console.log('Article updated')
-                    }
-                  } catch (error) {
-                    console.error('Error updating article:', error);
-                  }
-                }
-
-              const article_ = document.querySelector('#article-');
-              editLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                if (articleContentElement.classList.contains('nodisplay')) {
-                  let newContent = articleEditArea.innerText;
-                  if (newContent !== oldContent) {
-                    articleContentElement.innerHTML = bbcodeparse(newContent);
-                    updateArticle(num, newContent);
-                    oldContent = newContent;
-                  }
-                }
-                articleContentElement.classList.toggle('nodisplay');
-                document.querySelector('#article-').classList.toggle('nodisplay');
-              });
-              historyLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                articleContentElement.classList.toggle('nodisplay');
-                historyElement.classList.toggle('nodisplay');
-              })
-              previewButton.addEventListener('click', () => {
-                articleContentElement.innerHTML = bbcodeparse(articleEditArea.innerText);
-              });
-              cancelButton.addEventListener('click', () => {
-                articleEditArea.innerHTML = oldContent;
-                articleContentElement.classList.toggle('nodisplay');
-                document.querySelector('#article-').classList.toggle('nodisplay');
-              });
-              submitButton.addEventListener('click', () => {
-                let newContent = articleEditArea.innerText;
-                if (newContent !== oldContent) {
-                  articleContentElement.innerHTML = bbcodeparse(newContent);
-                  updateArticle(num, newContent);
-                  oldContent = newContent;
-                }
-                articleContentElement.classList.toggle('nodisplay');
-                document.querySelector('#article-').classList.toggle('nodisplay');
-              });
-              
-              async function favoriteArticle(id, reason) {
-                const storage = data.fav_articles || [];
-                const fav = storage.map(item => item.id);
-                const favObject = {
-                  id: String(id),
-                  reason: reason
-                }
-                const favoriteArticles = data.fav_articles || [];
-
-                let updatedFavArticles;
-                if (favoriteArticles.some(item => String(item.id) === String(id))) {
-                  updatedFavArticles = favoriteArticles.filter(item => String(item.id) !== String(id));
-                } else {
-                  updatedFavArticles = [...favoriteArticles, favObject];
-                }
-
-                const finalFavArticles = updatedFavArticles.map(item => {
-                    if (item && typeof item === 'object' && item.id !== undefined) {
-                      return { id: String(item.id), reason: item.reason };
-                    }
-                    return null;
-                }).filter(item => item !== null && item !== undefined);
-
-                const response = await fetch(`https://wiki.souple.workers.dev/user/profile`, {
-                  method: 'PUT',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                  },
-                  body: JSON.stringify({
-                    fav_articles: finalFavArticles
-                  })
-                });
-                try {
-                  if (response.ok) {
-                    const data = await response.json();
-                    updateStorage('user', data, true);
-                    const isFavorite = data.fav_articles && data.fav_articles.some(item => item.id === Number(num));
-                    favoriteButton.src = isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png';
-                  } else {
-                    const error = await response.text();
-                    console.error("Error updating user:", error);
-                  }
-                } catch (error) {
-                  console.error("Error updating the user", error);
-                }
-              }
-
-              const isFavorite = data.fav_articles && data.fav_articles.some(item => item.id === Number(num));
-              favoriteButton.src = isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png';
-
-              favoriteButton.addEventListener('mouseover', () => {
-                if (!isFavorite) {
-                  favoriteButton.src = '/images/ui/fav/1.png'
-                }})
-              favoriteButton.addEventListener('mouseout', () => {
-                if (!isFavorite) {
-                  favoriteButton.src = '/images/ui/fav/0.png'
-                }})
-              favoriteButton.addEventListener('click', () => {
-                const reason = alert('Why do you want to favorite this article?');
-                favoriteArticle(num, reason)
-              })
-
-              historyLink.href = `/history?id=${num}`;
-
-            } else {
-              throw new Error('Network response was not ok.');
-            }
-          } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-          }
-
-        }
-
-        const articleID = new URLSearchParams(window.location.search).get('id');
-        if (articleID) {
-          loadArticle(articleID)
-        }
-    </script>    
-
     </div>
     <div id="right" align="left">
     </div>
@@ -430,5 +82,239 @@
     <script type="module" src="/populate.js"></script>
     <script src="../bundle.js"></script>
     <script src="../updateLocalStorage.js"></script>
+    <script src="../comment.js"></script>
+    <script>
+      const account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
+      const token = account.token
+      let data = account.user
+
+          async function loadArticle(num) {
+            const response = await fetch(`https://wiki.souple.workers.dev/article/${num}`);
+            try {
+              if (response.ok) {
+                const datetime = new URLSearchParams(window.location.search).get('datetime')
+                const article = await response.json();
+  
+                document.title = `${article.title} - Wikiverse`;
+                console.log(article);
+                const articleHistory = article.edit_history;
+                const history = articleHistory.find((history) => history.edit_date === datetime);
+                const articleTitle = article.title;
+                const articleAuthor = article.author;
+                const articleContent = article.content;
+                const articleSubject = article.subject;
+                const articleCreationDate = article.creation_date;
+                let articleComments = article.posts
+                if (datetime) {
+                  const commentsAfterEdit = articleComments.filter((comment) => new Date(comment.creation_date) <= new Date(history.edit_date));
+                  articleComments = commentsAfterEdit;
+                }              
+  
+                const articleEditArea = document.querySelector('#article- #textarea #typebox');
+                const articleHeading = document.querySelector('#article-heading h3');
+                const articleAuthorElement = document.querySelector('#article-heading small a');
+                const articleContentElement = document.querySelector('#article-content');
+                const articleSubjectElement = document.querySelector('#article-heading h3 a');
+                const articleCreationDateElement = document.querySelector('#article-heading small span');
+                const articleCommentCount = document.querySelector('#comment-heading h4 a');
+                const historyElement = document.querySelector('#article-history');
+                const comments = document.querySelector('#comments');
+  
+                articleHeading.innerHTML = `<img class="int" id="favorite" src="/images/ui/fav/0.png" style="margin-right:5px;vertical-align: top;">${articleTitle}<div style="width:20px;"></div><small>by <a href="/user?=${articleAuthor}">${articleAuthor}</a></small>`;
+                articleAuthorElement.innerHTML = articleAuthor;
+                articleContentElement.innerHTML = bbcodeparse(articleContent);
+                articleEditArea.innerHTML = articleContent;
+                articleSubjectElement.innerHTML = articleSubject;
+                articleCreationDateElement.textContent = `created at ${new Date(articleCreationDate).toLocaleString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                  hour12: true
+                })}`;
+  
+                articleComments && (articleCommentCount.innerHTML = `(${articleComments.length}) comments.`);
+                displayComments(articleComments, comments)
+                document.querySelector('#textbox-buttons #submit').addEventListener('click', () => handlePost("article", num))
+
+                historyElement.innerHTML = ''
+                articleHistory && articleHistory.forEach((history, index) => {
+                  historyElement.innerHTML +=
+                  `
+                  <div class="history grow" id="history-${index}">
+   <p>(<a href="?id=${num}&datetime=${history.edit_date}">cur</a> | <a href="?id=${num}&datetime=${articleHistory[index-1] ? articleHistory[index-1].edit_date : history.edit_date}">prev</a>) - <a href='/user/?=${history.editor}'>@${history.editor}</a> <a href="?id=${num}&datetime=${history.edit_date}">- ${new Date(history.edit_date).toLocaleString('en-US',
+                      {
+                        weekday: 'long',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour12: true,
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        timeZoneName: 'short'
+                      })}</a></p>
+                  </div>
+                  `
+                })
+  
+                historyElement.innerHTML += `<p>${datetime && history.edit_date == datetime ? 'Current' : ''} <a href="?id=${num}">latest revision</a></p>`
+                if (datetime && history) {
+                    articleContentElement.innerHTML = bbcodeparse(history.new_content);
+                    articleEditArea.innerHTML = history.new_content;
+                    articleHeading.innerHTML = `${articleTitle}<div style="width:20px;"></div><small>edited by <a href="/user?=${history.editor}">${history.editor}</a></small>`;
+                    articleCreationDateElement.textContent = `edited at ${new Date(history.edit_date).toLocaleString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                      hour12: true
+                    })}`;
+                }
+  
+                const editLink = document.querySelector('#edit-link');
+                const historyLink = document.querySelector('#history-link');
+                const submitButton = document.querySelector('#article-edit-buttons #submit');
+                const previewButton = document.querySelector('#article-edit-buttons #preview');
+                const cancelButton = document.querySelector('#article-edit-buttons #cancel');
+                const favoriteButton = document.querySelector('#article-heading h3 #favorite')
+  
+                let oldContent = articleContent;
+  
+                async function updateArticle(articleId, content) {
+                  try {
+                    const response = await fetch(`https://wiki.souple.workers.dev/article/${articleId}`, {
+                      method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                      },
+                      body: JSON.stringify({
+                        content: content}
+                      )});
+                      if (response.ok) {
+                        console.log('Article updated')
+                      }
+                    } catch (error) {
+                      console.error('Error updating article:', error);
+                    }
+                  }
+  
+                const article_ = document.querySelector('#article-');
+                editLink.addEventListener('click', (event) => {
+                  event.preventDefault();
+                  if (articleContentElement.classList.contains('nodisplay')) {
+                    let newContent = articleEditArea.innerText;
+                    if (newContent !== oldContent) {
+                      articleContentElement.innerHTML = bbcodeparse(newContent);
+                      updateArticle(num, newContent);
+                      oldContent = newContent;
+                    }
+                  }
+                  articleContentElement.classList.toggle('nodisplay');
+                  document.querySelector('#article-').classList.toggle('nodisplay');
+                });
+                historyLink.addEventListener('click', (event) => {
+                  event.preventDefault();
+                  articleContentElement.classList.toggle('nodisplay');
+                  historyElement.classList.toggle('nodisplay');
+                })
+                previewButton.addEventListener('click', () => {
+                  articleContentElement.innerHTML = bbcodeparse(articleEditArea.innerText);
+                });
+                cancelButton.addEventListener('click', () => {
+                  articleEditArea.innerHTML = oldContent;
+                  articleContentElement.classList.toggle('nodisplay');
+                  document.querySelector('#article-').classList.toggle('nodisplay');
+                });
+                submitButton.addEventListener('click', () => {
+                  let newContent = articleEditArea.innerText;
+                  if (newContent !== oldContent) {
+                    articleContentElement.innerHTML = bbcodeparse(newContent);
+                    updateArticle(num, newContent);
+                    oldContent = newContent;
+                  }
+                  articleContentElement.classList.toggle('nodisplay');
+                  document.querySelector('#article-').classList.toggle('nodisplay');
+                });
+                
+                async function favoriteArticle(id, reason) {
+                  const storage = data.fav_articles || [];
+                  const fav = storage.map(item => item.id);
+                  const favObject = {
+                    id: String(id),
+                    reason: reason
+                  }
+                  const favoriteArticles = data.fav_articles || [];
+  
+                  let updatedFavArticles;
+                  if (favoriteArticles.some(item => String(item.id) === String(id))) {
+                    updatedFavArticles = favoriteArticles.filter(item => String(item.id) !== String(id));
+                  } else {
+                    updatedFavArticles = [...favoriteArticles, favObject];
+                  }
+  
+                  const finalFavArticles = updatedFavArticles.map(item => {
+                      if (item && typeof item === 'object' && item.id !== undefined) {
+                        return { id: String(item.id), reason: item.reason };
+                      }
+                      return null;
+                  }).filter(item => item !== null && item !== undefined);
+  
+                  const response = await fetch(`https://wiki.souple.workers.dev/user/profile`, {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                      fav_articles: finalFavArticles
+                    })
+                  });
+                  try {
+                    if (response.ok) {
+                      const data = await response.json();
+                      updateStorage('user', data, true);
+                      const isFavorite = data.fav_articles && data.fav_articles.some(item => item.id === Number(num));
+                      favoriteButton.src = isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png';
+                    } else {
+                      const error = await response.text();
+                      console.error("Error updating user:", error);
+                    }
+                  } catch (error) {
+                    console.error("Error updating the user", error);
+                  }
+                }
+  
+                const isFavorite = data.fav_articles && data.fav_articles.some(item => item.id === Number(num));
+                favoriteButton.src = isFavorite ? '/images/ui/fav/1.png' : '/images/ui/fav/0.png';
+  
+                favoriteButton.addEventListener('mouseover', () => {
+                  if (!isFavorite) {
+                    favoriteButton.src = '/images/ui/fav/1.png'
+                  }})
+                favoriteButton.addEventListener('mouseout', () => {
+                  if (!isFavorite) {
+                    favoriteButton.src = '/images/ui/fav/0.png'
+                  }})
+                favoriteButton.addEventListener('click', () => {
+                  const reason = alert('Why do you want to favorite this article?');
+                  favoriteArticle(num, reason)
+                })
+  
+                historyLink.href = `/history?id=${num}`;
+  
+              } else {
+                throw new Error('Network response was not ok.');
+              }
+            } catch (error) {
+              console.error('There was a problem with the fetch operation:', error);
+            }
+  
+          }
+  
+          const articleID = new URLSearchParams(window.location.search).get('id');
+          if (articleID) {
+            loadArticle(articleID)
+          }
+    </script> 
 </body>
 </html>

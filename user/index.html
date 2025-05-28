@@ -181,101 +181,13 @@
                       </div>
                       <div id="textarea">
                           <div id="bbcode-editor"></div>
-                          <div id="typebox" contenteditable="true"></div>
+                          <div id="typebox" contentEditable="plaintext-only"></div>
                       </div>            
                     </div>
                     <div class="buttons" id="textbox-buttons">
                       <a class="button" id="submit"><span>Submit</span></a>
                       <a class="button" id="preview"><span>Preview</span></a>
                     </div>
-                    <script>
-                      let account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
-                      const token = account.token
-          
-                      let pElement = document.querySelector('#avatar #username');
-                      let imgElement = document.querySelector("#avatar img")
-                      pElement.textContent = account.user.username;
-                      imgElement.src = account.user.pfp_url || '/images/default.png';
-          
-                      async function postComment(user, comment) {
-                        try {
-                          const response = await fetch(`https://wiki.souple.workers.dev/user/${user}/post`, {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                              Authorization: `Bearer ${token}`
-                            },
-                            body: JSON.stringify({
-                              post: comment,
-                            })
-                          });
-          
-                          if (response.ok) {
-                            console.log('Comment posted successfully');
-                          } else {
-                            console.error('Failed to post comment');
-                          }
-                        } catch (error) {
-                          console.error('Error posting comment:', error);
-                        }
-                      }
-                      function handlePost() {
-                        const comment = document.querySelector('#comment-textbox #textarea #typebox')
-                        const comments = document.querySelectorAll('#comments .comment #post')
-                        
-                        let isSpam = false
-                        let secondsSinceLastPost = 99
-                        if (comments[1]) {
-                            isSpam = comment.textContent === comments[0].textContent === comments[1].textContent
-                            secondsSinceLastPost = (new Date().getTime() - new Date(comments[comments.length - 1].querySelector('#comment-box time').textContent.replace('posted at ', '').replace('at', '')).getTime()) / 1000;
-                        }
-
-                        if (comment && comment.textContent.trim() !== '' && !isSpam && secondsSinceLastPost > 10) {
-                          
-                          const userProfile = new URLSearchParams(window.location.search).get('')
-                          postComment(userProfile, comment.textContent)
-          
-                          const commentCount = document.querySelector('#comment-heading h4 a').textContent
-                          const newCount = parseInt(commentCount.split('(')[1].split(')')[0]) + 1
-                          document.querySelector('#comment-heading h4 a').textContent = `(${newCount}) comments.`
-          
-                          const comments = document.querySelector('#comments');
-                          comments.innerHTML += 
-                          `
-                          <div class="comment" id="comment-${newCount}">
-                            <div id="profile">
-                              <img src=${account.user.pfp_url || '/images/default.png'}>
-                              <p id="username"><a href="/user/?=${account.user.username}">${account.user.username}</a></p>
-                            </div>
-                            <div id="post">
-                              <div>
-                                <img src="/images/tri.png" style="width: 11px;">
-                              </div>
-                            <div id="comment-box">
-                              <time>posted at ${new Date().toLocaleString('en-US', {
-                                month: 'long',
-                                day: 'numeric',
-                                year: 'numeric',
-                                hour12: true,
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                second: 'numeric',
-                                timeZoneName: 'short',
-                              })}</time>
-                              <p>${bbcodeparse(comment.textContent)}</p>
-                               ${comment.signature ?
-                    `<hr style="border-top-color: white;background-color: #e5e5e5;margin: 3px;width: inherit;">
-                      <small><i>${bbcodeparse(comment.signature)}</i></small>` : ''
-                            }
-                            </div>
-                         </div>
-                          `
-                          const newComment = document.getElementById(`comment-${newCount}`)
-                          comment.textContent = ''
-                        }
-                      }
-                      document.querySelector('#textbox-buttons #submit').addEventListener('click', handlePost)
-                    </script>
                     <div class="column-reverse" id="comments"></div>
                 </div>
             </div>
@@ -288,8 +200,8 @@
         <script src="/updateLocalStorage.js"></script>
         <script src="../bundle.js"></script>
         <script src="../music.js"></script>
+        <script src="../comment.js"></script>
         <script>
-
             const userData = JSON.parse(localStorage.getItem(localStorage.getItem('loggedInAs')))
 
             async function fetchUser(user) {
@@ -304,9 +216,9 @@
                         throw new Error('Network response was not ok')
                         console.error(response.status, response.statusText)
                     }
-
                     const data = await response.json()
                     console.log(data)
+
                     const social_links = data.social_links
                     const followers = data.followers
                     const following = data.following
@@ -418,41 +330,8 @@
                     }) : ''
 
                     comments && (commentsCount.innerHTML = `(${userPosts.length}) comments.`);
-                    comments.innerHTML = ''
-                    userPosts ? userPosts.forEach((comment, index) => {
-                        comments.innerHTML +=
-                        `
-                    <div class="comment" id="comment-${index + 1}">
-                  <div id="profile">
-                    <img src=${comment.pfp_url || '/images/default.png'}>
-                    <p id="username"><a href="/user/?=${comment.user}" style="color: black;">${comment.user}</a></p>
-                  </div>
-                  <div id="post">
-                    <div>
-                      <img src="/images/tri.png" style="width: 11px;">
-                    </div>
-                  <div id="comment-box">
-                    <time>posted at ${new Date(comment.creation_date).toLocaleString('en-US', {
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric',
-                      hour12: true,
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      second: 'numeric',
-                      timeZoneName: 'short'
-                    })}</time>
-                    <p>${bbcodeparse(comment.post && comment.post)}</p>
- ${comment.signature ?
-                    `<hr style="border-top-color: white;background-color: #e5e5e5;margin: 3px;width: inherit;">
-                      <small><i>${bbcodeparse(comment.signature)}</i></small>`
- :
-                    ''
-                    }
-                  </div>
-               </div>
-                        `
-            }) : ''
+                    displayComments(userPosts, comments)
+                    document.querySelector('#textbox-buttons #submit').addEventListener('click', () => handlePost("user", user))
 
                     const options = { month: 'long', day: 'numeric', year: 'numeric', hour12: true }
                     document.getElementById('display-join').innerHTML = `
@@ -495,7 +374,7 @@
                             commentBoxElement.classList.add('glow');
                             setTimeout(() => {
                                 commentBoxElement.classList.remove('glow');
-                            }, 1000)
+                            }, 1500)
                         }
                     }
 

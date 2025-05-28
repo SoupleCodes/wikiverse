@@ -13,7 +13,7 @@
     z-index: 0
 }
 
-div#icon-url[contenteditable="true"], div#user-url[contenteditable="true"], div#username[contenteditable="true"] {
+div#icon-url[contentEditable="plaintext-only"], div#user-url[contentEditable="plaintext-only"], div#username[contentEditable="plaintext-only"] {
     padding: 2px;
     border: 1px solid #c1c1c1
 }
