@@ -84,8 +84,6 @@
     <script src="../updateLocalStorage.js"></script>
     <script src="../comment.js"></script>
     <script>
-      const account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
-      const token = account.token
       let data = account.user
 
           async function loadArticle(num) {
@@ -188,8 +186,9 @@
                         Authorization: `Bearer ${token}`
                       },
                       body: JSON.stringify({
-                        content: content}
-                      )});
+                        content: content
+                      })
+                    });
                       if (response.ok) {
                         console.log('Article updated')
                       }
