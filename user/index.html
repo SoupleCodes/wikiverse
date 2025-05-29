@@ -235,7 +235,14 @@
                         data.music.forEach((song) => {
                             musicList.innerHTML +=
                                 `
-                                <img id="item" src="${song.cover_art || '/images/placeholder.jpg'}" title="${song.song_name} by ${song.artist_name}">
+                                <img id="item" 
+                                    src="${song.cover_art || '/images/placeholder.jpg'}" 
+                                    title="${song.song_name} by ${song.artist_name}"
+                                    data-title="${song.song_name}"
+                                    data-artist="${song.artist_name}"
+                                    data-album="${song.album}"
+                                    data-url="${song.song_url}"
+                                >
                                 `
                         })
                         const songInfo = document.querySelector('#song-info marquee')
