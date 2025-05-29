@@ -18,26 +18,26 @@ div#icon-url[contentEditable="plaintext-only"], div#user-url[contentEditable="pl
     border: 1px solid #c1c1c1
 }
 
-#icon-url[contentEditable=true]:empty:not(:focus):before {
+#icon-url[contentEditable="plaintext-only"]:empty:not(:focus):before {
     content: 'eg,.. https://www.google.com/favicon.ico'
 }
 
-#user-url[contentEditable=true]:empty:not(:focus):before {
+#user-url[contentEditable="plaintext-only"]:empty:not(:focus):before {
     content: 'eg,.. https://www.darflen.com/users/souple'
 }
 
-#username[contentEditable=true]:empty:not(:focus):before {
+#username[contentEditable="plaintext-only"]:empty:not(:focus):before {
     content: 'eg,.. souple, the_username403, defaultMaster64'
 }
 
-#hold div[contenteditable=true] {
+#hold div[contentEditable="plaintext-only"] {
     display: inline-block; 
     outline: none;
     width: -webkit-fill-available;
     width: -moz-available;
     width: fill-available;
 }
-#hold:has([contenteditable=true]) {
+#hold:has([contentEditable="plaintext-only"]) {
     background: white;
     outline: none;
     font-size: small;
