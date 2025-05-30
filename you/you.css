@@ -24,6 +24,14 @@
     margin: 5px;
 }
 
+a#content {
+    padding-left: 12px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 69px;
+    white-space: nowrap;
+}
+
 #icon-url[contentEditable="plaintext-only"]:empty:not(:focus):before {
     content: 'eg,.. https://www.google.com/favicon.ico'
 }
