@@ -384,7 +384,7 @@
                 const children = parent.querySelectorAll('#social div.row.grow')
                 let musicElements = document.querySelectorAll('#music #prev-made div#music.row.grow')
                 let socialLinks = []
-                let music = []
+                let newMusic = []
 
                 children.forEach(child => {
                     const icon = child.querySelector('img').src
@@ -402,7 +402,7 @@
                     const album = musicElement.querySelector('#extra-info').dataset.album
                     const genre = musicElement.querySelector('#extra-info').dataset.genre
                     const link = musicElement.querySelector('#extra-info').dataset.link
-                    music.push({ song_name: songName, artist_name: artistName, song_url: songUrl, cover_art: coverArt, published: published, album: album, genre: genre, link: link })
+                    newMusic.push({ song_name: songName, artist_name: artistName, song_url: songUrl, cover_art: coverArt, published: Number(published), album: album, genre: genre, link: link })
                 })
 
                 const profileData = {
@@ -413,7 +413,7 @@
                     pfp_url: document.querySelector('#edit-pfpurl div').textContent,
                     style: document.querySelector('#edit-style div').textContent,
                     social_links: socialLinks,
-                    music: music
+                    music: newMusic
                 };
                 await updateProfile(profileData);
             });
