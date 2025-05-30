@@ -18,6 +18,12 @@
     border: 1px solid #c1c1c1
 }
 
+#prev-made div#music {
+    border-bottom: 1px dotted lightgrey;
+    padding: 5px;
+    margin: 5px;
+}
+
 #icon-url[contentEditable="plaintext-only"]:empty:not(:focus):before {
     content: 'eg,.. https://www.google.com/favicon.ico'
 }
