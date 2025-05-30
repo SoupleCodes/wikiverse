@@ -1,4 +1,5 @@
 const DOMPurify = require("dompurify");
+const confetti = require('canvas-confetti');
 
 function putStrOntoChild(a, b) {
     if (typeof a !== "string" || typeof b !== "string") {
@@ -114,7 +115,6 @@ const smileys = [
 ]
 
 window.bbcodeparse = function bbcodeparse(t) {
-
     const bbcodeTags = [
       { html: "<b></b>", tag: "b" },
       { html: "<u></u>", tag: "u" },
@@ -145,9 +145,10 @@ window.bbcodeparse = function bbcodeparse(t) {
       { html: "<span style='cursor:pointer;border-bottom: 1px dashed sienna;color: sienna;' title=$attr$></span>", tag: "abbr" },
       { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"},
       { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
-      { html: "<span id='$attr$></span>", tag: "section" }
-
+      { html: "<span id='$attr$></span>", tag: "section" },
+      { html: "<party class='int'></party>", tag: "party" }
     ];
+    
     let result = t;
     if (!t) {
       return "";
@@ -162,9 +163,20 @@ window.bbcodeparse = function bbcodeparse(t) {
           changed = changed || prevResult !== result
         }
     }
+
+    document.querySelectorAll('party').forEach(element => {
+        element.addEventListener('click', () => {
+            confetti({
+                particleCount: 33,
+                spread: 120,
+                origin: { y: element.getBoundingClientRect().top / window.innerHeight },
+            });
+        });
+    });
+
     let allowXSS = localStorage.getItem('allowXSS') || '0';
     if (allowXSS === '0') {
-      result = DOMPurify.sanitize(result, {ADD_TAGS: ['rainbow', 'safe']});
+      result = DOMPurify.sanitize(result, {ADD_TAGS: ['rainbow', 'party']});
     }
     return result;
 }

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "canvas-confetti": "^1.9.3",
     "dompurify": "^3.2.5"
   },
   "scripts": {
