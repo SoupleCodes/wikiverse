@@ -97,6 +97,7 @@ img#item {
 #music-player-container {
     background: #8D8D8D url('../images/ui/base.png') no-repeat;
     background-position: bottom;
+    box-shadow: inset 0px 0px 22px -10px black;
     input[type=range] {
         -webkit-appearance: none;
         appearance: none;

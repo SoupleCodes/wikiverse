@@ -89,7 +89,7 @@
                                             <div style="height: 48px"></div>
                                             <div id="thums" class="row grow">
                                                <button id="music-prev-btn" class="prev-btn">&lt;</button>
-                                               <div id="music-list" class="carousel-item grow">
+                                               <div id="music-list" class="carousel-item grow" style="width: 291px;">
                                                     <div id="item-list" class="item-list row">
                                                     </div>
                                                </div>
@@ -266,7 +266,9 @@
                                 songThums.forEach((thum) => {
                                     thum.classList.remove('playing')
                                 })
-                                player.playTrack(index);
+                                this.currTrack = index
+                                console.log("currTrack set to: ", this.currTrack)
+                                player.playTrack(this.currTrack);
                                 thum.classList.add('playing')
                             })
                         })

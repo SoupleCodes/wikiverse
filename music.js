@@ -28,6 +28,7 @@ class MusicPlayer {
                 this.player.play();
                 this.playing = true;
                 document.querySelector("#item-list").children[this.currTrack].classList.add("playing");
+                console.log(this.currTrack)
                 if(this.seekSlider && !this.updateTimer) {
                      this.updateTimer = setInterval(()=>this.seekUpdate.call(this), 1000);
                 }
@@ -83,9 +84,10 @@ class MusicPlayer {
         this.player.currentTime = seekto;
     }
     playTrack(id) {
-        this.play(this.songs[id].song_url);
+        this.play(this.songs[id].song_url, id);
         if(document.querySelector("#item-list").children[this.currTrack]) document.querySelector("#item-list").children[this.currTrack].classList.remove("playing");
         document.querySelector("#item-list").children[id].classList.add("playing");
+        this.currTrack = id;
         document.querySelector('#song-info marquee').textContent = `${this.songs[id].artist_name} - ${this.songs[id].album} - ${this.songs[id].song_name} (${this.songs[id].published})`;
     }
 }
