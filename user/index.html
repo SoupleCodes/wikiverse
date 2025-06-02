@@ -272,7 +272,7 @@
                                 thum.classList.add('playing')
                             })
                         })
-                        const player = new MusicPlayer(songs, controls, seekSlider);
+                        window.player = new MusicPlayer(songs, controls, seekSlider);
                     } else {
                         document.querySelector('#music').remove()
                     }

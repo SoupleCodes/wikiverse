@@ -58,7 +58,7 @@
                   let followingCount = (user.following || []).length
                   userProfileElement.innerHTML =
                     `
-                      <img src=${user.pfp_url || './images/default.png'} title="${user.username}" style="width:69px; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0, 0, 0, 0.3))    box-shadow: 0 0 51px -10px black;">
+                      <img src=${user.pfp_url || './images/default.png'} title="${user.username}" style="width:69px; -webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0, 0, 0, 0.3));box-shadow: 0 0 51px -10px white;">
                       <div style="height: 8px;"></div>
                       <p><b>Last login:</b> ${new Date(user.last_login).toLocaleString('en-US', {
                       year: 'numeric',
