@@ -90,7 +90,7 @@ function populateElements()  {
             <li><a href="/">Home</a></li>
             <li><a href="/">Browse Users</a></li>
             <li><a href="/">Create</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/inbox">Inbox</a></li>
           </ul>
           <ul id="rightNav">
             <li><a href="/">Terms of Service</a></li>
