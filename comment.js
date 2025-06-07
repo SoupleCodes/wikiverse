@@ -1,5 +1,5 @@
 let account = JSON.parse(localStorage.getItem(localStorage.getItem("loggedInAs")))
-const token = account.token
+if (account) { const token = account.token }
 
 let pElement = document.querySelector('#avatar #username');
 let imgElement = document.querySelector("#avatar img")

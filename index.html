@@ -20,7 +20,7 @@
       </div>
       <div id="main-content">
         
-        <div style="padding: 10px;display: flex;flex-direction: column;flex-grow: 1;">
+        <div class="column grow" style="padding: 10px;">
           <div id="info">
             <h4>Hello, Guest!</h4>
             <time></time>
@@ -42,7 +42,7 @@
           <hr>
           <div id="home" class="row grow">
           <div id="row1">
-            <div class="user-profile">
+            <div class="user-profile box">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/yourprofile.png" />
               </div>
@@ -87,7 +87,7 @@
                 }
               </script>
             </div>
-            <div class="create-article">
+            <div class="create-article box">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/createarticle.png" />
               </div>
@@ -96,9 +96,9 @@
                 <input type="text" id="title" name="title" placeholder="What is le title" required>
                 <input type="text" id="subject" name="subject" placeholder="What is le subject" required>
 
-                <br>
-                <textarea id="content" name="content" style="width: inherit;height: 101px;" required></textarea>
+                <div style="height: 12px;"></div>
 
+                <textarea id="content" name="content" style="width: inherit;height: 101px;" required></textarea>
                 <button type="submit">Submit</button>
               </form>
               <script>
@@ -138,13 +138,13 @@
           </div>
           <div style="margin-right: 19px"></div>
           <div id="row2" class="column grow" style="min-width: 0;">
-            <div class="featured-article">
+            <div class="featured-article box">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/featuredarticle.png" />
               </div>
               <div style="height: 10px;"></div>
             </div>
-            <div class="random-article">
+            <div class="random-article box">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/randomarticle.png" />
               </div>
@@ -193,7 +193,7 @@
                 window.addEventListener("load", fetchRandomArticle);
               </script>
             </div>
-            <div class="popular-article">
+            <div class="popular-article box">
               <div style="position:absolute;left:-4px;top:-4px">
                 <img src="./images/ribbons/populararticle.png" />
               </div>
@@ -208,7 +208,8 @@
     <div id="right" align="left">
     </div>
   </div>
-  <script type="module" src="/populate.js"></script>
+  <script src="../bundle.js"></script>
+  <script src="/populate.js"></script>
 </body>
 
 </html>

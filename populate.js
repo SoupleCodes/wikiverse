@@ -1,5 +1,3 @@
-import './bundle.js'
-
 function populateElements()  {
     const leftNav = document.querySelector('#left');
     const rightNav = document.querySelector('#right');
@@ -92,7 +90,7 @@ function populateElements()  {
             <li><a href="/">Home</a></li>
             <li><a href="/">Browse Users</a></li>
             <li><a href="/">Create</a></li>
-            <li><a href="/inbox">Inbox</a></li>
+            <li><a href="/blog">Blog</a></li>
           </ul>
           <ul id="rightNav">
             <li><a href="/">Terms of Service</a></li>
@@ -260,11 +258,13 @@ function populateElements()  {
             alert("Your session has expired. Please log in again.")
             if (yourPageAElement && welcomeAElement) {
               yourPageAElement.innerHTML = `<a href="/login/">your page</a>`
+              if(welcomeAElement)
               welcomeAElement.textContent = `Hello, Guest!`
             }
           } else {
             if (yourPageAElement && welcomeAElement) {
               yourPageAElement.innerHTML = `<a href="/you">your page</a>`
+              if(welcomeAElement)
               welcomeAElement.textContent = `Welcome back, ${localStorage.getItem("loggedInAs")}!`
             }
           }
@@ -272,6 +272,7 @@ function populateElements()  {
 
       } else {
         yourPageAElement.innerHTML = `<a href="/login/">your page</a>`
+        if(welcomeAElement)
         welcomeAElement.textContent = `Hello, Guest!`
       }
 }
