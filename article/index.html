@@ -121,7 +121,7 @@
                 articleHeading.innerHTML = `<img class="int" id="favorite" src="/images/ui/fav/0.png" style="margin-right:5px;vertical-align: top;">${articleTitle}<div style="width:20px;"></div><small>by <a href="/user?=${articleAuthor}">${articleAuthor}</a></small>`;
                 articleAuthorElement.innerHTML = articleAuthor;
                 articleContentElement.innerHTML = bbcodeparse(articleContent);
-                articleEditArea.innerHTML = articleContent;
+                articleEditArea.textContent = articleContent;
                 articleSubjectElement.innerHTML = articleSubject;
                 articleCreationDateElement.textContent = `created at ${new Date(articleCreationDate).toLocaleString('en-US', {
                   month: 'long',
