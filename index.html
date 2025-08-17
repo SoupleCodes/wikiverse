@@ -1,12 +1,93 @@
-<body background="./wood.jpg">
-<center>
-    <h1>
-        <font face="Georgia">
-            We'll be back!
-        </font>
-    </h1>
-    <nav>
-        Contact <a href="https://darflen.com/users/souple">Me</a>
-    </nav>
-</center>
-</body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./main.css"/>
+        <link rel="stylesheet" href="./index.css"/>
+        <nav id="topbar">
+            <a href="/">
+                <img id="logo" src="./images/logo.png"/>
+            </a>
+            <ul id="site-options">
+                <li>browse</li>
+                <li>create</li>
+                <li>themes</li>
+                <li>tos</li>
+                <li>documentation</li>
+            </ul>
+            <ul id="user-options">
+                <li>help</li>
+                <li>join</li>
+                <li>login</li>
+            </ul>
+        </nav>
+    </head>
+    <body>
+        <div id="login">
+            <form id="login-form" method="post" action="#">
+                <table id="login-form">
+                    <tr height="40">
+                        <td width="201">
+                            <label for="username">username:</label>
+                            <input type="text" name="username" required/>
+                        </td>
+                        <td width="191">
+                            <label for="password">password:</label>
+                            <input type="password" name="password" required/>
+                        </td>
+                        <td valign="bottom">
+                            <input type="submit" name="login" value="Login" class="button">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td width="191" style="padding: 0;font-size: 8pt;">
+                            <input type="checkbox" style="width: 12px;height: auto;"><label>Remember me?</label>
+                        </td>
+                        <td></td> 
+                        <td width="200" align="right">
+                            <span style="font-size: 8pt;">Need to sign in? <a href="/register">Click here</a>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <script>
+                    const submit = document.querySelector('form#login-form input[type="submit"]')
+                    const loginForm = document.querySelector('form#login-form')
+
+                    submit.addEventListener('click', async (e) => {
+                        e.preventDefault()
+
+                        const formData = new FormData(loginForm)
+                        const data = Object.fromEntries(formData.entries())
+
+                        try {
+                            const response = await fetch("https://wiki.souple.workers.dev/login", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(data)
+                            });
+                            if(!response.ok) {
+                                throw new Error(response.message)
+                            }
+                            
+                            const responseData = await response.json()
+                        } catch (error) {
+                            alert('Error: ' + error)
+                        }
+                    })
+                </script>
+            </form>
+            <img id="bg_login" src="./images/bg_login.png"/>
+        </div>
+        <div id="main">
+            <div id="left">
+
+            </div>
+            <div id="right">
+                
+            </div>
+        </div>
+    </body>
+</html>
