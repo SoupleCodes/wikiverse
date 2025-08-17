@@ -1,7 +1,6 @@
 export function onRequest(context) {
-    console.log("catchall:", context.params.catchall);
     return new Response(
-      `<a href="/">Hello, ` + context.params.catchall + `!</a>`, 
+      `<a href="/">Hello, ` + context.params.user + `!</a>`, 
       { headers: { 'Content-Type': 'text/html'} }
   );
 }
