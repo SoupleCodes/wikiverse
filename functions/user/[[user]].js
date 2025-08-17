@@ -1,3 +1,6 @@
 export function onRequest(context) {
-    return new Response(context.params.catchall);
+    console.log("catchall:", context.params.catchall);
+    return new Response(context.params.catchall, {
+      headers: { 'Content-Type': 'text/plain' }
+    });
 }
