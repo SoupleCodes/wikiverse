@@ -1,6 +1,11 @@
-export function onRequest(context) {
+export async function onRequest(context) {
+    const { request, env } = context
+
+    const response = await env.ASSETS.fetch('/user/index.html')
+    const content = await response.text()
+    
     return new Response(
-      `<a href="/">Hello, ` + context.params.user + `!</a>`, 
+      content, 
       { headers: { 'Content-Type': 'text/html'} }
   );
 }
