@@ -5,7 +5,6 @@ export async function onRequest(context) {
     const content = await response.text()
     
     return new Response(
-      content, 
-      { headers: { 'Content-Type': 'text/html'} }
+      content, response
   );
 }
