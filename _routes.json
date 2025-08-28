@@ -1,5 +1,5 @@
 {
     "version": 1,
-    "include": ["/user/*"],
-    "exclude": ["/user/index.html"]
+    "include": ["/user/*", "/blog/*"],
+    "exclude": ["/user/index.html", "/blog/index.html"]
 }
