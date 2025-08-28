@@ -1,4 +1,4 @@
-const id = new URLSearchParams(window.location.search).get("")
+const id = window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")
 
 async function fetchGET(endpoint) {
     let response

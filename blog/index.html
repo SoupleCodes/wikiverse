@@ -47,8 +47,9 @@
     <script src="/js/blog.js"></script>
     <script src="/js/comment.js"></script>
     <script>
-        let blog_id = new URLSearchParams(window.location.search).get("")
-        displayComments('/blog/' + blog_id)
+        let pathBlogID = window.location.pathname.slice(1).split('/')[1]
+        let fallbackID = new URLSearchParams(window.location.search).get("")
+        displayComments('/blog/' + (pathBlogID || fallbackID))
     </script>
     <script src="/js/nav.js"></script>
 </html>
