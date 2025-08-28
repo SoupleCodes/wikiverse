@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/main.css"/>
+        <link rel="stylesheet" href="/user/user.css"/>
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    </head>
+    <nav id="topbar"></nav>
+    <body>
+        <div id="main">
+            <div id="banner"></div>
+            <div id="content">
+                <div id="side1">
+                    <div id="avatar">
+                        <img src="/images/default.png"/>
+                    </div>
+                    <h5 id="display_name"></h5>
+                    <table id="profile-link-options" class="list">
+                        <tbody>
+                            <tr>
+                                <td id="linkTo-profile"><a href="">my profile »</a></td>
+                            </tr>
+                            <tr>
+                                <td id="linkTo-articles"><a href="">my articles »</a></td>
+                            </tr>
+                            <tr>
+                                <td id="linkTo-blogs"><a href="">my blogs »</a></td>
+                            </tr>
+                            <tr>
+                                <td id="linkTo-polls"><a href="">my polls »</a></td>
+                            </tr>
+                            <tr>
+                                <td id="linkTo-themes"><a href="">my themes »</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="entry">
+                    <h5 id="entry-title" class="title"></h5>
+                    <div id="entry-date" class="meta"></div>
+                    <div id="entry-body"></div>
+                    <div id="comments-section"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./blog.js"></script>
+    <script src="/comment.js"></script>
+    <script>
+        let blog_id = new URLSearchParams(window.location.search).get("")
+        displayComments('/blog/' + blog_id)
+    </script>
+    <script src="/nav.js"></script>
+</html>

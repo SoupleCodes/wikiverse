@@ -3,24 +3,10 @@
     <head>
         <link rel="stylesheet" href="./main.css"/>
         <link rel="stylesheet" href="./index.css"/>
-        <nav id="topbar">
-            <a href="/">
-                <img id="logo" src="./images/logo.png"/>
-            </a>
-            <ul id="site-options">
-                <li>browse</li>
-                <li>create</li>
-                <li>themes</li>
-                <li>tos</li>
-                <li>documentation</li>
-            </ul>
-            <ul id="user-options">
-                <li>help</li>
-                <li>join</li>
-                <li>login</li>
-            </ul>
-        </nav>
+        <title>home - wikiverse</title>
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
     </head>
+    <nav id="topbar"></nav>
     <body>
         <div id="login">
             <form id="login-form" method="post" action="#">
@@ -73,6 +59,11 @@
                             }
                             
                             const responseData = await response.json()
+                            localStorage.clear()
+                            localStorage.setItem('token', responseData.token)
+                            localStorage.setItem('user', JSON.stringify(responseData.user))
+
+                            window.location.reload()
                         } catch (error) {
                             alert('Error: ' + error)
                         }
@@ -90,4 +81,5 @@
             </div>
         </div>
     </body>
+    <script src="/nav.js"></script>
 </html>

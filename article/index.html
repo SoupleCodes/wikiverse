@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/main.css"/>
+        <link rel="stylesheet" href="/user/user.css"/>
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    </head>
+    <nav id="topbar"></nav>
+    <body>
+        <div id="main">
+                <div id="entry">
+                    <h5 id="entry-title" class="title"></h5>
+                    <div id="entry-date" class="meta"></div>
+                    <div id="entry-edit" class="hidden">
+                        <textarea id="articleEdit"></textarea>
+                        <button class="expand-x" id="article-edit">submit</button>
+                    </div>
+                    <div id="entry-body"></div>
+                    <div id="comments-section"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="./article.js"></script>
+    <script src="/comment.js"></script>
+    <script>
+        let article_id = new URLSearchParams(window.location.search).get("")
+        displayComments('/article/' + article_id)
+    </script>
+    <script src="/nav.js"></script>
+</html>

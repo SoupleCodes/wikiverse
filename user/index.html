@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/main.css"/>
+        <link rel="stylesheet" href="./user.css"/>
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    </head>
+    <nav id="topbar"></nav>
+    <body>
+        <div id="main">
+            <div id="header">
+                <h5 id="display"></h5>
+            </div>
+            <div id="banner"></div>
+            <div id="content">
+                <div id="side1">
+                    <div id="avatar">
+                        <img src="/images/default.png"/>
+                    </div>
+                    <h5 id="display_name"></h5>
+                    <div id="stats">
+                        <h6>Member since:</h6>
+                        <small id="join-date"></small>
+                        <h6>Last seen:</h6>
+                        <small id="last-seen"></small>
+                        <h6>Location:</h6>
+                        <small id="user-location"></small>
+                    </div>
+                </div>
+                <div id="side2">
+                    <div class="group">
+                        <h5 class="title">About me:</h5>
+                        <p id="aboutme"></p>
+                    </div>
+                    <div class="group">
+                        <h5 class="title">Recently edited articles:</h5>
+                        <ul id="recent-articles"></ul>
+                    </div>
+                    <div class="group">
+                        <h5 class="title">Recent comments:</h5>
+                        <ul id="recent-comments"></ul>
+                    </div>
+                    <div class="group">
+                        <h5 class="title">Archive:</h5>
+                        <table id="archive"></table>
+                    </div>
+                    <div class="group">
+                        <h5 class="title">Contact me:</h5>
+                        <table id="contactme"></table>
+                    </div>
+                </div>
+                <div id="side3">
+                    <h5 class="title">My weblog...</h5>
+                </div>
+                <div id="side4">
+                </div>
+            </div>
+            <div id="comments-section"></div>
+        </div>
+    </body>
+    <script src="/carousel.js"></script>
+    <script src="/nav.js"></script>
+    <script src="./user.js"></script>
+    <script src="/comment.js"></script>
+    <script>
+        displayComments('/user/' + new URLSearchParams(window.location.search).get(""))
+    </script>
+    <script src="/music.js"></script>
+</html>
