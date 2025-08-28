@@ -4,14 +4,15 @@ export async function onRequest(context) {
   console.log("Attempting to fetch /user/index.html");
 
   try {
-    const response = await env.ASSETS.fetch('/user/index.html');
-    console.log("Fetch response received.");
-    console.log("Response status:", response.status);
-    console.log("Response headers:", JSON.stringify([...response.headers]));
+    const assetUrl = new URL('/user/index.html', request.url);
+    console.log("Constructed asset URL:", assetUrl.toString());
+
+    const response = await env.ASSETS.fetch(assetUrl);
+    console.log("Fetch response status:", response.status);
 
     if (!response.ok) {
       console.error("Fetch failed with status:", response.status);
-       return new Response(`Error fetching asset: Status ${response.status}`, { status: response.status });
+      return new Response(`Error fetching asset: Status ${response.status}`, { status: response.status });
     }
 
     console.log("Attempting to read response text.");
