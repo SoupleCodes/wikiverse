@@ -2,10 +2,10 @@
     "version": 1,
     "include": [
         "/user/*", 
-        "/blog/*"
+        "/blog/*",
+        "/article/*"
     ],
     "exclude": [
-        "/user/index.html", 
-        "/blog/index.html"
+        "/*/index.html"
     ]
 }
