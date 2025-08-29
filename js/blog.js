@@ -36,7 +36,7 @@ async function fetchBlog(id) {
     document.querySelector('#entry-date.meta').innerHTML = 'Posted by <a href="/"></a> | ' + polishedDate
     document.querySelector('#entry-date.meta a').href = '/user/?=' + data.author
     document.querySelector('#entry-date.meta a').textContent = data.author.toUpperCase()
-    document.querySelector('#entry-body').innerText = data.content
+    document.querySelector('#entry-body').innerHTML = bbcodeparse(data.content)
     
     document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/user/?=' + data.author
     document.querySelector('table#profile-link-options td#linkTo-articles a').href = '/user/?=' + data.author + '/articles'

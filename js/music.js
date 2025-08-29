@@ -20,18 +20,18 @@ class MusicPlayer {
                 if (this.playing) {
                     this.pause.call(this)
                     this.playing = false
-                    this.controls.toggle.querySelector('img').src = '/images/play.png'
+                    this.controls.toggle.querySelector('img').src = '/images/ui/play.png'
                 } else {
                     this.playing = true
                     this.player.play()
-                    this.controls.toggle.querySelector('img').src = '/images/pause.png'
+                    this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
                     if (!this.slider && !this.updateTimer) {
                         this.updateTimer = setInterval(()=>this.update.call(this), 700);
                     }
                 }
             } else {
                 this.playTrack(this.currTrack)
-                this.controls.toggle.querySelector('img').src = '/images/pause.png'
+                this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
             }
         })
         this.controls.next.addEventListener('click', ()=>this.nextTrack.call(this))
@@ -101,6 +101,6 @@ class MusicPlayer {
         document.querySelector('h4#song-name').textContent = this.songs[id].song_name
         document.querySelector('small#song-author').textContent = this.songs[id].artist_name
 
-        this.controls.toggle.querySelector('img').src = '/images/pause.png'
+        this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
     }
 }

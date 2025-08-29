@@ -22,12 +22,14 @@
             </div>
         </div>
     </body>
-    <script src="/js/article.js"></script>
-    <script src="/js/comment.js"></script>
-    <script>
+    <script type="text/javascript" src="/js/purify.min.js"></script>
+    <script type="text/javascript" src="/js/bbcode.js"></script>
+    <script type="text/javascript" src="/js/article.js"></script>
+    <script type="text/javascript" src="/js/comment.js"></script>
+    <script type="text/javascript">
         let pathArticleID = window.location.pathname.slice(1).split('/')[1]
         let fallbackID = new URLSearchParams(window.location.search).get("")
         displayComments('/article/' + (pathArticleID || fallbackID))
     </script>
-    <script src="/js/nav.js"></script>
+    <script type="text/javascript" src="/js/nav.js"></script>
 </html>

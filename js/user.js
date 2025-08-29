@@ -11,7 +11,7 @@ function createBlog(data) {
 
     const blogBody = document.createElement('p')
     blogBody.classList.add('blog-body')
-    blogBody.textContent = data.content
+    blogBody.innerHTML = bbcodeparse(data.content)
 
     const blogTitle = document.createElement('h6')
     blogTitle.classList.add('entry-title')
@@ -24,7 +24,7 @@ function createBlog(data) {
 
     const blogLinks = document.createElement('div')
     blogLinks.classList.add('blog-links')
-    blogLinks.innerHTML = `<p>${data.view_count || 0} views</p><p> - </p><p><a href="/blog/?=${data.id}">${data.comment_count || 0} comments</a></p>`
+    blogLinks.innerHTML = `<p>${data.view_count || 0} views</p><p> - </p><p><a href="/blog/${data.id}">${data.comment_count || 0} comments</a></p>`
 
     const date = new Date(data.created_at)
     blogDate.textContent = date.toLocaleString('UTC',{month:'long', day: 'numeric', year:'numeric'}) + 
@@ -151,7 +151,7 @@ async function fetchProfilePage(user) {
     document.querySelector('#join-date').textContent = returnUTCTime(data.created_at)
     document.querySelector('#last-seen').textContent = returnUTCTime(data.last_activity)
     document.querySelector('#user-location').textContent = data.location
-    document.querySelector('p#aboutme').textContent = data.about_me
+    document.querySelector('p#aboutme').innerHTML = bbcodeparse(data.about_me)
 
     const recentComments = await fetchGET('user/' + user + '/recent/comments')
     if (recentComments && recentComments.length > 0) {
@@ -300,13 +300,13 @@ async function fetchProfilePage(user) {
                         <div style="flex-grow: .5;">
                         </div>
                         <a id="prev-btn" href="#">
-                            <img src="/images/prev.png">
+                            <img src="/images/ui/prev.png">
                         </a>
                         <a id="toggle-btn" href="#">
-                            <img src="/images/play.png">
+                            <img src="/images/ui/play.png">
                         </a>
                         <a id="next-btn" href="#">
-                            <img src="/images/next.png">
+                            <img src="/images/ui/next.png">
                         </a>
                     `
             songControls.appendChild(songButtonControls)
@@ -353,7 +353,7 @@ async function fetchProfilePage(user) {
             a.href = `/~${u.user}`
 
             let img = newElement(null, 'img', 'pfp')
-            img.src = u.profile.pfp_url || '/images/default.png'
+            img.src = u.profile.pfp_url || '/images/ui/default.png'
             img.title = u.user
             a.appendChild(img)
             carouselContent.appendChild(a)
@@ -375,7 +375,7 @@ async function fetchProfilePage(user) {
             a.href = `/~${u.user}`
 
             let img = newElement(null, 'img', 'pfp')
-            img.src = u.profile.pfp_url || '/images/default.png'
+            img.src = u.profile.pfp_url || '/images/ui/default.png'
             img.title = u.user
             a.appendChild(img)
             carouselContent.appendChild(a)

@@ -50,7 +50,7 @@ function createCommentElement(data, idx) {
 
     const img = document.createElement('img')
     img.classList.add('post-pfp')
-    img.src = data.profile && data.profile.pfp_url || '/images/default.png'
+    img.src = data.profile && data.profile.pfp_url || '/images/ui/default.png'
     comment.appendChild(img)
 
     const post = document.createElement('div')
@@ -63,13 +63,13 @@ function createCommentElement(data, idx) {
     const smallInfo = document.createElement('small')
     smallInfo.textContent = data.profile && data.profile.display_name + " "
     const a = document.createElement('a')
-    a.href = '/user/?=' + data.commenter
+    a.href = '/~' + data.commenter
     a.textContent = '(@' + data.commenter + ')'
     smallInfo.appendChild(a)
     postUserInfo.appendChild(smallInfo)
 
     const pMessage = document.createElement('p')
-    pMessage.textContent = data.content
+    pMessage.innerHTML = bbcodeparse(data.content)
     postMessage.appendChild(pMessage)
 
     const postDate = document.createElement('div')

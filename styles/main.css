@@ -41,6 +41,25 @@ a { color: #3399CC }
 a:focus { color: #355F9F }
 small { color: gray; font-size: 8px }
 label { display: inline-grid }
+blink {
+	animation:blink 0.75s ease-in infinite alternate!important;
+}
+@keyframes rainbow-flow {
+    0% { background-position: 50% 0% }
+  100% { background-position: -200%; }
+}
+@keyframes blink {
+	0% { opacity:1 } 75% { opacity:1 } 76% { opacity:0 } 100% { opacity:0 }
+}
+.rainbow {
+    color: rgba(0, 0, 0, 0.459);
+    background: linear-gradient(to right,
+            red, orange, yellow, green, blue, indigo, violet, indigo, blue, green, yellow, orange, red);
+    background-size: 500%;
+    animation: rainbow-flow infinite linear 36s;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
 nav#topbar {
     padding: 5px 0px 5px 11px;
     height: 12px;
@@ -100,13 +119,13 @@ ul#site-options { float: left } ul#user-options { float: right }
     width: 100%;
 }
 .carousel-arrow { 
-    background: url("/images/carousel arrow.png");
+    background: url("/images/ui/carousel arrow.png");
     background-position-x: left;
     width: 12px;
     height: 20px;
 }
 .carousel-arrow.right { 
-    background: url("/images/carousel arrow.png");
+    background: url("/images/ui/carousel arrow.png");
     background-position-x: right;
     width: 12px;
     height: 20px;
@@ -172,7 +191,7 @@ textarea {
     height: 47px;
     border-style: dotted;
 }
-.post-message p { margin: 0 }
+.post-message p { margin: 0; width: 100%; }
 #entry { width: 650px; margin: 10px 6px }
 .entry-title { margin: 6px 0px 3px 0px }
 #entry-date { color: #828282; font-size: 8px }

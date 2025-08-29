@@ -50,7 +50,7 @@ const nav = document.querySelector('nav#topbar')
 if(nav) {
     nav.innerHTML = `
         <a href="/">
-            <img id="logo" src="/images/logo.png"/>
+            <img id="logo" src="/images/ui/logo.png"/>
         </a>
         <ul id="site-options">
             <a href="/browse"><li>browse</li></a>
