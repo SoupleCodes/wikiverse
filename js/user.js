@@ -125,12 +125,16 @@ function createTrackElement(songData) {
 async function fetchProfilePage(user) {
     const data = await fetchGET('user/' + user)
 
-    document.title=user + "'s profile - wikiverse"
-
+    if (!user.endsWith('s')) {
+        document.title=user + "'s profile - wikiverse"
+    } else {
+        document.title=user + "' profile - wikiverse"
+    }
+    
     const headerDisplay = document.querySelector('#header #display')
-    headerDisplay.textContent = data.username
-    if (!data.username.endsWith('s')) {
-        headerDisplay.textContent  + "'s profile"
+    headerDisplay.textContent = user
+    if (!user.endsWith('s')) {
+        headerDisplay.textContent =+ "'s profile"
     }
     if (data.banner_url) {
         const img = document.createElement('img')
