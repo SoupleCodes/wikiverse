@@ -44,6 +44,11 @@ label { display: inline-grid }
 blink {
 	animation:blink 0.75s ease-in infinite alternate!important;
 }
+code {
+    display: block;
+    background: black;
+    font-family: monospace;
+}
 @keyframes rainbow-flow {
     0% { background-position: 50% 0% }
   100% { background-position: -200%; }
