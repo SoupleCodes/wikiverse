@@ -1,10 +1,7 @@
 {
     "version": 1,
     "include": [
-        "/~*",
-        "/user/*", 
-        "/blog/*",
-        "/article/*"
+        "/*"
     ],
     "exclude": [
         "/*/index.html"

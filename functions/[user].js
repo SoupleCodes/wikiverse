@@ -1,7 +1,12 @@
 export async function onRequest(context) {
     const { request, env } = context;
+    const pathSegment = context.params.user
 
     try {
+      if (!pathSegment.startsWith('~')) {
+        return new Response("Not user path")
+      }
+
       const assetUrl = new URL('/user/index.html', request.url);
       const response = await env.ASSETS.fetch(assetUrl);
 
