@@ -1,4 +1,4 @@
-let test = window.location.hostname == 'wikiverse.pages.dev' ?? window.location.pathname.slice(2)
+let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
 const user = (test || new URLSearchParams(window.location.search).get(""))
 
 function returnUTCTime(t) { return new Date(t).toLocaleDateString('UTC') }
