@@ -63,8 +63,8 @@
     <script src="/js/nav.js"></script>
     <script src="/js/user.js"></script>
     <script src="/js/comment.js"></script>
-    <script>        
-        displayComments('/user/' + (window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")))
+    <script>
+        displayComments('/user/' + (window.location.pathname.slice(2) || window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")))
     </script>
     <script src="/js/music.js"></script>
 </html>

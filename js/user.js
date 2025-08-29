@@ -1,4 +1,4 @@
-const user = window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")
+const user = window.location.pathname.slice(2) || window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")
 
 function returnUTCTime(t) { return new Date(t).toLocaleDateString('UTC') }
 function createBlog(data) {
