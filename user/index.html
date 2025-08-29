@@ -64,7 +64,8 @@
     <script src="/js/user.js"></script>
     <script src="/js/comment.js"></script>
     <script>
-        displayComments('/user/' + (window.location.pathname.slice(2) || window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")))
+        const testID = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : window.location.pathname.slice(1).split('/')[1]
+        displayComments('/user/' + (testID || new URLSearchParams(window.location.search).get("")))
     </script>
     <script src="/js/music.js"></script>
 </html>
