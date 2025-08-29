@@ -4,6 +4,7 @@
         "/*"
     ],
     "exclude": [
-        "/*/index.html"
+        "/*/index.html",
+        "/"
     ]
 }

@@ -1,4 +1,4 @@
-let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : window.location.pathname.slice(1).split('/')[1]
+let test = window.location.hostname == 'wikiverse.pages.dev' ?? window.location.pathname.slice(2)
 const user = (test || new URLSearchParams(window.location.search).get(""))
 
 function returnUTCTime(t) { return new Date(t).toLocaleDateString('UTC') }
@@ -127,7 +127,11 @@ async function fetchProfilePage(user) {
 
     document.title=user + "'s profile - wikiverse"
 
-    document.querySelector('#header #display').textContent = data.username + "'s profile"
+    const headerDisplay = document.querySelector('#header #display')
+    headerDisplay.textContent = data.username
+    if (!data.username.endsWith('s')) {
+        headerDisplay.textContent  + "'s profile"
+    }
     if (data.banner_url) {
         const img = document.createElement('img')
         img.src = data.banner_url
@@ -148,7 +152,7 @@ async function fetchProfilePage(user) {
         const recentUL = document.querySelector('ul#recent-comments')
         recentComments.slice(0, 5).forEach(r => {
             let a = newElement(null, 'a', null)
-            a.href = `/blog/?=${r.blog_id}#comment-${r.comment_id}`
+            a.href = `/blog/${r.blog_id}#comment-${r.comment_id}`
             a.textContent = r.author
 
             let li = newElement(null, 'li', null)
@@ -197,7 +201,7 @@ async function fetchProfilePage(user) {
         const recentArticlesUL = document.querySelector('ul#recent-articles')
         e.slice(0, 5).forEach(e => {
             let a = newElement(null, 'a', null)
-            a.href = '/article/?=' + e.id
+            a.href = '/article/' + e.id
             a.textContent = e.title
 
             let li = newElement(null, 'li', null)
@@ -229,7 +233,7 @@ async function fetchProfilePage(user) {
 
             let monthTD = newElement(null, 'td', 'social-name')
             let month = Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(a.month))
-            monthTD.innerHTML = `<a href="/user/${user}/archive">${month} ${a.year}</a> (${a.count})`
+            monthTD.innerHTML = `<a href="/~${user}/archive">${month} ${a.year}</a> (${a.count})`
             monthTD.valign = 'top'
 
             tr.appendChild(monthTD)
@@ -340,7 +344,7 @@ async function fetchProfilePage(user) {
         let carouselContent = document.createDocumentFragment();
         following.map((u => {
             let a = newElement(null, 'a', null)
-            a.href = `/user/?=${u.user}`
+            a.href = `/~${u.user}`
 
             let img = newElement(null, 'img', 'pfp')
             img.src = u.profile.pfp_url || '/images/default.png'
@@ -362,7 +366,7 @@ async function fetchProfilePage(user) {
         let carouselContent = document.createDocumentFragment();
         followers.map((u => {
             let a = newElement(null, 'a', null)
-            a.href = `/user/?=${u.user}`
+            a.href = `/~${u.user}`
 
             let img = newElement(null, 'img', 'pfp')
             img.src = u.profile.pfp_url || '/images/default.png'

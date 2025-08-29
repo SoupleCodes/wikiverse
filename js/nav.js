@@ -75,7 +75,7 @@ if(storage) {
         <a id="my-profile"><li class="link">my profile</li></a>
     `
     setupDropdown({
-        view: '/user/?=' + userData.username,
+        view: '/~' + userData.username,
         edit: '/me',
         "log out": 'javascript:logOut();'
     }, 'a#my-profile')
