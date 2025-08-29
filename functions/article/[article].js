@@ -2,7 +2,7 @@ export async function onRequest(context) {
     const { request, env } = context;
 
     try {
-      const assetUrl = new URL('/user/index.html', request.url);
+      const assetUrl = new URL('/article/index.html', request.url);
       const response = await env.ASSETS.fetch(assetUrl);
 
       if (!response.ok) {

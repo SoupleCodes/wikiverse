@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="/styles/main.css"/>
         <link rel="stylesheet" href="/styles/user.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="friends online social networking wiki articles blog poll">
     </head>
     <nav id="topbar"></nav>
@@ -24,8 +25,9 @@
     <script src="/js/article.js"></script>
     <script src="/js/comment.js"></script>
     <script>
-        let article_id = new URLSearchParams(window.location.search).get("")
-        displayComments('/article/' + article_id)
+        let pathArticleID = window.location.pathname.slice(1).split('/')[1]
+        let fallbackID = new URLSearchParams(window.location.search).get("")
+        displayComments('/article/' + (pathArticleID || fallbackID))
     </script>
     <script src="/js/nav.js"></script>
 </html>

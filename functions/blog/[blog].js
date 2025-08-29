@@ -13,7 +13,7 @@ export async function onRequest(context) {
   
       return new Response(
         htmlContent,
-        { headers: { 'Content-Type': 'text/html'} }
+        { headers: { 'Content-Type': 'text/html; charset=utf-8' } }
       );
   
     } catch (error) {
