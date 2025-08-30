@@ -123,7 +123,7 @@ const bbcodeTags = [
     { html: "<h6></h6>", tag: "h6" },
     { html: "<audio src='$attr$'></audio>", tag: "audio"},
     { html: "<video src='$attr$'></video>", tag: "video"},
-    { html: "<span style='cursor:pointer;border-bottom: 1px dashed #ce5151;color: #ce5151;' title=$attr$></span>", tag: "abbr" },
+    { html: "<span style='cursor:help;border-bottom: 1px dashed #ce5151;color: #ce5151;' title=$attr$></span>", tag: "abbr" },
     { html: "<span style='background-color: $attr$'></span>", tag: "bgcolor"},
     { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
 ];
@@ -133,7 +133,7 @@ function putStrOntoChild(a, b) {
     if (typeof a !== "string" || typeof b !== "string") {
       return "";
     }
-    const match = b.match(/<([a-z]+)[^>]*>/i)
+    const match = b.match(/<([a-z0-9]+)[^>]*>/i)
     if(!match){
         return b;
     }

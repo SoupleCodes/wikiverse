@@ -75,7 +75,7 @@ async function fetchArticle(id) {
 
     entryTitle.appendChild(navSmall)
     document.querySelector("textarea#articleEdit").value = data.content
-    document.querySelector('#entry-body').innerHTML = bbcodeparse(data.content)
+    document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
 
 
     const navEdit = document.querySelector('#entry a#edit')
