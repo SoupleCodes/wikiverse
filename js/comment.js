@@ -9,7 +9,12 @@ function dateDiff(a, b) {
     const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
     let r = Math.floor((utc2 - utc1) / _MS_PER_DAY)
-    let msg = r + ' days ago'
+    let msg
+    if (r > 1) {
+        msg = r + ' days ago'
+    } else {
+        msg = r + ' day ago'
+    }
     
     if (r == 0) {
         r = new Date(a).toLocaleString('UTC',{ hour: 'numeric', minute: 'numeric'}).toLowerCase()

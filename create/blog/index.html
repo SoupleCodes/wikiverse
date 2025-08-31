@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/styles/main.css"/>
+        <link rel="stylesheet" href="/styles/create.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    </head>
+    <nav id="topbar"></nav>
+    <body>
+        <div id="main">
+            <label for="title">
+                <small>Title:</small>
+                <input type="text" id="title" name="title" placeholder="My favorite soup" required>
+            </label>
+            <div id="edit-content">
+                <div for="toggle-preview" style="color: gray;font-size: 8px;float:right"><input type="checkbox" name="toggle-preview" style="height: 8px;">Enable preview?</div>
+                <textarea id="content" name="content" style="margin: 0;" required></textarea>
+                <div class="hidden" id="content" name="content" style="margin: 0;width: 100%;height: 317px;"><p></p></div>
+                <div id="emoji-list">
+                </div>
+            </div>
+            <div id="edit-tags">
+                <label for="add-tags" style="width: 442px;">
+                    <small>Tags:</small>
+                    <div style="display: flex;">
+                        <input type="text" id="add-tags" name="tags" placeholder="soup" style="display: flex;flex-grow: 1;">
+                        <button id="add-tag">Add tag</button>
+                    </div>
+                </label>
+                <div id="tags">
+                </div>
+            </div>
+            <div id="edit-style">
+                <label for="add-tags" style="width: 442px;">
+                    <small>Style:</small>
+                    <textarea id="content" name="content" style="margin: 0;" required></textarea>
+                </label>
+            </div>
+            <div id="edit-parentpart">
+                <div for="toggle-parent" style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-parent" style="height: 8px;">Part of a series of blogs?</div>
+                <div id="inputs-for-parent-part" class="hidden" style="float:right">
+                    <label for="parent-id">
+                        <small>Parent blog id:</small>
+                        <input type="text" id="parent-id" name="title" placeholder="12" required>
+                    </label>
+                    <label>
+                        <small>Part:</small>
+                        <input type="text" id="part-id" name="title" placeholder="6" required>
+                    </label>
+                </div>
+            </div>
+            <div id="edit-comments-toggle">
+                <div for="toggle-comments" style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-comments" style="height: 8px;">Enable comments?</div>
+            </div>
+            <div id="edit-globalcss-toggle">
+                <div for="toggle-globalcss" style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-globalcss" style="height: 8px;">Use global css?</div>
+            </div>
+            <button id="post-button" onclick="submitBlog()" type="submit">Submit</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="/js/purify.min.js"></script>
+    <script type="text/javascript" src="/js/bbcode.js"></script>
+    <script type="text/javascript" src="/js/create.js"></script>
+    <script type="text/javascript" src="/js/dropdown.js"></script>
+    <script type="text/javascript" src="/js/nav.js"></script>
+</html>

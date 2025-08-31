@@ -1,0 +1,54 @@
+nav#topbar, .dropdown { background-color: #5193CE }; .dropdown ul a:hover { background-color: #8ecaff !important }
+#main { display: flex; flex-direction: row; align-items: center; justify-content: center; }
+label { width: 100%; margin: 5px 0px }
+textarea#content { width: 100%; height: 317px }
+button#post-button { 
+    margin-right: auto; 
+    background: #5193ce;
+    color: white;
+}
+input {
+    border: 1px solid #5b5b5b;
+    border-style: dotted;
+    font-size: 9px;
+    outline: none;
+    color: #828080;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    width: 442px;
+}
+#edit-content, #edit-tags, #edit-style, #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle {
+    width: 100%;
+    margin-bottom: 5px
+}
+#edit-style #content {
+    height: 200px;
+}
+#tags {
+    width: 442px;
+    border: 1px dashed grey;
+    min-height: 18px;
+    padding: 0px;
+}
+.tag {
+    display: inline-block;
+    background: #bbb;
+    border-radius: 2px;
+    font-size: 10px;
+    padding: 4px 8px;
+    color: #f4f4f4;
+    margin: 5px 0px 5px 5px;
+    position: relative;
+}
+.remove-tag {
+    position: absolute;
+    top: -1px;
+    cursor: pointer;
+}
+#emoji-list img {
+    margin: 2px;
+    cursor: pointer;
+}

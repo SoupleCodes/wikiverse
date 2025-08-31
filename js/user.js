@@ -299,13 +299,13 @@ async function fetchProfilePage(user) {
                     songButtonControls.innerHTML = `
                         <div style="flex-grow: .5;">
                         </div>
-                        <a id="prev-btn" href="#">
+                        <a id="prev-btn" onclick="javascript:void();">
                             <img src="/images/ui/prev.png">
                         </a>
-                        <a id="toggle-btn" href="#">
+                        <a id="toggle-btn" onclick="javascript:void();">
                             <img src="/images/ui/play.png">
                         </a>
-                        <a id="next-btn" href="#">
+                        <a id="next-btn" onclick="javascript:void();">
                             <img src="/images/ui/next.png">
                         </a>
                     `

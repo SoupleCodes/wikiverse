@@ -128,6 +128,32 @@ const bbcodeTags = [
     { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
 ];
 
+/*
+select {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -webkit-padding-end: 20px;
+  -moz-padding-end: 20px;
+  -webkit-padding-start: 2px;
+  -moz-padding-start: 2px;
+  background-color: #F07575;
+  background: linear-gradient(to bottom, #E5E5E5, #F4F4F4);
+  background-position: center right;
+  background-repeat: no-repeat;
+  border: 1px solid darkgray;
+  color: #555;
+  font-size: inherit;
+  margin: 0;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+*/
+
 
 function putStrOntoChild(a, b) {
     if (typeof a !== "string" || typeof b !== "string") {

@@ -5,6 +5,12 @@
     ],
     "exclude": [
         "/*/index.html",
+        "/js/*",
+        "/styles/*",
+        "/user/*",
+        "/images/*",
+        "/font/*",
+        "/create/*",
         "/"
     ]
 }

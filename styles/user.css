@@ -233,6 +233,7 @@ td#progress-bar, td#seek-bar {
 td#progress-bar { border-radius: 3px 0 0 3px }
 td#seek-bar { border-radius: 0 3px 3px 0 }
 #song-button-controls { display: flex; padding-top: 6px }
+#song-button-controls a { cursor: pointer }
 #prev-btn, #toggle-btn, #next-btn { padding: 0 5px }
 #time-elapsed, #time-duration { padding: 0 }
 #tracklist table.track.selected {

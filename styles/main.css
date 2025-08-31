@@ -49,6 +49,13 @@ code {
     background: black;
     font-family: monospace;
 }
+img {
+    max-width: 330px;
+}
+select {
+    border: 1px solid #acacac;
+    font-size: 8px;
+}
 @keyframes rainbow-flow {
     0% { background-position: 50% 0% }
   100% { background-position: -200%; }
