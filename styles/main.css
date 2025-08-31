@@ -49,7 +49,7 @@ code {
     background: black;
     font-family: monospace;
 }
-img {
+#entry-body img {
     max-width: 330px;
 }
 select {
