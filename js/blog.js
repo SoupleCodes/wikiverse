@@ -39,15 +39,15 @@ async function fetchBlog(id) {
                 ' ~ ' + 
                date.toLocaleString('UTC',{ hour: 'numeric', minute: 'numeric'}).toLowerCase()
     document.querySelector('#entry-date.meta').innerHTML = 'Posted by <a href="/"></a> | ' + polishedDate
-    document.querySelector('#entry-date.meta a').href = '/user/?=' + data.author
+    document.querySelector('#entry-date.meta a').href = '/~' + data.author
     document.querySelector('#entry-date.meta a').textContent = data.author.toUpperCase()
     document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
     
-    document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/user/?=' + data.author
-    document.querySelector('table#profile-link-options td#linkTo-articles a').href = '/user/?=' + data.author + '/articles'
-    document.querySelector('table#profile-link-options td#linkTo-blogs a').href = '/user/?=' + data.author + '/archive'
-    document.querySelector('table#profile-link-options td#linkTo-polls a').href = '/user/?=' + data.author + '/polls'
-    document.querySelector('table#profile-link-options td#linkTo-themes a').href = '/user/?=' + data.author + '/themes'
+    document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/~' + data.author
+    document.querySelector('table#profile-link-options td#linkTo-articles a').href = '/~' + data.author + '/articles'
+    document.querySelector('table#profile-link-options td#linkTo-blogs a').href = '/~' + data.author + '/archive'
+    document.querySelector('table#profile-link-options td#linkTo-polls a').href = '/~' + data.author + '/polls'
+    document.querySelector('table#profile-link-options td#linkTo-themes a').href = '/~' + data.author + '/themes'
 }
 
 if (id) {
