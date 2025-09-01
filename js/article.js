@@ -1,16 +1,5 @@
 const id = window.location.pathname.slice(1).split('/')[1] || new URLSearchParams(window.location.search).get("")
 
-async function fetchGET(endpoint) {
-    let response
-    response = await fetch('https://wiki.souple.workers.dev/' + endpoint, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    })
-
-    const json = await response.json()
-    return json
-}
-
 function returnPolishedDate(t) {
     return t.toLocaleString('UTC',{month:'long', day: 'numeric', year:'numeric'}) + 
                 ' ~ ' + 

@@ -7,6 +7,16 @@ if(JWT) {
     if(isExpired) { localStorage.clear() }
 }
 
+window.fetchGET = async function fetchGET(endpoint) {
+    let response
+    response = await fetch('https://wiki.souple.workers.dev/' + endpoint, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    return await response.json()
+}
+
 async function logOut() {
     await fetch('https://wiki.souple.workers.dev/logout/', {
         method: 'PATCH',

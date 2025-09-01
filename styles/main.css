@@ -13,6 +13,8 @@ html, body {
     overflow-y: auto; 
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
     height: 100%; 
+    display: flex;
+    flex-direction: column;
 }
 h1, h2, h3, h4, h5, h6 { 
     font-family: 'Josefin Sans', Verdana, Geneva, Tahoma, Arial, sans-serif; 
@@ -105,9 +107,12 @@ ul#site-options { float: left } ul#user-options { float: right }
 #stats h6, #stats small {
     float: right
 }
-#main { padding: 10px }
-#left { float: left }
-#right { float: right }
+#main { 
+    padding: 10px;
+    height: 100%;
+    display: flex;
+}
+#left { width: 640px }
 .expand-x { width: 100% }
 .group { margin-bottom: 10px }
 .bottom { bottom: 0;position: absolute; }

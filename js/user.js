@@ -36,16 +36,6 @@ function createBlog(data) {
 
     return blog
 }
-async function fetchGET(endpoint) {
-    let response
-    response = await fetch('https://wiki.souple.workers.dev/' + endpoint, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    })
-
-    const json = await response.json()
-    return json
-}
 
 function createModule(id, title) {
     let titleElement = document.createElement('h4')

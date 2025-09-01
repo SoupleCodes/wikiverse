@@ -36,3 +36,31 @@ table#login-form input[type="submit"]:hover {
     color: ffc40c;
     border: 1px solid #ffc40c;
 }
+.article-preview {
+    margin-bottom: 22px;
+    position: relative;
+    left: -10px;
+}
+.article-preview .title {
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+.article {
+    padding: 5px 9px;
+}
+.article-nav small {
+    margin-top: 6px;
+    color: #39C;
+}
+.article p {
+    max-height: 200px;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: clip;
+}
+.article-title {
+    border: none;
+    color: #262626;
+}

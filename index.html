@@ -36,51 +36,29 @@
                         </td>
                     </tr>
                 </table>
-                <script type="text/javascript">
-                    const submit = document.querySelector('form#login-form input[type="submit"]')
-                    const loginForm = document.querySelector('form#login-form')
-
-                    submit.addEventListener('click', async (e) => {
-                        e.preventDefault()
-
-                        const formData = new FormData(loginForm)
-                        const data = Object.fromEntries(formData.entries())
-
-                        try {
-                            const response = await fetch("https://wiki.souple.workers.dev/login", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify(data)
-                            });
-                            if(!response.ok) {
-                                throw new Error(response.message)
-                            }
-                            
-                            const responseData = await response.json()
-                            localStorage.clear()
-                            localStorage.setItem('token', responseData.token)
-                            localStorage.setItem('user', JSON.stringify(responseData.user))
-
-                            window.location.reload()
-                        } catch (error) {
-                            alert('Error: ' + error)
-                        }
-                    })
-                </script>
             </form>
             <img id="bg_login" src="/images/ui/bg_login.png"/>
         </div>
         <div id="main">
             <div id="left">
-
+                <div id="featured-article" class="article-preview">
+                    <h5 class="title">Featured article</h5>
+                </div>
+                <div id="random-article" class="article-preview">
+                    <h5 class="title">Random article</h5>
+                </div>
+                <div id="popular-article" class="article-preview">
+                    <h5 class="title">Popular article</h5>
+                </div>
             </div>
             <div id="right">
                 
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="/js/purify.min.js"></script>
+    <script type="text/javascript" src="/js/bbcode.js"></script>
     <script type="text/javascript" src="/js/dropdown.js"></script>
     <script type="text/javascript" src="/js/nav.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
 </html>
