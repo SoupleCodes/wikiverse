@@ -104,9 +104,6 @@ ul#site-options li, ul#user-options li {
     color: white !important
 }
 ul#site-options { float: left } ul#user-options { float: right }
-#stats h6, #stats small {
-    float: right
-}
 #main { 
     padding: 10px;
     height: 100%;

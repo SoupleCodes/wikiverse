@@ -1,18 +1,4 @@
 /*
-fetch(`https://wiki.souple.workers.dev/blog`, {
-	method: 'POST',
-  headers: {
-  	'Content-Type': 'application/json',
-  	'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic291cGxlIiwiaWQiOjEsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzU1NjA2MjE2fQ.5jaVPPPV_nO1T7kiUIabVQsuzoqxvOrlNgVFRYSd7jU'
-  },
-  body: JSON.stringify({
-    title: "What do i think about soup?",
-		content: "What do i think about soup? Well soup outmatches LITERALLTY EVERYTHINF. SOUP IS GODO SOUP IS AMAZING SAUCE> I think soup is quite soup-tastic. There’s quite nothing like it really...\n\nDefinition: A liquid dish typically consisting of vegetables or meat or even both that are then simmered in broth or water!\nAwesomeness: 5 out of 5 stars",
-		tags: "[\"soup\"]"
-  })
-})
-*/
-/*
 fetch('https://wiki.souple.workers.dev/user/souple', {
 	method: 'PATCH',
   headers: {
@@ -91,7 +77,11 @@ button#follow {
 #side3 { width: 350px; margin: 10px 6px 0 0 }
 #side4 { width: 300px; margin: 13px 0 }
 
-#stats {  float: right; margin: 14px 0 }
+#stats {  
+    float: right; 
+    margin: 14px 0;
+    text-align: end;
+}
 .title {
     border-top: 0px none transparent;
     border-left: 0px none transparent;

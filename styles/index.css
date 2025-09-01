@@ -49,8 +49,8 @@ table#login-form input[type="submit"]:hover {
 .article {
     padding: 5px 9px;
 }
-.article-nav small {
-    margin-top: 6px;
+.article-nav {
+    margin-top: 7px;
     color: #39C;
 }
 .article p {
