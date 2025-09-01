@@ -110,7 +110,6 @@ ul#site-options { float: left } ul#user-options { float: right }
 #main { 
     padding: 10px;
     height: 100%;
-    display: flex;
 }
 #left { width: 640px }
 .expand-x { width: 100% }
