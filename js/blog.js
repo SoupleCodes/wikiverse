@@ -14,7 +14,12 @@ async function fetchGET(endpoint) {
 async function fetchBlog(id) {
     const data = await fetchGET('blog/' + id)
 
-    document.title= data.title + ' - ' + data.author + "'s blog"
+    document.title= data.title + ' - '
+    if (data.author.endsWith('s')) {
+        document.title=data.author + "' blog"
+    } else {
+        document.title=data.author + "'s blog"
+    }
 
     if (data.profile && data.profile.banner_url) {
         const img = document.createElement('img')

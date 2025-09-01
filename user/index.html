@@ -60,10 +60,10 @@
         </div>
     </body>
     <script type="text/javascript" src="/js/helper.js"></script>
+    <script type="text/javascript" src="/js/comment.js"></script>
     <script type="text/javascript" src="/js/carousel.js"></script>
     <script type="text/javascript" src="/js/nav.js"></script>
     <script type="text/javascript" src="/js/user.js"></script>
-    <script type="text/javascript" src="/js/comment.js"></script>
     <script type="text/javascript">
         const testID = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
         displayComments('/user/' + (testID || new URLSearchParams(window.location.search).get("")))
