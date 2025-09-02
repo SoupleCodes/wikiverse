@@ -10,9 +10,36 @@
     <nav id="topbar"></nav>
     <body>
         <div id="main">
+            <label for="display_name">
+                <small>Display name:</small>
+                <input type="text" id="title" name="display_name" placeholder="Wikiverse" required>
+            </label>
+            <label for="pfp_url">
+                <small>Pfp url:</small>
+                <input type="text" id="title" name="pfp_url" placeholder="/favicon.png" required>
+            </label>
+            <label for="location">
+                <small>Location:</small>
+                <input type="text" id="title" name="location" placeholder="215.36.255.238" required>
+            </label>
+            <div id="edit-content">
+                <small style="float:left">About me:</small>
+                <div for="toggle-preview" style="color: gray;font-size: 8px;float:right"><input type="checkbox" name="toggle-preview" style="height: 8px;">Enable preview?</div>
+                <textarea id="content" name="content" style="margin: 0;" required></textarea>
+                <div class="hidden" id="content" name="content" style="margin: 0;width: 100%;height: 317px;"><p></p></div>
+                <div id="emoji-list">
+                </div>
+            </div>
+            <div id="edit-style">
+                <label for="add-tags" style="width: 442px;">
+                    <small>Style:</small>
+                    <textarea id="content" name="content" style="margin: 0;" required></textarea>
+                </label>
+            </div>
+            <button id="post-button" onclick="updateProfile()" type="submit">Submit</button>
         </div>
     </body>
     <script type="text/javascript" src="/js/helper.js"></script>
-    <script type="text/javascript" src="/js/create.js"></script>
+    <script type="text/javascript" src="/js/me.js"></script>
     <script type="text/javascript" src="/js/nav.js"></script>
 </html>

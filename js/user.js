@@ -139,9 +139,12 @@ async function fetchProfilePage(user) {
     }
     document.querySelector('#display_name').textContent = data.display_name
     document.querySelector('#join-date').textContent = returnUTCTime(data.created_at)
+    document.querySelector('#join-date').title = new Date(data.created_at).toUTCString()
     document.querySelector('#last-seen').textContent = returnUTCTime(data.last_activity)
+    document.querySelector('#last-seen').title = new Date(data.last_activity).toUTCString()
     document.querySelector('#user-location').textContent = data.location
     document.querySelector('p#aboutme').innerHTML = bbcodeparse(data.about_me)
+    document.querySelector('style#user-style').innerHTML = data.style
 
     const recentComments = await fetchGET('user/' + user + '/recent/comments')
     if (recentComments && recentComments.length > 0) {

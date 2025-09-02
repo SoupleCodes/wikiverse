@@ -13,6 +13,7 @@
         "/create/*",
         "/favicon.png",
         "/join",
+        "/me",
         "/"
     ]
 }
