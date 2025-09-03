@@ -51,7 +51,7 @@ code {
     background: black;
     font-family: monospace;
 }
-#entry-body img {
+#entry-body img, .blog-body img {
     max-width: 330px;
 }
 select {

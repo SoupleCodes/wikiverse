@@ -171,6 +171,7 @@ async function displayComments(route) {
                 commentParent.insertBefore(createCommentElement(data, count + 1), commentParent.children[0])
             }
 
+            count++
             commentCountElement.textContent = count + ' comment'
             if (count > 1) {
                 commentCountElement.textContent += 's'

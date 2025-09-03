@@ -19,9 +19,12 @@ input {
     flex-direction: column;
     width: 442px;
 }
-#edit-content, #edit-tags, #edit-style, #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle {
+#edit-content, #edit-tags, #edit-style, #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle, #edit-social-links {
     width: 100%;
     margin-bottom: 5px
+}
+#edit-social-links label {
+    margin: 0;
 }
 #edit-style #content {
     height: 200px;
@@ -50,4 +53,18 @@ input {
 #emoji-list img {
     margin: 2px;
     cursor: pointer;
+}
+.s-link {
+    display: flex;
+    gap: 4px;
+    padding: 2px 0
+}
+button#add-link, button.remove-link {
+    height: 16px;
+    align-self: end;
+}
+#social-links-inputarea {
+    display: flex;
+    gap: 4px;
+    padding: 6px 0 13px;
 }

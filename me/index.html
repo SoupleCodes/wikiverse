@@ -40,6 +40,23 @@
                     <textarea id="content" name="content" style="margin: 0;" required></textarea>
                 </label>
             </div>
+            <div id="edit-social-links">
+                <small>Social links:</small>
+                <br>
+                <div id="social-links-inputarea">
+                    <label>
+                        <small>Username</small><input type="text" id="title" name="banner_url" required="" placeholder="John Doe">
+                    </label>
+                    <label>
+                        <small>Website name</small><input type="text" id="title" name="banner_url" required="" placeholder="Wikiverse"></label>
+                    <label>
+                        <small>Url</small><input type="text" id="title" name="banner_url" required="" placeholder="https://wikiverse.pages.dev">
+                    </label>
+                    <button id='add-link'>+</button>
+                </div>
+                <div id="social-links">
+                </div>
+            </div>
             <button id="post-button" onclick="updateProfile()" type="submit">Submit</button>
         </div>
     </body>
