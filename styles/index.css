@@ -13,6 +13,7 @@ table#login-form {
     line-height: 2;
     font-size: 12px;
     color: #CE5151;
+    color: var(--main-color);
     padding: 30px;
 }
 #login input[type='text'], #login input[type='password'] {
@@ -28,6 +29,7 @@ table#login-form {
 }
 table#login-form input[type='submit'] {
     background-color: #CE5151;
+    background: var(--main-color);
     color: white;
     border: 1px solid #8E434C;
 }

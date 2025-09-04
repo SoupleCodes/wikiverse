@@ -1,3 +1,7 @@
+:root {
+    --main-color: #CE5151
+}
+
 /* Fonts */
 @font-face {
     font-family: 'Josefin Sans';
@@ -18,7 +22,8 @@ html, body {
 }
 h1, h2, h3, h4, h5, h6 { 
     font-family: 'Josefin Sans', Verdana, Geneva, Tahoma, Arial, sans-serif; 
-    color: #CE5151; 
+    color: #CE5151;
+    color: var(--main-color);
     font-weight: lighter;
     margin: 2px 0px;
 }
@@ -65,6 +70,39 @@ select {
 @keyframes blink {
 	0% { opacity:1 } 75% { opacity:1 } 76% { opacity:0 } 100% { opacity:0 }
 }
+#popup-window {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #0000004d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+iframe#profile-viewer {
+    width: 1000px;
+    height: 100%;
+    border: none;
+}
+iframe#profile-viewer::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+iframe#profile-viewer::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+#dialog {
+    position: relative;
+    width: 700px;
+    height: 700px;
+    background: white;
+    overflow: auto;
+    box-shadow: 0 0 5px #00000094;
+    opacity: 0;
+    transition : all .3s;
+    -wekit-transition : all .3s;
+    -moz-transition : all .3s;
+}
 .rainbow {
     color: rgba(0, 0, 0, 0.459);
     background: linear-gradient(to right,
@@ -80,6 +118,7 @@ nav#topbar {
     margin-bottom: 2px;
     color: white;
     background-color: #CE5151;
+    background: var(--main-color);
     position: sticky;
     position: -webkit-sticky;
     top: 0;
@@ -124,6 +163,7 @@ ul#site-options { float: left } ul#user-options { float: right }
 .dropdown ul { padding: 0; display: grid }
 .dropdown ul a li { padding: 4px }
 .dropdown ul a:hover { background-color: #CE5151 }
+.dropdown ul a:hover { background: var(--main-color); }
 .hidden { display: none !important; visibility: hidden }
 .link { cursor: pointer }
 .carousel { 
@@ -199,6 +239,7 @@ textarea {
 .post-pfp {
     object-fit: cover;
     border: 1px solid #CE5151;
+    border: 1px solid var(--main-color);
     object-position: left;
     width: 47px;
     height: 47px;
