@@ -222,6 +222,7 @@ async function fetchProfilePage(user) {
         })
     }
 
+    let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const archivetable = document.querySelector('table#archive')
     if (blogResponse.archive && blogResponse.archive.length > 0) {
         const archive = blogResponse.archive
@@ -230,7 +231,7 @@ async function fetchProfilePage(user) {
             let tr = newElement(null, 'tr', null)
 
             let monthTD = newElement(null, 'td', 'social-name')
-            let month = Intl.DateTimeFormat('en', { month: 'long' }).format(new Date(a.month))
+            let month = monthArray[Number(a.month) - 1]
             monthTD.innerHTML = `<a href="/~${user}/archive">${month} ${a.year}</a> (${a.count})`
             monthTD.valign = 'top'
 
