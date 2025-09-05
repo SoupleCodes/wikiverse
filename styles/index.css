@@ -1,3 +1,52 @@
+#main { 
+    display: flex;
+    justify-content: space-between;
+}
+#right {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    right: -11px;
+    padding-top: 30px;
+}
+input#searchbar {
+    height: 29px;
+    width: 330px;
+    border: 1px solid #BEBEBE;
+    box-shadow: inset 0px 1px 2.3px #0000003b;
+    padding-left: 7px;
+    color: #434343;
+    background-color: white;
+    background-image: url('/images/ui/search-icon.png');
+    background-position-x: right;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+.w-container { width: 390px;background: #CCC;border-bottom: 1px solid #CCC;margin: 6px 0px; }
+.w-header { background: #AEB0CB;border: 1px solid white;margin: 1px;color: white;padding-left: 2px;padding-bottom: 2px;font-size: 13px; }
+.w-content { border: 1px solid white;height: 175px;margin: 1px;background: #F1F1F7; }
+
+#newest-users .w-header { background: #5D95C9; }
+#newest-users .w-content { background: #F3F8FA; height: 73px; }
+#categories .w-content {
+    height: 378px;
+}
+#categories ul {
+    margin: 0;
+    padding: 2px 0px;
+}
+#categories li {
+    color: #A1A1A1;
+    list-style: none;
+    font-size: 9px;
+    background: url('/images/ui/arrow.png');
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-position-x: 7px;
+    padding-left: 22px;
+    padding-top: 4px;
+}
+
 #login {
     background: #F6EDED;
     height: 128px;
@@ -48,10 +97,44 @@ table#login-form input[type="submit"]:hover {
     padding-bottom: 5px;
     padding-left: 10px;
 }
+#blogs .title {
+    position: relative;
+    right: 6px;
+    color: #686868;
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 3px;
+}
+.blog-title {
+    color: #3399CC;
+}
+.blog-content {
+    padding-left: 4px;
+}
+.blog-content p {
+    height: 24px;
+    overflow: clip;
+}
+.blog {
+    padding: 4px 0;
+    display: flex;
+}
+#avatar {
+    display: inline-block;
+}
+#avatar img {
+    width: 47px;
+    height: 63px;
+    object-fit: cover;
+    border: 1px solid #D9D9D9;
+    outline: 2px solid white;
+    object-position: left;
+    margin: 3px;
+    margin-left: 6px;
+}
 .article {
     padding: 5px 9px;
 }
-.article-nav {
+.nav {
     margin-top: 7px;
     color: #39C;
 }

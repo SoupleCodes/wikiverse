@@ -229,12 +229,11 @@ function replaceBBCodeWithHTML(t, htmlTemplate, bbtag) {
     });
 }
 
-window.bbcodeparse = function bbcodeparse(s) {
+window.bbcodeparse = function bbcodeparse(s, disableImages) {
     let result = s;
     if (!s) {
       return "";
     }
-    result = replaceSmileysWithRegex(result);
     let changed = true;
     while (changed) {
         changed = false;
@@ -245,5 +244,8 @@ window.bbcodeparse = function bbcodeparse(s) {
         }
     }
 
-    return DOMPurify.sanitize(result);
+    if (disableImages) {
+        return replaceSmileysWithRegex(DOMPurify.sanitize(result, { FORBID_TAGS: ['img'] }))
+    }
+    return DOMPurify.sanitize(replaceSmileysWithRegex(result));
 }
