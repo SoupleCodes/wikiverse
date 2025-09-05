@@ -160,7 +160,7 @@ const bbcodeTags = [
     { html: "<blink></blink>", tag: "blink" },
     { html: "<code></code>", tag: "code" },
     { html: "<span style='color: $attr$;'></span>", tag: "color" },
-    { html: "<span style='width: $attr$;'></span>", tag: "width" },
+    { html: "<span style='width: $attr$px;'></span>", tag: "width" },
     { html: "<span style='float: $attr$;'></span>", tag: "float" },
     { html: "<a href='$attr$'></a>", tag: "url" },
     { html: "<a href='$attr$'>$attr$</a>", tag: "email" },
