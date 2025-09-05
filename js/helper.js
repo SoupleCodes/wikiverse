@@ -164,7 +164,7 @@ const bbcodeTags = [
     { html: "<span style='float: $attr$;'></span>", tag: "float" },
     { html: "<a href='$attr$'></a>", tag: "url" },
     { html: "<a href='$attr$'>$attr$</a>", tag: "email" },
-    { html: "<img src='$attr$'></img>", tag: "img" },
+    { html: "<img src='$attr$' style='width: inherit;'></img>", tag: "img" },
     { html: "<a href='/article/$attr$'></a>", tag: "article" },
     { html: "<a href='/blog/$attr$'></a>", tag: "blog" },
     { html: "<span style='font-size: $attr$px;'></span>", tag: "size" },
