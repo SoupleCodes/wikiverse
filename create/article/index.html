@@ -10,40 +10,42 @@
     <nav id="topbar"></nav>
     <body>
         <div id="main">
-            <label for="title">
-                <small>Title:</small>
-                <input type="text" id="title" name="title" placeholder="What is le title" required>
-            </label>
-            <label for="subject">
-                <small>Subject:</small>
-                <select name="subject" id="subject">
-                    <option>Other</option>
-                    <option>Technology</option>
-                    <option>Gaming</option>
-                    <option>Food</option>
-                    <option>Animals</option>
-                    <option>Websites</option>
-                    <option>Music</option>
-                    <option>Bands</option>
-                    <option>Software</option>
-                    <option>Souple</option>
-                    <option>Biography</option>
-                    <option>Science</option>
-                    <option>Geography</option>
-                    <option>History</option>
-                    <option>Literature</option>
-                    <option>Media</option>
-                    <option>Sports & Recreation</option>
-                    <option>Art & Design</option>
-                    <option>Astronomy</option>
-                    <option>Chemistry</option>
-                    <option>Computer Science</option>
-                    <option>Education</option>
-                    <option>Film</option>
-                </select>
-            </label>            
-            <textarea id="content" name="content" required></textarea>
-            <button id="post-button" onclick="submitArticle()" type="submit">Submit</button>
+            <div>
+                <label for="title">
+                    <small>Title:</small>
+                    <input type="text" id="title" name="title" placeholder="What is le title" required>
+                </label>
+                <label for="subject">
+                    <small>Subject:</small>
+                    <select name="subject" id="subject">
+                        <option>Other</option>
+                        <option>Technology</option>
+                        <option>Gaming</option>
+                        <option>Food</option>
+                        <option>Animals</option>
+                        <option>Websites</option>
+                        <option>Music</option>
+                        <option>Bands</option>
+                        <option>Software</option>
+                        <option>Souple</option>
+                        <option>Biography</option>
+                        <option>Science</option>
+                        <option>Geography</option>
+                        <option>History</option>
+                        <option>Literature</option>
+                        <option>Media</option>
+                        <option>Sports & Recreation</option>
+                        <option>Art & Design</option>
+                        <option>Astronomy</option>
+                        <option>Chemistry</option>
+                        <option>Computer Science</option>
+                        <option>Education</option>
+                        <option>Film</option>
+                    </select>
+                </label>            
+                <textarea id="content" name="content" required></textarea>
+                <button id="post-button" onclick="submitArticle()" type="submit">Submit</button>
+            </div>
         </div>
     </body>
     <script type="text/javascript" src="/js/helper.js"></script>
