@@ -73,3 +73,58 @@ button#add-link, button.remove-link {
     gap: 4px;
     padding: 6px 0 13px;
 }
+.tabs {
+    display: flex;
+}
+.tab.selected {
+    background: #ececec;
+}
+#tabs-music, #tabs-music input {
+    width: 100%;
+}
+.tab {
+    display: flex;
+    flex-grow: 1;
+    margin-right: 2px;
+    background: #d2d2d2;
+    font-size: 10px;
+    color: #848c95;
+    padding-left: 4px;
+    cursor: pointer
+}
+.tabs .tab:last-child {
+    margin: 0
+}
+#music-input {
+    padding: 4px;
+    background: #ececec;
+    display: flex;
+}
+
+.song-group {
+    display: flex;
+    padding: 5px 0px 0px 0px;
+    cursor: pointer;
+}
+.song-group:hover {
+    background: #EAEAEA;
+}
+.song-detail {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4px;
+    flex-grow: 1;
+}
+.song-group img {
+    width: 25px;
+}
+.song-group p {
+    margin: 0;
+}
+.song-group small {
+    flex-grow: 1;
+}
+.song-date, .song-album, .song-genre {
+    text-align: center;
+    line-height: 2;
+}

@@ -21,53 +21,6 @@ if (u) {
     styleEl.value = u.style
 }
 
-async function updateProfile() {
-    let display_name = displayInputEl.value
-    let pfp_url = pfpUrlEl.value
-    let banner_url = bannerUrlEl.value
-    let location = locationEl.value
-    let about_me = aboutMeEl.value
-    let style = styleEl.value
-    let social_links = []
-
-    Array.from(linksEl.children).map((s) => {
-        social_links.push({
-            username: s.children[0].querySelector('input').value,
-            name: s.children[1].querySelector('input').value,
-            url: s.children[2].querySelector('input').value,
-        })
-    })
-
-    const response = await fetch(`https://wiki.souple.workers.dev/me`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            display_name,
-            pfp_url,
-            banner_url,
-            location,
-            about_me,
-            style,
-            social_links
-        })
-    });
-    try {
-        if (response.ok) {
-            u = { ...u, display_name, pfp_url, banner_url, location, about_me, style, social_links }
-            localStorage.setItem('user', JSON.stringify(u))
-            alert('Profile updated successfully');
-        } else {
-            const error = await response.text();
-            console.error("Error updating user:", error);
-        }
-    } catch (error) {
-        console.error("Error updating the user", error);
-    }
-}
-
 function addLink(data) {
     const parent = document.createElement('div')
     parent.classList.add('s-link')
@@ -243,6 +196,21 @@ Array.from(u.social_links).map((s) => {
 
 
 const side3 = previewIframeEl.createElement('div'); side3.id = 'side3'
+side3.innerHTML = `
+    <h5 class="title">My weblog...</h5>
+        <div class="weblog">
+            <p class="blog-date">December 31, 1969 ~ 12:59 pm</p>
+            <div class="blog-content">
+                <h6 class="entry-title">Title</h6>
+                <p class="blog-body"></p>
+            </div>
+            <div class="blog-links">
+                <p>47 views</p><p> - </p><p><a href="#">0 comments</a></p>
+            </div>
+        </div>
+    </div>
+`
+
 const side4 = previewIframeEl.createElement('div'); side4.id = 'side4'
 
 previewIframeEl.querySelector('body').appendChild(header); previewIframeEl.querySelector('body').appendChild(banner);
@@ -262,3 +230,143 @@ var link2 = document.createElement('link');
     link2.rel = 'stylesheet';
     link2.href = '/styles/user.css'
 previewIframeEl.querySelector('head').appendChild(link2)
+
+let musicDetails = document.getElementById('music-details')
+let addMusicDetailButton = document.querySelector('#music-input button')
+function addMusicDetail(m) {
+    let group = document.createElement('div')
+        group.classList.add('song-group')
+        group.setAttribute('songurl', m.song_url || '')
+        group.setAttribute('link', m.link || '')
+
+        let img = document.createElement('img')
+        img.src = m.cover_art ?? 'https://legoshi.pages.dev/music/noart.png'
+        group.appendChild(img)
+
+        let songDetail = document.createElement('div')
+        songDetail.classList.add('song-detail')
+        let p = document.createElement('p')
+        p.textContent = m.song_name
+        let author = document.createElement('small')
+        author.textContent = m.artist_name
+        songDetail.appendChild(p)
+        songDetail.appendChild(author)
+        group.appendChild(songDetail)
+
+        let smallDate = document.createElement('small')
+        smallDate.classList.add('song-date')
+        smallDate.textContent = m.published
+        group.appendChild(smallDate)
+
+        let smallAlbum = document.createElement('small')
+        smallAlbum.classList.add('song-album')
+        smallAlbum.textContent = m.album
+        group.appendChild(smallAlbum)
+
+        let smallGenre = document.createElement('small')
+        smallGenre.classList.add('song-genre')
+        smallGenre.textContent = m.genre
+        group.appendChild(smallGenre)
+
+        const button = document.createElement('button')
+        button.classList.add('remove-link')
+        button.textContent = '-'
+        button.addEventListener('click', function() {
+            group.remove()
+        })
+        group.appendChild(button)
+
+        return group
+}
+if (musicDetails && u) {
+    Array.from(u.music).map(m => {
+        musicDetails.appendChild(addMusicDetail(m, m.song_url, m.link))
+    })
+
+    const detailOptions = document.querySelector('#tabs-music.tab-content').children
+    addMusicDetailButton.addEventListener('click', () => {
+        let artist_name = detailOptions[0].value
+        let song_name = detailOptions[1].value
+        let song_url = detailOptions[2].value
+        let published = detailOptions[4].value
+        if (!artist_name) throw new Error('Artist name missing!')
+        if (!song_name) throw new Error('Song name missing!')
+        if (!song_url) throw new Error('Song url missing!')
+        if (!published) throw new Error('Date missing!')
+
+        musicDetails.appendChild(addMusicDetail(
+            {
+                artist_name: artist_name,
+                song_name: song_name,
+                song_url: song_url,
+                cover_art: detailOptions[3].value,
+                published: published,
+                album: detailOptions[5].value,
+                genre: detailOptions[6].value,
+            }
+        ))
+    })
+}
+
+async function updateProfile() {
+    let display_name = displayInputEl.value
+    let pfp_url = pfpUrlEl.value
+    let banner_url = bannerUrlEl.value
+    let location = locationEl.value
+    let about_me = aboutMeEl.value
+    let style = styleEl.value
+    let social_links = []
+    let music = []
+
+    Array.from(linksEl.children).map(s => {
+        social_links.push({
+            username: s.children[0].querySelector('input').value,
+            name: s.children[1].querySelector('input').value,
+            url: s.children[2].querySelector('input').value,
+        })
+    })
+
+    Array.from(musicDetails.children).map(m => {
+        music.push({
+            artist_name: m.childNodes[1].childNodes[0].textContent,
+            song_name: m.childNodes[1].childNodes[1].textContent,
+            song_url: m.getAttribute('songurl'),
+            cover_art: m.childNodes[0].src,
+            published: Number(m.childNodes[2].textContent),
+            album: m.childNodes[3].textContent,
+            genre: m.childNodes[4].textContent,
+            link: m.getAttribute('link'),
+        })
+    })
+
+    const response = await fetch(`https://wiki.souple.workers.dev/me`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            display_name,
+            pfp_url,
+            banner_url,
+            location,
+            about_me,
+            style,
+            social_links,
+            music
+        })
+    });
+    try {
+        if (response.ok) {
+            u = { ...u, display_name, pfp_url, banner_url, location, about_me, style, social_links, music }
+            localStorage.setItem('user', JSON.stringify(u))
+            alert('Profile updated successfully');
+        } else {
+            const error = await response.text();
+            console.error("Error updating user:", error);
+            throw new Error(error)
+        }
+    } catch (error) {
+        console.error("Error updating the user", error);
+    }
+}

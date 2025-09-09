@@ -63,6 +63,11 @@ select {
     border: 1px solid #acacac;
     font-size: 8px;
 }
+fieldset {
+    border: 1px solid #E1E1E1;
+    padding: 2px 4px;
+    margin: 0
+}
 @keyframes rainbow-flow {
     0% { background-position: 50% 0% }
   100% { background-position: -200%; }

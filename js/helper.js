@@ -251,3 +251,31 @@ window.bbcodeparse = function bbcodeparse(s, disableImages) {
     }
     return DOMPurify.sanitize(replaceSmileysWithRegex(result));
 }
+
+// Tabs logic
+let tabParents = document.querySelectorAll('.tabs')
+if (tabParents) {
+    Array.from(tabParents).map(t => {
+        let tabs = t.querySelectorAll('.tab')
+        let tabsContent = document.querySelector(`#${t.id}.tab-content`)
+        Array.from(tabsContent.children).map(c => {
+            c.classList.add('hidden')
+        })
+        tabsContent.children[0].classList.remove('hidden')
+        tabs[0].classList.add('selected')
+
+        Array.from(tabs).map((c, index) => {
+            c.addEventListener('click', function() {
+                tabs.forEach(a => {
+                    a.classList.remove('selected')
+                    tabsContent.children[index].classList.add('hidden')
+                })
+                c.classList.add('selected')
+                Array.from(tabsContent.children).map(c => {
+                    c.classList.add('hidden')
+                })
+                tabsContent.children[index].classList.remove('hidden')
+            })
+        });
+    });
+}
