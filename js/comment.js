@@ -1,5 +1,4 @@
 let token = localStorage.token
-let val
 let u = JSON.parse(localStorage.user || '[]')
 
 function dateDiff(a, b) {

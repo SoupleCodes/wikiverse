@@ -48,8 +48,11 @@ async function fetchBlog(id) {
     document.querySelector('table#profile-link-options td#linkTo-blogs a').href = '/~' + data.author + '/archive'
     document.querySelector('table#profile-link-options td#linkTo-polls a').href = '/~' + data.author + '/polls'
     document.querySelector('table#profile-link-options td#linkTo-themes a').href = '/~' + data.author + '/themes'
+
+    // Display comments
+    displayComments('/blog/' + id)
 }
 
 if (id) {
-    fetchBlog(id)   
+    fetchBlog(id)
 }

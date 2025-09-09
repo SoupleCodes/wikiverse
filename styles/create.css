@@ -23,7 +23,7 @@ input {
     height: 350px;
 }
 #preview-window {width:100%;height:100%}
-#edit-content, #edit-tags, #edit-style, #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle, #edit-social-links {
+#edit-content, #edit-tags, #edit-style, #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle, #edit-social-links, #edit-music {
     width: 100%;
     margin-bottom: 5px;
     display: grid;

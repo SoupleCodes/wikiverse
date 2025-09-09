@@ -104,3 +104,5 @@ class MusicPlayer {
         this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
     }
 }
+
+window.musicPlayer = MusicPlayer

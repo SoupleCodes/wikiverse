@@ -241,6 +241,9 @@ async function fetchProfilePage(user) {
         archivetable.appendChild(tbody)
     }
 
+    // Display comments
+    displayComments('/user/' + user)
+
     // Add modules
     const side4 = document.getElementById('side4')
 

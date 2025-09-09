@@ -66,6 +66,8 @@ async function fetchArticle(id) {
     document.querySelector("textarea#articleEdit").value = data.content
     document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
 
+    // Display comments
+    displayComments('/article/' + id)
 
     const navEdit = document.querySelector('#entry a#edit')
     const entryBody = document.querySelector('#entry-body')
