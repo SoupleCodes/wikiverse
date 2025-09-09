@@ -242,7 +242,7 @@ async function fetchProfilePage(user) {
     }
 
     // Display comments
-    displayComments('/user/' + user)
+    await displayComments('/user/' + user)
 
     // Add modules
     const side4 = document.getElementById('side4')

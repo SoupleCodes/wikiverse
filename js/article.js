@@ -67,7 +67,7 @@ async function fetchArticle(id) {
     document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
 
     // Display comments
-    displayComments('/article/' + id)
+    await displayComments('/article/' + id)
 
     const navEdit = document.querySelector('#entry a#edit')
     const entryBody = document.querySelector('#entry-body')

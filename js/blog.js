@@ -50,7 +50,7 @@ async function fetchBlog(id) {
     document.querySelector('table#profile-link-options td#linkTo-themes a').href = '/~' + data.author + '/themes'
 
     // Display comments
-    displayComments('/blog/' + id)
+    await displayComments('/blog/' + id)
 }
 
 if (id) {
