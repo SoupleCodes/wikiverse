@@ -160,7 +160,7 @@ ul#site-options { float: left } ul#user-options { float: right }
     position: absolute;
     width: 117px;
     background-color: #A44242;
-    top: 17px;
+    top: 16px;
     right: -22px;
     box-shadow: inset 0 2px 2px -2px #0000004f;
     z-index: 99

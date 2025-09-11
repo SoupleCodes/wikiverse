@@ -40,6 +40,11 @@ input {
     min-height: 18px;
     padding: 0px;
 }
+#options { padding: 10px 0 }
+.option { display: flex }
+.option input {
+    width: 100%;
+}
 .tag {
     display: inline-block;
     background: #bbb;

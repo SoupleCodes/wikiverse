@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="/styles/main.css"/>
+        <link rel="stylesheet" href="/styles/create.css"/>
+        <link rel="icon" type="image/png" href="/favicon.png"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="friends online social networking wiki articles blog poll">
+        <script type="text/javascript" src="/js/helper.js"></script>
+    </head>
+    <nav id="topbar"></nav>
+    <body>
+        <div id="main">
+            <label for="question">
+                <small>Question:</small>
+                <input type="text" id="question" name="question" placeholder="What's your favorite soup?" required>
+            </label>
+            <div id="edit-polloptions">
+                <small>Options:</small>
+                <div style="display: flex;">
+                    <input type="text" id="add-option" name="option" placeholder="chowder" style="display: flex;flex-grow: 1;">
+                    <button id="add-option">Add option</button>
+                </div>
+                <div id="options"></div>
+            </div>
+            <button id="post-button" onclick="submitPoll()" type="submit">Submit</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="/js/create.js"></script>
+    <script type="text/javascript" src="/js/nav.js"></script>
+</html>

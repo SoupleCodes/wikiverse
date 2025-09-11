@@ -42,6 +42,7 @@ async function fetchBlog(id) {
     document.querySelector('#entry-date.meta a').href = '/~' + data.author
     document.querySelector('#entry-date.meta a').textContent = data.author.toUpperCase()
     document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
+    document.querySelector('style#blog-style').innerHTML = data.style
     
     document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/~' + data.author
     document.querySelector('table#profile-link-options td#linkTo-articles a').href = '/~' + data.author + '/articles'

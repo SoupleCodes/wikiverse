@@ -95,24 +95,9 @@ function createCommentElement(data, idx) {
 
 async function displayComments(route) {
     let commentsSection = document.getElementById('comments-section')
-    let commentCountElement
-    let showing
-    let commentParent
-
-    if (commentsSection) {
-        commentCountElement = document.createElement('h5')
-        commentCountElement.id = 'comment-count'
-        commentCountElement.classList.add('title')
-        commentsSection.appendChild(commentCountElement)
-
-        showing = document.createElement('p')
-        showing.id = 'showing'
-        commentsSection.appendChild(showing)
-
-        commentParent = document.createElement('div')
-        commentParent.id = 'comments'
-        commentsSection.appendChild(commentParent)
-    }
+    let commentCountElement = document.querySelector('#comments-section #comment-count')
+    let showing = document.querySelector('#comments-section #showing')
+    let commentParent = document.querySelector('#comments-section #comments')
     
     let commentsResponse
     commentsResponse = await fetch('https://wiki.souple.workers.dev' + route + '/comments', {
@@ -134,18 +119,13 @@ async function displayComments(route) {
     }
     showing.textContent = 'showing latest ' + Math.min(Math.max(commentsCount, 0), 40) + ' out of ' + commentsCount + ' comments'
     
-    const commentBox = document.createElement('div')
-    commentBox.id = 'comment-box'
-
-    const textarea = document.createElement('textarea')
-    textarea.placeholder = 'Type something here!'
-    const submitButton = document.createElement('button')
-    submitButton.id = 'submit'
-    submitButton.textContent = 'submit'
+    const commentBox = document.querySelector('#comments-section #comment-box')
+    const typearea = commentBox.querySelector('#typearea')
+    const submitButton = document.querySelector('#submit')
 
     let isSpam = false
     submitButton.addEventListener('click', async () => {
-        let val = textarea.value
+        let val = typearea.value
         let comments = document.getElementById('comments').children
         if(comments[0] && comments[1]) {
             isSpam = val === comments[0].textContent === comments[1].textContent
@@ -176,10 +156,10 @@ async function displayComments(route) {
                 commentCountElement.textContent += 's'
             }
             showing.textContent = 'showing latest ' + count + ' out of ' + count + ' comments'
-            textarea.value = ''
+            typearea.value = ''
         }
     })
-    commentBox.appendChild(textarea)
+    commentBox.appendChild(typearea)
     commentBox.appendChild(submitButton)
     commentsSection.appendChild(commentBox)
 }

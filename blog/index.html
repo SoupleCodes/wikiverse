@@ -10,6 +10,7 @@
         <script type="text/javascript" src="/js/comment.js"></script>
     </head>
     <nav id="topbar"></nav>
+    <style id="blog-style"></style>
     <body>
         <div id="main">
             <div id="banner"></div>
@@ -43,7 +44,15 @@
                     <h5 id="entry-title" class="title"></h5>
                     <div id="entry-date" class="meta"></div>
                     <div id="entry-body"><p></p></div>
-                    <div id="comments-section"></div>
+                    <div id="comments-section">
+                        <h5 id="comment-count" class="title"></h5>
+                        <p id="showing"></p>
+                        <div id="comments"></div>
+                        <div id="comment-box">
+                            <textarea id="typearea" placeholder="Type something here!"></textarea>
+                            <button id="submit">submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

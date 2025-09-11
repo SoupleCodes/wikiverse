@@ -83,7 +83,7 @@ async function fetchArticle(id) {
     articleEditButton.addEventListener("click", async () => {
         let newContent = articleEdit.value
         if (oldContent !== newContent) {
-            entryBody.innerText = newContent
+            entryBody.innerHTML = bbcodeparse(newContent)
             await updateArticle(id, newContent)
             oldContent = newContent
         }

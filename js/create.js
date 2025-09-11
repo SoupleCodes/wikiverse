@@ -1,19 +1,38 @@
 const form = document.querySelector('form#create-form')
 const textarea = document.querySelector('textarea#content')
+
 const preview = document.querySelector('div#content')
 const ppartsinputs = document.querySelector('#inputs-for-parent-part')
 const prevToggl = document.querySelector('input[name=toggle-preview]')
 const partsToggl = document.querySelector('input[name=toggle-parent]')
 const commentsToggl = document.querySelector('input[name=toggle-comments]')
 const globalCSSToggl = document.querySelector('input[name=toggle-globalcss]')
+
 const addTagBtn = document.querySelector('button#add-tag')
 const tagsElement = document.getElementById('tags')
 const tagAddInput = document.querySelector('input#add-tags')
+
+const addOptionBtn = document.querySelector('button#add-option')
+const optionsElement = document.getElementById('options')
+const optionAddInput = document.querySelector('input#add-option')
+
 const emojiList = document.getElementById('emoji-list')
-prevToggl.checked = false;
-partsToggl.checked = false;
-commentsToggl.checked = true;
-globalCSSToggl.checked = false
+if (prevToggl) {
+  prevToggl.checked = false;
+  prevToggl.addEventListener('change', function() {
+    textarea.classList.toggle('hidden')
+    preview.querySelector('p').innerHTML = bbcodeparse(textarea.value)
+    preview.classList.toggle('hidden')
+  });
+}
+if (partsToggl) { 
+  partsToggl.checked = false;
+  partsToggl.addEventListener('change', function() {
+    ppartsinputs.classList.toggle('hidden')
+  });
+}
+if (commentsToggl) commentsToggl.checked = true;
+if (globalCSSToggl) globalCSSToggl.checked = false
 
 const token = localStorage.token
 
@@ -44,6 +63,38 @@ async function submitArticle() {
     } catch (error) {
       alert(`Error submitting article: ` + error);
     }
+}
+
+async function submitPoll() {
+  let question = document.getElementById('question').value
+  let options = document.getElementById('options')
+  let optionsArray = []
+  Array.from(options.children).map((o) => {
+    optionsArray.push(o.firstChild.value)
+  }) 
+
+  try {
+    const response = await fetch("https://wiki.souple.workers.dev/poll", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        question,
+        options: optionsArray
+      })
+    });
+
+    if (response.ok) {
+      const re = await response.json();
+      alert("Poll submitted successfully!");
+      window.location.href = `/poll/${re.id}`
+      form.reset();
+    }
+  } catch (error) {
+    alert(`Error submitting poll: ` + error);
+  }
 }
 
 async function submitBlog() {
@@ -102,36 +153,27 @@ function insertAtStart(s) {
   textarea.value = newStr
 }
 
-let keyValPairs = {}
-for (let i = 0; i < smileys.length; i+=2) {
-  const k = smileys[i]
-  const val = smileys[i + 1]
-  keyValPairs[k] = val
-}
-
-for (const [k, v] of Object.entries(keyValPairs)) {
-  let imgEl = document.createElement('img')
-  imgEl.src = v
-  imgEl.title = k
-  imgEl.onclick = function () {
-    insertAtStart(k)
+if (emojiList) {
+  let keyValPairs = {}
+  for (let i = 0; i < smileys.length; i+=2) {
+    const k = smileys[i]
+    const val = smileys[i + 1]
+    keyValPairs[k] = val
   }
 
-  emojiList.appendChild(imgEl)
+  for (const [k, v] of Object.entries(keyValPairs)) {
+    let imgEl = document.createElement('img')
+    imgEl.src = v
+    imgEl.title = k
+    imgEl.onclick = function () {
+      insertAtStart(k)
+    }
+
+    emojiList.appendChild(imgEl)
+  }
 }
 
-prevToggl.addEventListener('change', function() {
-  if (this.checked) {
-  } else {
-  }
-  textarea.classList.toggle('hidden')
-  preview.querySelector('p').innerHTML = bbcodeparse(textarea.value)
-  preview.classList.toggle('hidden')
-});
-partsToggl.addEventListener('change', function() {
-  ppartsinputs.classList.toggle('hidden')
-});
-addTagBtn.addEventListener('click', function() {
+addTagBtn && addTagBtn.addEventListener('click', function() {
   if (!tagAddInput.value) {
     return ''
   }
@@ -152,7 +194,30 @@ addTagBtn.addEventListener('click', function() {
   tagsElement.appendChild(tagDiv)
   tagAddInput.value = ''
 })
-document.querySelector('input#add-tags').addEventListener("keyup", function(event) {
+addOptionBtn && addOptionBtn.addEventListener('click', function() {
+  if (!optionAddInput.value) {
+    return ''
+  }
+
+  let optionEl = document.createElement('div')
+  optionEl.classList.add('option')
+
+  let optionInp = document.createElement('input')
+  optionInp.value = optionAddInput.value
+  optionEl.appendChild(optionInp)
+
+  const button = document.createElement('button')
+    button.classList.add('remove-link')
+    button.textContent = '-'
+    button.addEventListener('click', function() {
+      optionEl.remove()
+    })
+  optionEl.appendChild(button)
+
+  optionsElement.appendChild(optionEl)
+  optionAddInput.value = ''
+})
+tagAddInput && tagAddInput.addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
       addTagBtn.click();
