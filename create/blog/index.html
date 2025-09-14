@@ -6,7 +6,6 @@
         <link rel="icon" type="image/png" href="/favicon.png"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="friends online social networking wiki articles blog poll">
-        <script type="text/javascript" src="/js/helper.js"></script>
     </head>
     <nav id="topbar"></nav>
     <body>
@@ -39,8 +38,46 @@
                     <textarea id="content" name="content" style="margin: 0;" required></textarea>
                 </label>
             </div>
+            <div id="edit-music">
+                <div style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-music" style="height: 8px;">Add music?</div>
+                <div id="music-editor" class="hidden">
+                    <div id="tabs-music" class="tabs">
+                      <div class="tab">Artist</div>
+                      <div class="tab">Song name</div>
+                      <div class="tab">Audio url</div>
+                      <div class="tab">Cover url</div>
+                      <div class="tab">Date</div>
+                      <div class="tab">Album</div>
+                      <div class="tab">Genre</div>
+                    </div>
+                    <div id="music-input">
+                        <div id="tabs-music" class="tab-content">
+                            <input type="text" name="artist">
+                            <input type="text" name="song name">
+                            <input type="text" name="audio url">
+                            <input type="text" name="cover url">
+                            <input type="text" name="date">
+                            <input type="text" name="album">
+                            <input type="text" name="genre">
+                        </div>
+                        <button>Submit</button>
+                    </div>
+                    <div id="music-preview">
+                        <div class="song-group" songurl="" link="">
+                            <img src="">
+                            <div class="song-detail">
+                                <p></p>
+                                <small></small>
+                            </div>
+                            <small class="song-date"></small>
+                            <small class="song-album"></small>
+                            <small class="song-genre"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="edit-parentpart">
-                <div for="toggle-parent" style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-parent" style="height: 8px;">Part of a series of blogs?</div>
+                <div style="color: gray;font-size: 8px;float:left"><input type="checkbox" name="toggle-parent" style="height: 8px;">Part of a series of blogs?</div>
                 <div id="inputs-for-parent-part" class="hidden" style="float:right">
                     <label for="parent-id">
                         <small>Parent blog id:</small>
@@ -61,6 +98,7 @@
             <button id="post-button" onclick="submitBlog()" type="submit">Submit</button>
         </div>
     </body>
+    <script type="text/javascript" src="/js/helper.js"></script>
     <script type="text/javascript" src="/js/create.js"></script>
     <script type="text/javascript" src="/js/nav.js"></script>
 </html>

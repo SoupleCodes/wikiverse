@@ -25,7 +25,7 @@ function dateDiff(a, b) {
 
 async function postComment(route, val) {
     try {
-      const response = await fetch('https://wiki.souple.workers.dev' + route + '/comment', {
+      const response = await fetch('https://wiki.souple.workers.dev/' + route + '/comment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,12 +99,13 @@ async function displayComments(route) {
     let showing = document.querySelector('#comments-section #showing')
     let commentParent = document.querySelector('#comments-section #comments')
     
-    let commentsResponse
-    commentsResponse = await fetch('https://wiki.souple.workers.dev' + route + '/comments', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    })
-    const c = await commentsResponse.json()
+    let inframe = window.inIframe
+    let c
+    if (inframe) {
+        c = dummyData.comments
+    } else {
+        c = await fetchGET(route + '/comments')
+    }
     const commentsCount = c.length || 0
 
     if (c && commentsCount > 0) {

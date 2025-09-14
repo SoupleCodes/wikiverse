@@ -1,6 +1,3 @@
-let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
-const user = (test || new URLSearchParams(window.location.search).get(""))
-
 function createBlog(data) {
     const blog = document.createElement('div')
     blog.classList.add('weblog')
@@ -112,7 +109,13 @@ function createTrackElement(songData) {
 }
 
 async function fetchProfilePage(user) {
-    const data = await fetchGET('user/' + user)
+    let inframe = window.inIframe
+    let data
+    if (inframe) {
+        data = dummyData.user
+    } else {
+        data = await fetchGET('user/' + user)
+    }
 
     const headerDisplay = document.querySelector('#header #display')
     if (user.endsWith('s')) {
@@ -121,50 +124,71 @@ async function fetchProfilePage(user) {
         document.title=user + "'s profile - wikiverse"
     }
     
-    headerDisplay.textContent = user
-    if (user.endsWith('s')) {
-        headerDisplay.textContent= user + "' profile"
-    } else {
-        headerDisplay.textContent= user + "'s profile"
+    if (headerDisplay) {
+        headerDisplay.textContent === user
+        if (user.endsWith('s')) {
+            headerDisplay.textContent= user + "' profile"
+        } else {
+            headerDisplay.textContent= user + "'s profile"
+        }
     }
     if (data.banner_url) {
         const img = document.createElement('img')
         img.src = data.banner_url
-        document.querySelector('#banner').appendChild(img)
+        document.querySelector('#banner') && document.querySelector('#banner').appendChild(img)
     }
     if (data.pfp_url) {
         const pfp = document.querySelector('#avatar img')
         pfp.src = data.pfp_url
     }
-    document.querySelector('#display_name').textContent = data.display_name
-    document.querySelector('#join-date').textContent = returnUTCTime(data.created_at)
-    document.querySelector('#join-date').title = new Date(data.created_at).toUTCString()
-    document.querySelector('#last-seen').textContent = returnUTCTime(data.last_activity)
-    document.querySelector('#last-seen').title = new Date(data.last_activity).toUTCString()
-    document.querySelector('#user-location').textContent = data.location
-    document.querySelector('p#aboutme').innerHTML = bbcodeparse(data.about_me)
-    document.querySelector('style#user-style').innerHTML = data.style
 
-    const recentComments = await fetchGET('user/' + user + '/recent/comments')
-    if (recentComments && recentComments.length > 0) {
-        const recentUL = document.querySelector('ul#recent-comments')
-        recentComments.slice(0, 5).forEach(r => {
-            let a = newElement(null, 'a', null)
-            a.href = `/blog/${r.blog_id}#comment-${r.comment_id}`
-            a.textContent = r.author
+    const displayNameEl = document.querySelector('#display_name')
+    const joinDateEl = document.querySelector('#join-date')
+    const lastSeenEl = document.querySelector('#last-seen')
+    const locationEl = document.querySelector('#user-location')
+    const aboutMeEl = document.querySelector('p#aboutme')
+    const userStyleEl = document.querySelector('style#user-style')
+    const recentUL = document.querySelector('ul#recent-comments')
 
-            let li = newElement(null, 'li', null)
-            li.appendChild(a)
-            let p = newElement(null, 'p', null)
-            p.innerText = 'on ' + r.blog_title
-            li.appendChild(p)
+    displayNameEl && (displayNameEl.textContent = data.display_name)
+    if (joinDateEl) {
+        joinDateEl.textContent = returnUTCTime(data.created_at)
+        joinDateEl.title = new Date(data.created_at).toUTCString()
+    }
+    if (lastSeenEl) {
+        lastSeenEl.textContent = returnUTCTime(data.last_activity)
+        lastSeenEl.title = new Date(data.last_activity).toUTCString()
+    }
+    locationEl && (locationEl.textContent = data.location)
+    aboutMeEl && (aboutMeEl.innerHTML = bbcodeparse(data.about_me))
+    userStyleEl && (userStyleEl.innerHTML = data.style)
 
-            recentUL.appendChild(li)
-        })
+    if (recentUL) {
+        let recentComments
+        if (inframe) {
+            recentComments = dummyData.recentComments
+        } else {
+            recentComments = await fetchGET('user/' + user + '/recent/comments')
+        }
+        if (recentComments && recentComments.length > 0) {
+            recentComments.slice(0, 5).forEach(r => {
+                let a = newElement(null, 'a', null)
+                a.href = `/blog/${r.blog_id}#comment-${r.comment_id}`
+                a.textContent = r.author
+
+                let li = newElement(null, 'li', null)
+                li.appendChild(a)
+                let p = newElement(null, 'p', null)
+                p.innerText = 'on ' + r.blog_title
+                li.appendChild(p)
+
+                recentUL.appendChild(li)
+            })
+        }
     }
 
     const table = document.querySelector('table#contactme')
-    if (!data.social_links == null || (data.social_links && data.social_links.length > 0)) {
+    if (table && (!data.social_links == null || (data.social_links && data.social_links.length > 0))) {
         const links = data.social_links
         let tbody = newElement(null, 'tbody', null)
         links.map((link) => {
@@ -189,33 +213,40 @@ async function fetchProfilePage(user) {
         table.appendChild(tbody)
     }
 
-    let r_editedResponse
-    r_editedResponse = await fetch('https://wiki.souple.workers.dev/user/' + user + '/recent/articles', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-    })
-    const e = await r_editedResponse.json()
-    if (e && e.length > 0) {
-        const recentArticlesUL = document.querySelector('ul#recent-articles')
-        e.slice(0, 5).forEach(e => {
-            let a = newElement(null, 'a', null)
-            a.href = '/article/' + e.id
-            a.textContent = e.title
+    const recentArticlesUL = document.querySelector('ul#recent-articles')
+    if (recentArticlesUL) {
+        let rArticles
+        if (inframe) {
+            rArticles = dummyData.recentArticles
+        } else {
+            rArticles = await fetchGET('user/' + user + '/recent/articles')
+        }
+        if (rArticles && rArticles.length > 0) {
+            rArticles.slice(0, 5).forEach(r => {
+                let a = newElement(null, 'a', null)
+                a.href = '/article/' + r.id
+                a.textContent = r.title
 
-            let li = newElement(null, 'li', null)
-            li.appendChild(a)
-            let p = newElement(null, 'p', null)
-            p.innerText = 'by ' + e.author
-            li.appendChild(p)
+                let li = newElement(null, 'li', null)
+                li.appendChild(a)
+                let p = newElement(null, 'p', null)
+                p.innerText = 'by ' + r.author
+                li.appendChild(p)
 
-            recentArticlesUL.appendChild(li)
-        })
+                recentArticlesUL.appendChild(li)
+            })
+        }
     }
 
-    const blogResponse = await fetchGET('user/' + user + '/blogs/1')
-    const blogsDIV = document.querySelector('#side3')
+    let blogResponse
+    if (inframe) {
+        blogResponse = dummyData.blogs
+    } else {
+        blogResponse = await fetchGET('user/' + user + '/blogs/1')
+    }
 
-    if (blogResponse.totalBlogs > 0) {
+    const blogsDIV = document.querySelector('#side3')
+    if (blogsDIV && blogResponse.totalBlogs > 0) {
         const blogs = blogResponse.blogs.slice(0, 2)
         blogs.forEach(blog => {
             blogsDIV.appendChild(createBlog(blog))
@@ -224,7 +255,7 @@ async function fetchProfilePage(user) {
 
     let monthArray = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const archivetable = document.querySelector('table#archive')
-    if (blogResponse.archive && blogResponse.archive.length > 0) {
+    if (archivetable && blogResponse.archive && blogResponse.archive.length > 0) {
         const archive = blogResponse.archive
         let tbody = newElement(null, 'tbody', null)
         archive.map((a) => {
@@ -242,12 +273,12 @@ async function fetchProfilePage(user) {
     }
 
     // Display comments
-    await displayComments('/user/' + user)
+    await displayComments('user/' + user)
 
     // Add modules
     const side4 = document.getElementById('side4')
 
-    if (!data.music == null || (data.music && data.music.length > 0)) {
+    if (side4 && (!data.music == null || (data.music && data.music.length > 0))) {
         const musicModule = createModule('music', 'Music player.')
         const musicContent = musicModule.querySelector('.w-content')
         let nowPlaying = newElement('now-playing')
@@ -334,8 +365,14 @@ async function fetchProfilePage(user) {
         window.musicPlayer = new MusicPlayer(music, controls, songSlider.querySelector('#seek-slider input'))
     }
 
-    const following = await fetchGET('user/' + user + '/following')
-    if (following && following.length > 0) {
+    let following
+    if (inframe) {
+        blogResponse = dummyData.following
+    } else {
+        blogResponse = await fetchGET('user/' + user + '/following')
+    }
+
+    if (side4 && following && following.length > 0) {
         const fwngModule = createModule('following', 'Following.')
         const fwngContent = fwngModule.querySelector('.w-content')
         const fwngCarousel = newElement('following-carousel', 'div', null)
@@ -356,8 +393,14 @@ async function fetchProfilePage(user) {
         }))
         setupCarousel('following-carousel', carouselContent, 61)
     }
-    const followers = await fetchGET('user/' + user + '/followers')
-    if (followers && followers.length > 0) {
+
+    let followers
+    if (inframe) {
+        blogResponse = dummyData.followers
+    } else {
+        blogResponse = await fetchGET('user/' + user + '/followers')
+    }
+    if (side4 && followers && followers.length > 0) {
         const fwrsModule = createModule('followers', 'Followers.')
         const fwrsContent = fwrsModule.querySelector('.w-content')
         const fwrsCarousel = newElement('followers-carousel', 'div', null)
@@ -380,6 +423,9 @@ async function fetchProfilePage(user) {
     }
 }
 
-if (user) {
-    fetchProfilePage(user)   
+let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
+let user = (new URLSearchParams(window.location.search).get("") || test)
+if (user || window.inIframe) {
+    user = window.dummyData.user.username
+    fetchProfilePage(user)
 }

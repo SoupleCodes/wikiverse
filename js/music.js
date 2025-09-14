@@ -3,8 +3,10 @@ class MusicPlayer {
         console.log(data)
 
         if(!controls.toggle) throw new Error('"play/pause" button element not provided in controls! (controls.toggle)');
-        if(!controls.next) throw new Error('"next" button element not provided in controls! (controls.next)');
-        if(!controls.prev) throw new Error('"previous" button element not provided in controls! (controls.prev)');
+        /* 
+            if(!controls.next) throw new Error('"next" button element not provided in controls! (controls.next)');
+            if(!controls.prev) throw new Error('"previous" button element not provided in controls! (controls.prev)');
+        */
         if(!seekSlider) throw new Error('"slider" input range element not provided! (seekSlider)');
         
         this.songs = data
@@ -34,8 +36,8 @@ class MusicPlayer {
                 this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
             }
         })
-        this.controls.next.addEventListener('click', ()=>this.nextTrack.call(this))
-        this.controls.prev.addEventListener('click', ()=>this.prevTrack.call(this))
+        this.controls.next && this.controls.next.addEventListener('click', ()=>this.nextTrack.call(this))
+        this.controls.prev && this.controls.prev.addEventListener('click', ()=>this.prevTrack.call(this))
         this.player.addEventListener("timeupdate", ()=>this.update.call(this))
         this.player.addEventListener("ended", ()=>this.nextTrack.call(this));
     }
@@ -94,12 +96,18 @@ class MusicPlayer {
         this.currTrack = id
         this.play(this.songs[id].song_url)
 
-        document.querySelector('.track.selected').classList.remove('selected')
-        document.querySelector('#tracklist').children[id].classList.add('selected')
+        const trackSelected = document.querySelector('.track.selected')
+        const trackList = document.querySelector('#tracklist')
+        const trackEl = trackList && trackList.children[id]
+        const songThum = document.querySelector('#song-thum')
+        const songName = document.querySelector('h4#song-name')
+        const songAuthor = document.querySelector('small#song-author')
 
-        document.querySelector('#song-thum').src = this.songs[id].cover_art
-        document.querySelector('h4#song-name').textContent = this.songs[id].song_name
-        document.querySelector('small#song-author').textContent = this.songs[id].artist_name
+        trackSelected && trackSelected.classList.remove('selected')
+        trackEl && trackEl.classList.add('selected')
+        songThum && (songThum.src = this.songs[id].cover_art)
+        songName && (songName.textContent = this.songs[id].song_name)
+        songAuthor && (songAuthor.textContent = this.songs[id].artist_name)
 
         this.controls.toggle.querySelector('img').src = '/images/ui/pause.png'
     }

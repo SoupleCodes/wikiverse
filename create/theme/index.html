@@ -13,18 +13,51 @@
         <div id="main">
             <label for="title">
                 <small>Title:</small>
-                <input type="text" id="title" name="title" placeholder="My favorite soup" required>
+                <input type="text" id="title" name="title" placeholder="Classic theme" required>
+            </label>
+            <label for="thum_url">
+                <small>Thumbnail URL:</small>
+                <input type="text" id="thumurl" name="thumurl" required>
             </label>
             <div id="edit-content">
-                <div for="toggle-preview" style="color: gray;font-size: 8px;margin-left:auto"><input type="checkbox" name="toggle-preview" style="height: 8px;">Enable preview?</div>
-                <textarea id="content" name="content" style="margin: 0;" required></textarea>
-                <div class="hidden" id="content" name="content" style="margin: 0;width: 100%;height: 317px;"><p></p></div>
-                <div id="emoji-list">
+                <div for="toggle-preview" style="color: gray;font-size: 8px">
+                    <small style="float:left">Description:</small>
+                    <span style="float:right">
+                        <input type="checkbox" name="toggle-preview">Enable preview?
+                    </span>
+                </div>
+                <textarea id="content" name="content" style="margin: 0;height: 150px" required></textarea>
+                <div class="hidden" id="content" name="content" style="margin: 0;width: 100%;height: 150px;"><p></p></div>
+            </div>
+            <div id="edit-html">
+                <small style="float:left">HTML:</small>
+                <textarea id="html" name="html" style="margin: 0;height: 150px;resize: vertical;" required>
+                </textarea>
+            </div>
+            <div id="edit-scripts">
+                <small>JS:</small>
+                <textarea id="scripts" name="scripts" style="margin: 0;height: 150px;resize: vertical;" required></textarea>
+            </div>
+            <div id="edit-style">
+                <small>Style:</small>
+                <textarea id="style" name="style" style="margin: 0;height: 150px;" required></textarea>
+            </div>
+            <div id="edit-tags">
+                <label for="add-tags">
+                    <small>Tags:</small>
+                    <div style="display: flex;">
+                        <input type="text" id="add-tags" name="tags" placeholder="soup" style="display: flex;flex-grow: 1;">
+                        <button id="add-tag">Add tag</button>
+                    </div>
+                </label>
+                <div id="tags">
                 </div>
             </div>
             <button id="post-button" onclick="submitTheme()" type="submit">Submit</button>
+            <button onclick="popupPreview()">Preview</button>
         </div>
     </body>
+    <script>window.inIframe = true</script>
     <script type="text/javascript" src="/js/create.js"></script>
     <script type="text/javascript" src="/js/nav.js"></script>
 </html>

@@ -1,35 +1,3 @@
-/*
-fetch('https://wiki.souple.workers.dev/user/souple', {
-	method: 'PATCH',
-  headers: {
-  	'Content-Type': 'application/json',
-  	'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic291cGxlIiwiaWQiOjEsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzU1OTA0MTY5fQ.VQSYpcV8KuTUQxd4IWSPqMO0glKC5w4Y84TnozYk6Fs'
-  },
-  body: JSON.stringify({
-    music: [{
-      "song_name": "Hogbat",
-      "artist_name": "Blasting Trout Overbite",
-      "song_url": "https://the-collective.net/~sashwap/bto/2004-2005/yes/blasting%20trout%20overbite%20-%2005%20-%20hogbat.mp3",
-      "cover_art": "https://f4.bcbits.com/img/a0957670253_16.jpg",
-      "published": 2005,
-      "album": "YES",
-      "genre": "Rock",
-      "link": "https://blastingtroutoverbite.bandcamp.com/album/yes"
-    },
-		    {
-      "song_name": "A Thousand Miles",
-      "artist_name": "Vanessa Carlton",
-      "song_url": "https://ia601804.us.archive.org/0/items/a-thousand-miles/A%20Thousand%20Miles.mp3",
-      "cover_art": "https://ia600604.us.archive.org/BookReader/BookReaderImages.php?zip=/32/items/cd_a-thousand-miles_vanessa-carlton/cd_a-thousand-miles_vanessa-carlton_jp2.zip&file=cd_a-thousand-miles_vanessa-carlton_jp2/cd_a-thousand-miles_vanessa-carlton_0000.jp2&id=cd_a-thousand-miles_vanessa-carlton&scale=4&rotate=0",
-      "published": 2001,
-      "album": "Be Not Nobody",
-      "genre": "Pop Rock",
-      "link": "https://archive.org/details/a-thousand-miles"
-    }
-		]
-  })
-})
-*/
 #header #display {
     margin: 3px;
     float: right;
