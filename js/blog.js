@@ -13,14 +13,14 @@ async function fetchBlog(id) {
     if (data.profile && data.profile.banner_url) {
         const img = document.createElement('img')
         img.src = data.profile.banner_url
-        document.querySelector('#banner').appendChild(img)
+        document.getElementById('banner').appendChild(img)
     }
     if (data.profile && data.profile.pfp_url) {
         const pfp = document.querySelector('#avatar img')
         pfp.src = data.profile.pfp_url
     }
     const displayName = data.profile && data.profile.display_name || data.author
-    document.querySelector('#display_name').textContent = displayName
+    document.getElementById('display_name').textContent = displayName
     document.querySelector('h5#entry-title').textContent = data.title
     
     let date = new Date(data.created_at)
@@ -30,7 +30,7 @@ async function fetchBlog(id) {
     document.querySelector('#entry-date.meta').innerHTML = 'Posted by <a href="/"></a> | ' + polishedDate
     document.querySelector('#entry-date.meta a').href = '/~' + data.author
     document.querySelector('#entry-date.meta a').textContent = data.author.toUpperCase()
-    document.querySelector('#view-count').textContent = data.view_count + " views"
+    document.getElementById('view-count').textContent = data.view_count + " views"
     document.querySelector('#entry-body p').innerHTML = bbcodeparse(data.content)
 
     const entry = document.getElementById('entry')
@@ -68,10 +68,10 @@ async function fetchBlog(id) {
         const pEl = document.createElement('p')
         pEl.textContent = '♪ ♩ ♬ ' + data.music.song_name + ' -- ' + data.music.artist_name
         mPlayer.appendChild(pEl)
-        entry.insertBefore(mPlayer, document.querySelector('#entry-body'))
+        entry.insertBefore(mPlayer, document.getElementById('entry-body'))
 
         const controls = {
-            toggle: mPlayer.querySelector('#play-toggle'),
+            toggle: mPlayer.getElementById('play-toggle'),
         };
 
         window.musicPlayer = new MusicPlayer([data.music], controls, mPlayer.querySelector('#seek-slider input'))

@@ -112,6 +112,8 @@ table#login-form input[type="submit"]:hover {
 }
 .blog-content p {
     height: 24px;
+    overflow: hidden;
+    overflow: -moz-hidden-unscrollable;
     overflow: clip;
 }
 .blog {

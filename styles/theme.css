@@ -1,0 +1,50 @@
+#theme {
+    width: 500px;
+    margin: 12px 14px 3px 7px;
+}
+
+#content { display: flex }
+
+#entry {
+    width: 500px;
+    margin-right: 21px;
+}
+
+#more-info { margin-top: 10px }
+
+#thumbnail-preview {
+    margin-top: 19px;
+    margin-left: 36px;
+}
+#thumbnail-preview img {
+    width: 379px;
+    cursor: zoom-in;
+}
+
+#html-content, #css-content, #js-content {
+    margin: 0px;
+    height: 100px;
+}
+
+.description {
+    margin-top: 11px
+}
+.description-label {
+    border-bottom: 1px dotted #848484;
+    width: 100%;
+    display: block;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+}
+
+button#use-this {
+    width: 100%;
+    margin-top: 10px;
+    background: #CE5151;
+    background: var(--main-color);
+    border: 1px solid #8E434C;
+    color: white;
+}
+button#use-this.tog {
+    background: #8E434C;
+}

@@ -171,11 +171,22 @@ td#seek-slider input {
     margin: -3px -1px;
     width: 100%;
 }
-td#seek-slider input::-webkit-slider-thumb, td#seek-slider input::-moz-range-thumb {
+td#seek-slider input::-moz-range-thumb {
     border-radius: 0px;
     border: none;
     width: 8px;
     height: 14px;
+    background-color: white;
+    box-shadow: 0 0 2px #410606;
+    -webkit-appearance: none;
+    appearance: none;
+}
+td#seek-slider input::-webkit-slider-thumb {
+    border-radius: 0px;
+    border: none;
+    width: 8px;
+    height: 14px;
+    margin: 1px 0px;
     background-color: white;
     box-shadow: 0 0 2px #410606;
     -webkit-appearance: none;

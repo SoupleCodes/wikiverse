@@ -100,6 +100,15 @@ async function spawnThemes() {
                     <script type="text/javascript" src="/js/carousel.js"></script>
                 </head>
                 <nav id="topbar"></nav>
+                <style>
+                body {
+                    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+                    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+                }
+                body::-webkit-scrollbar { 
+                    display: none;  /* Older Safari and Chromium */
+                }
+                </style>
                 <style id="user-style">
                     ${data.layout_style}
                 </style>
@@ -118,7 +127,7 @@ async function spawnThemes() {
               
                 iframe.onload = function() {
                     iframe.contentWindow.document.body.querySelector('#user-style').innerHTML += data.layout_style
-                    if (disableJS) {
+                    if (!disableJS) {
                         iframe.contentWindow.eval(data.layout_javascript)
                     }
                 }

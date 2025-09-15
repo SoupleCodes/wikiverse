@@ -34,14 +34,14 @@ async function fetchPoll(id) {
     if (data.profile && data.profile.banner_url) {
         const img = document.createElement('img')
         img.src = data.profile.banner_url
-        document.querySelector('#banner').appendChild(img)
+        document.getElementById('banner').appendChild(img)
     }
     if (data.profile && data.profile.pfp_url) {
         const pfp = document.querySelector('#avatar img')
         pfp.src = data.profile.pfp_url
     }
     const displayName = data.profile && data.profile.display_name || data.author
-    document.querySelector('#display_name').textContent = displayName
+    document.getElementById('display_name').textContent = displayName
     document.querySelector('h5#poll-title').textContent = data.question
 
     let date = new Date(data.created_at)
@@ -51,7 +51,7 @@ async function fetchPoll(id) {
     document.querySelector('#entry-date.meta').innerHTML = 'Posted by <a href="/"></a> | ' + polishedDate
     document.querySelector('#entry-date.meta a').href = '/~' + data.author
     document.querySelector('#entry-date.meta a').textContent = data.author.toUpperCase()
-    document.querySelector('#view-count').textContent = data.view_count + " views"
+    document.getElementById('view-count').textContent = data.view_count + " views"
 
     const table = document.querySelector('#poll-options tbody')
     let voteCount = 0

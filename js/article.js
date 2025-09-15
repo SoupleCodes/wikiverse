@@ -31,7 +31,7 @@ async function fetchArticle(id) {
     document.title= data.title
 
     let entryTitle = document.querySelector('h5#entry-title')
-    document.querySelector('#entry-body')
+    document.getElementById('entry-body')
     entryTitle.textContent = data.title
     
     let date = new Date(data.created_at)
@@ -70,8 +70,8 @@ async function fetchArticle(id) {
     await displayComments('article/' + id)
 
     const navEdit = document.querySelector('#entry a#edit')
-    const entryBody = document.querySelector('#entry-body')
-    const entryEditArea = document.querySelector('#entry-edit')
+    const entryBody = document.getElementById('entry-body')
+    const entryEditArea = document.getElementById('entry-edit')
     const articleEdit = entryEditArea.querySelector("textarea#articleEdit")
     const articleEditButton = entryEditArea.querySelector("button#article-edit")
     let oldContent = articleEdit.value

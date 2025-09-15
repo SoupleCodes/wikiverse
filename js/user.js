@@ -117,6 +117,14 @@ async function fetchProfilePage(user) {
         data = await fetchGET('user/' + user)
     }
 
+    const mainEl = document.getElementById('main')
+    if (data.theme !== null) {
+        mainEl.innerHTML = data.theme.layout_html
+        const scriptEl = document.createElement('script')
+        scriptEl.innerHTML = data.theme.layout_javascript
+
+        mainEl.appendChild(scriptEl)
+    }
     const headerDisplay = document.querySelector('#header #display')
     if (user.endsWith('s')) {
         document.title=user + "' profile - wikiverse"
@@ -135,17 +143,17 @@ async function fetchProfilePage(user) {
     if (data.banner_url) {
         const img = document.createElement('img')
         img.src = data.banner_url
-        document.querySelector('#banner') && document.querySelector('#banner').appendChild(img)
+        document.getElementById('banner') && document.getElementById('banner').appendChild(img)
     }
     if (data.pfp_url) {
         const pfp = document.querySelector('#avatar img')
         pfp.src = data.pfp_url
     }
 
-    const displayNameEl = document.querySelector('#display_name')
-    const joinDateEl = document.querySelector('#join-date')
-    const lastSeenEl = document.querySelector('#last-seen')
-    const locationEl = document.querySelector('#user-location')
+    const displayNameEl = document.getElementById('display_name')
+    const joinDateEl = document.getElementById('join-date')
+    const lastSeenEl = document.getElementById('last-seen')
+    const locationEl = document.getElementById('user-location')
     const aboutMeEl = document.querySelector('p#aboutme')
     const userStyleEl = document.querySelector('style#user-style')
     const recentUL = document.querySelector('ul#recent-comments')
@@ -161,7 +169,13 @@ async function fetchProfilePage(user) {
     }
     locationEl && (locationEl.textContent = data.location)
     aboutMeEl && (aboutMeEl.innerHTML = bbcodeparse(data.about_me))
-    userStyleEl && (userStyleEl.innerHTML = data.style)
+    if (userStyleEl) {
+        if (data.theme === null) {
+            userStyleEl.innerHTML = data.style
+        } else {
+            userStyleEl.innerHTML = data.theme.layout_style
+        }
+    }
 
     if (recentUL) {
         let recentComments
@@ -187,7 +201,7 @@ async function fetchProfilePage(user) {
         }
     }
 
-    const table = document.querySelector('#contactme')
+    const table = document.getElementById('contactme')
     if (table && (!data.social_links == null || (data.social_links && data.social_links.length > 0))) {
         const links = data.social_links
         let tbody = newElement(null, 'tbody', null)
@@ -245,7 +259,7 @@ async function fetchProfilePage(user) {
         blogResponse = await fetchGET('user/' + user + '/blogs/1')
     }
 
-    const blogsDIV = document.querySelector('#weblogs')
+    const blogsDIV = document.getElementById('weblogs')
     if (blogsDIV && blogResponse.totalBlogs > 0) {
         const blogs = blogResponse.blogs.slice(0, 2)
         blogs.forEach(blog => {

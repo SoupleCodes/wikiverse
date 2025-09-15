@@ -97,9 +97,9 @@ class MusicPlayer {
         this.play(this.songs[id].song_url)
 
         const trackSelected = document.querySelector('.track.selected')
-        const trackList = document.querySelector('#tracklist')
+        const trackList = document.getElementById('tracklist')
         const trackEl = trackList && trackList.children[id]
-        const songThum = document.querySelector('#song-thum')
+        const songThum = document.getElementById('song-thum')
         const songName = document.querySelector('h4#song-name')
         const songAuthor = document.querySelector('small#song-author')
 

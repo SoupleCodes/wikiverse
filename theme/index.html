@@ -3,6 +3,8 @@
 
 <head>
     <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/user.css" />
+    <link rel="stylesheet" href="/styles/theme.css" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="friends online social networking wiki articles blog poll">
@@ -14,17 +16,42 @@
 
 <body>
     <div id="main">
-        <div id="content" style="display: flex;">
-            <div id="entry" style="width: 500px;margin-right: 21px;">
-                <h5 id="entry-title" class="title">Simple purple theme</h5>
-                <div id="entry-date" class="meta">Posted by <a href="#">~souple</a> | September 13, 2025 ~ 5:39 pm</div>
-                <small id="view-count">1 view</small>
-                <div id="thumbnail-preview" style="margin-top: 19px;margin-left: 36px;"><img
-                        src="https://files.catbox.moe/ea6syr.png" style="width: 379px;cursor: zoom-in;"></div>
-                <p class="description" style="margin-top: 11px;">The first theme on this site!
-
-                    This theme removes a few columns giving center stage to the blog and comments!</p>
-                <div id="comments-section" style="max-width: 100%;">
+        <div id="banner"></div>
+        <div id="content">
+            <div class="col1">
+                <div id="avatar">
+                    <img src="/images/ui/default.png"/>
+                </div>
+                <h5 id="display_name"></h5>
+                <table id="profile-link-options" class="list">
+                    <tbody>
+                        <tr>
+                            <td id="linkTo-profile"><a href="">my profile »</a></td>
+                        </tr>
+                        <tr>
+                            <td id="linkTo-articles"><a href="">my articles »</a></td>
+                        </tr>
+                        <tr>
+                            <td id="linkTo-blogs"><a href="">my blogs »</a></td>
+                        </tr>
+                        <tr>
+                            <td id="linkTo-polls"><a href="">my polls »</a></td>
+                        </tr>
+                        <tr>
+                            <td id="linkTo-themes"><a href="">my themes »</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="theme">
+                <h5 id="entry-title" class="title"></h5>
+                <div id="entry-date" class="meta"><a href="#"></a></div>
+                <small id="view-count"></small>
+                <div id="thumbnail-preview">
+                    <img src>
+                </div>
+                <p class="description"><small class="description-label">Description:</small></p>
+                <div id="comments-section">
                     <h5 id="comment-count" class="title"></h5>
                     <p id="showing"></p>
                     <div id="comments"></div>
@@ -34,53 +61,54 @@
                     </div>
                 </div>
             </div>
-            <div class="col3">
-                <table class="list" id="more-info" style="font-size: 9px;width: 100%;color: #9D9D9D;">
+            <div class="col2">
+                <button id="use-this" class="int">Use this theme</button>
+                <table class="list" id="more-info">
                     <tbody>
                         <tr>
-                            <td width="25%">Created at</td>
-                            <td width="75%">Sun, 14 Sep 2025</td>
+                            <td width="25%">Created at:</td>
+                            <td id="created-at" width="75%"></td>
                         </tr>
                         <tr>
-                            <td width="25%">Accepted on</td>
-                            <td width="75%">Sun, 14 Sep 2025</td>
+                            <td width="25%">Accepted at:</td>
+                            <td id="accepted-at" width="75%"></td>
                         </tr>
                         <tr>
-                            <td width="25%">Last modified</td>
-                            <td width="75%">Sun, 14 Sep 2025</td>
+                            <td width="25%">Last modified:</td>
+                            <td id="last-modified" width="75%"></td>
                         </tr>
                         <tr>
-                            <td width="25%">Favorites</td>
-                            <td width="75%">0</td>
+                            <td width="25%">Favorites:</td>
+                            <td id="favorites" width="75%"></td>
                         </tr>
                         <tr>
-                            <td width="25%">Reviewer</td>
-                            <td width="75%"><a href="/~souple">~souple</a></td>
+                            <td width="25%">Reviewer:</td>
+                            <td id="reviewer" width="75%"><a href></a></td>
                         </tr>
                         <tr>
-                            <td width="25%">Author</td>
-                            <td class="social-link" width="75%"><a href="/~souple">~souple</a></td>
+                            <td width="25%">Author:</td>
+                            <td id="author" width="75%"><a href></a></td>
                         </tr>
                         <tr>
-                            <td width="25%">Tags</td>
-                            <td class="social-link" width="75%"><a href="/tag/purple">purple</a></td>
+                            <td width="25%">Tags:</td>
+                            <td id="tags" width="75%"><a href></a></td>
                         </tr>
                     </tbody>
                 </table>
                 <div style="margin: 20px 0;">
                     <small>HTML:</small>
-                    <textarea disabled="" style="margin: 0;"></textarea>
+                    <textarea id="html-content" disabled></textarea>
                 </div>
                 <div style="margin: 20px 0;">
                     <small>Javascript</small>
-                    <textarea disabled="" style="margin: 0;"></textarea>
+                    <textarea id="js-content" disabled></textarea>
                     <div style="color: gray;font-size: 8px;float: right;">
-                        <input type="checkbox" style="height: 8px;">Disable JS?
+                        <input id="disable-js" type="checkbox" style="height: 8px;">Disable JS?
                     </div>
                 </div>
                 <div style="margin: 20px 0;">
                     <small>CSS</small>
-                    <textarea disabled="" style="margin: 0;"></textarea>
+                    <textarea id="css-content" disabled></textarea>
                 </div>
             </div>
         </div>

@@ -392,6 +392,15 @@ function popupPreview(disableJS) {
     <script type="text/javascript" src="/js/carousel.js"></script>
 </head>
 <nav id="topbar"></nav>
+<style>
+  body {
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+  }
+  body::-webkit-scrollbar { 
+      display: none;  /* Older Safari and Chromium */
+  }
+</style>
 <style id="user-style">
   ${document.querySelector('#edit-style textarea').value}
 </style>

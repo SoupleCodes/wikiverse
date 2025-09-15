@@ -53,6 +53,7 @@ input[type="radio"] {
     position: relative;
     width: 15px;
     -webkit-appearance: none;
+    appearance: none;
     border: 1px solid #ddd;
 }
 input[type="radio"]:after {
@@ -117,7 +118,7 @@ fieldset {
 iframe {
     border: none;
     min-width: 100%;
-    min-height: 100%
+    min-height: 100%;
 }
 iframe#profile-viewer {
     width: 1000px;
@@ -167,6 +168,7 @@ table.list {
     color: #9D9D9D;
 }
 .poll {
+    overflow: hidden;
     overflow: clip;
     box-shadow: inset -1px 2px 2px -2px black;
 }
@@ -284,6 +286,12 @@ button {
     border-color: transparent;
     color: #888;
     font-size: 9px;
+    cursor: pointer
+}
+button:hover {
+    background-color: white !important;
+    color: #ffc40c !important;
+    border: 1px solid #ffc40c !important;
 }
 textarea {
     width: 100%;
