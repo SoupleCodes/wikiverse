@@ -12,6 +12,7 @@
         "/font/*",
         "/create/*",
         "/favicon.png",
+        "/inbox",
         "/join",
         "/me",
         "/"

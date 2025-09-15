@@ -8,7 +8,7 @@ if (txtHTML) {
 </div>
 <div id="banner"></div>
 <div id="content">
-    <div id="side1">
+    <div id="userside" class="col1">
         <div id="avatar">
             <img src="/images/ui/default.png"/>
         </div>
@@ -22,7 +22,7 @@ if (txtHTML) {
             <small id="user-location"></small>
         </div>
     </div>
-    <div id="side2">
+    <div class="col2">
         <div class="group">
             <h5 class="title">About me:</h5>
             <p id="aboutme"></p>
@@ -44,10 +44,10 @@ if (txtHTML) {
             <table id="contactme"></table>
         </div>
     </div>
-    <div id="side3">
+    <div id="weblogs" class="col3">
         <h5 class="title">My weblog...</h5>
     </div>
-    <div id="side4">
+    <div id="modules" class="col4">
     </div>
 </div>
 <div id="comments-section">
@@ -377,7 +377,7 @@ tagAddInput && tagAddInput.addEventListener("keyup", function(event) {
     }
 });
 
-function popupPreview() {
+function popupPreview(disableJS) {
   var iframe = document.createElement('iframe');
   var html = `
 <head>
@@ -411,6 +411,8 @@ function popupPreview() {
   console.log(iframe)
   iframe.onload = function() {
     iframe.contentWindow.document.body.querySelector('#user-style').innerHTML += document.querySelector('#edit-style textarea').value
-    iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
+    if (disableJS) {
+      iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
+    }
   }
 }

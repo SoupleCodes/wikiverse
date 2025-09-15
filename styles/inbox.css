@@ -1,0 +1,42 @@
+#pending-themes {
+    margin-top: 10px;
+}
+.theme {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 28px;
+}
+img.thumbnail {
+    height: 50px;
+    width: auto;
+    cursor: zoom-in;
+}
+.theme .description {
+    color: grey;
+    font-size: xx-small;
+    margin-top: 11px;
+}
+.theme-view {
+    min-height: 50px;
+    display: flex;
+}
+.theme-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+}
+.buttons {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.theme-source {
+    display: flex;
+    gap: 3px;
+    height: 139px;
+    margin-top: 6px;
+}
+.theme-source textarea {
+    margin: 0;
+    height: 100%;
+}

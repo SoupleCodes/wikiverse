@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setupDropdown({
                 view: '/~' + userData.username,
                 edit: '/me',
+                inbox: '/inbox',
                 "log out": 'javascript:logOut();'
             }, 'a#my-profile')
             setupDropdown({

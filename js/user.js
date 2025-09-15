@@ -187,7 +187,7 @@ async function fetchProfilePage(user) {
         }
     }
 
-    const table = document.querySelector('table#contactme')
+    const table = document.querySelector('#contactme')
     if (table && (!data.social_links == null || (data.social_links && data.social_links.length > 0))) {
         const links = data.social_links
         let tbody = newElement(null, 'tbody', null)
@@ -245,7 +245,7 @@ async function fetchProfilePage(user) {
         blogResponse = await fetchGET('user/' + user + '/blogs/1')
     }
 
-    const blogsDIV = document.querySelector('#side3')
+    const blogsDIV = document.querySelector('#weblogs')
     if (blogsDIV && blogResponse.totalBlogs > 0) {
         const blogs = blogResponse.blogs.slice(0, 2)
         blogs.forEach(blog => {
@@ -276,7 +276,7 @@ async function fetchProfilePage(user) {
     await displayComments('user/' + user)
 
     // Add modules
-    const side4 = document.getElementById('side4')
+    const side4 = document.getElementById('modules')
 
     if (side4 && (!data.music == null || (data.music && data.music.length > 0))) {
         const musicModule = createModule('music', 'Music player.')
@@ -425,7 +425,9 @@ async function fetchProfilePage(user) {
 
 let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
 let user = (new URLSearchParams(window.location.search).get("") || test)
-if (user || window.inIframe) {
+if (window.inIframe) {
     user = window.dummyData.user.username
+    fetchProfilePage(user)
+} else {
     fetchProfilePage(user)
 }

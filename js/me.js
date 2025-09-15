@@ -104,7 +104,7 @@ if (u.banner_url) {
 banner.title = '#banner img'
 function updateBanner() { banner.querySelector('img').src = bannerUrlEl.value }
 
-const side1 = previewIframeEl.createElement('div'); side1.id = 'side1';
+const side1 = previewIframeEl.createElement('div'); side1.classList.add = 'col1';
     const avatarDiv = previewIframeEl.createElement('div'); avatarDiv.id = 'avatar'
     const img = previewIframeEl.createElement('img'); img.src = u.pfp_url || '/images/ui/default.png'; 
     img.title = '#avatar img'
@@ -132,7 +132,7 @@ function updateDisplayName() { h5display.textContent = displayInputEl.value }
 function updateLocation() { uLocationSmallEl.textContent = locationEl.value }
 function updatePfp() { avatarDiv.querySelector('img').src = pfpUrlEl.value }
 
-const side2 = previewIframeEl.createElement('div'); side2.id = 'side2'
+const side2 = previewIframeEl.createElement('div'); side2.classList.add('col2')
 function makeGroup(title, contentID, contentElType) {
     const group = previewIframeEl.createElement('div');
     group.classList.add('group')
@@ -195,7 +195,7 @@ Array.from(u.social_links).map((s) => {
 })
 
 
-const side3 = previewIframeEl.createElement('div'); side3.id = 'side3'
+const side3 = previewIframeEl.createElement('div'); side3.classList.add('col3')
 side3.innerHTML = `
     <h5 class="title">My weblog...</h5>
         <div class="weblog">
@@ -211,7 +211,7 @@ side3.innerHTML = `
     </div>
 `
 
-const side4 = previewIframeEl.createElement('div'); side4.id = 'side4'
+const side4 = previewIframeEl.createElement('div'); side4.classList.add('col4')
 
 previewIframeEl.querySelector('body').appendChild(header); previewIframeEl.querySelector('body').appendChild(banner);
 content.appendChild(side1); content.appendChild(side2);
