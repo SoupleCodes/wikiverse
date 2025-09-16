@@ -11,6 +11,7 @@ if (txtHTML) {
     <div id="userside" class="col1">
         <div id="avatar">
             <img src="/images/ui/default.png"/>
+            <button title="Follow this user?" id="follow">+</button>
         </div>
         <h5 id="display_name"></h5>
         <div id="stats">
@@ -37,11 +38,11 @@ if (txtHTML) {
         </div>
         <div class="group">
             <h5 class="title">Archive:</h5>
-            <table id="archive"></table>
+            <table id="archive" class="list noline"></table>
         </div>
         <div class="group">
             <h5 class="title">Contact me:</h5>
-            <table id="contactme"></table>
+            <table id="contactme" class="list"></table>
         </div>
     </div>
     <div id="weblogs" class="col3">

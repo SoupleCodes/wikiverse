@@ -132,26 +132,28 @@ async function fetchProfilePage(user) {
 
     const mainEl = document.getElementById('main')
     const followButton = document.getElementById('follow')
-    let isFollowed = data.followed
-    if (!token || (data.username === u.username)) { followButton.remove() }
-    if (isFollowed = 1) { 
-        followButton.textContent = '-'; 
-        followButton.title = 'Unfollow this user?' 
-        followButton.classList.toggle('followed')
-    }
-    followButton.addEventListener("click", async () => {
-        await followUser(user, Boolean(isFollowed))
-        followButton.classList.toggle('followed')
-        if (followButton.classList.contains('followed')) {
+    if (followButton) {
+        let isFollowed = data.followed
+        if (!token || (data.username === u.username)) { followButton.remove() }
+        if (isFollowed = 1) { 
             followButton.textContent = '-'; 
-            followButton.title = 'Unfollow this user?'
-            isFollowed = 1
-        } else {
-            followButton.textContent = '+'; 
-            followButton.title = 'Follow this user?' 
-            isFollowed = 0
+            followButton.title = 'Unfollow this user?' 
+            followButton.classList.toggle('followed')
         }
-    })
+        followButton.addEventListener("click", async () => {
+            await followUser(user, Boolean(isFollowed))
+            followButton.classList.toggle('followed')
+            if (followButton.classList.contains('followed')) {
+                followButton.textContent = '-'; 
+                followButton.title = 'Unfollow this user?'
+                isFollowed = 1
+            } else {
+                followButton.textContent = '+'; 
+                followButton.title = 'Follow this user?' 
+                isFollowed = 0
+            }
+        })
+    }
     if (data.theme) {
         mainEl.innerHTML = data.theme.layout_html
         const scriptEl = document.createElement('script')
