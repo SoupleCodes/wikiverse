@@ -108,17 +108,51 @@ function createTrackElement(songData) {
     return table;
 }
 
+async function followUser(u, del) {
+    const response = await fetch("https://wiki.souple.workers.dev/user/" + u + '/follow', {
+        method: (del ? "DELETE" : "POST"),
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.token}` 
+        },
+    });
+    if(!response.ok) {
+        throw new Error(response.message)
+    }
+}
+
 async function fetchProfilePage(user) {
     let inframe = window.inIframe
     let data
     if (inframe) {
         data = dummyData.user
     } else {
-        data = await fetchGET('user/' + user)
+        data = await fetchGET('user/' + user, true)
     }
 
     const mainEl = document.getElementById('main')
-    if (data.theme !== null) {
+    const followButton = document.getElementById('follow')
+    let ifFollowed = data.followed
+    if (!token || (data.username === u.username)) { followButton.remove() }
+    if (ifFollowed = 1) { 
+        followButton.textContent = '-'; 
+        followButton.title = 'Unfollow this user?' 
+        followButton.classList.toggle('followed')
+    }
+    followButton.addEventListener("click", async () => {
+        await followUser(user, Boolean(ifFollowed))
+        followButton.classList.toggle('followed')
+        if (followButton.classList.contains('followed')) {
+            followButton.textContent = '-'; 
+            followButton.title = 'Unfollow this user?'
+            ifFollowed = 1
+        } else {
+            followButton.textContent = '+'; 
+            followButton.title = 'Follow this user?' 
+            ifFollowed = 0
+        }
+    })
+    if (data.theme) {
         mainEl.innerHTML = data.theme.layout_html
         const scriptEl = document.createElement('script')
         scriptEl.innerHTML = data.theme.layout_javascript
@@ -170,10 +204,10 @@ async function fetchProfilePage(user) {
     locationEl && (locationEl.textContent = data.location)
     aboutMeEl && (aboutMeEl.innerHTML = bbcodeparse(data.about_me))
     if (userStyleEl) {
-        if (data.theme === null) {
-            userStyleEl.innerHTML = data.style
-        } else {
+        if (data.theme) {
             userStyleEl.innerHTML = data.theme.layout_style
+        } else {
+            userStyleEl.innerHTML = data.style
         }
     }
 
@@ -381,9 +415,9 @@ async function fetchProfilePage(user) {
 
     let following
     if (inframe) {
-        blogResponse = dummyData.following
+        following = dummyData.following
     } else {
-        blogResponse = await fetchGET('user/' + user + '/following')
+        following = await fetchGET('user/' + user + '/following')
     }
 
     if (side4 && following && following.length > 0) {
@@ -410,9 +444,9 @@ async function fetchProfilePage(user) {
 
     let followers
     if (inframe) {
-        blogResponse = dummyData.followers
+        followers = dummyData.followers
     } else {
-        blogResponse = await fetchGET('user/' + user + '/followers')
+        followers = await fetchGET('user/' + user + '/followers')
     }
     if (side4 && followers && followers.length > 0) {
         const fwrsModule = createModule('followers', 'Followers.')
