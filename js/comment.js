@@ -37,7 +37,9 @@ async function postComment(route, val) {
       });
 
       if (response.ok) {
+        let data = await response.json()
         console.log('Comment posted successfully');
+        return data.newID
       } else {
         console.error('Failed to post comment');
         alert('Something went wrong with posting this comment.')
@@ -47,10 +49,10 @@ async function postComment(route, val) {
     }
 }
 
-function createCommentElement(data, idx) {
+function createCommentElement(data) {
     const comment = document.createElement('div')
     comment.classList.add('comment')
-    comment.id = "comment-" + idx
+    comment.id = "comment-" + data.id
 
     const img = document.createElement('img')
     img.classList.add('post-pfp')
@@ -114,6 +116,19 @@ async function displayComments(route) {
         });
     }
 
+    const hash = window.location.hash
+    if (hash && hash.startsWith('#comment-')) {
+        const focusedComment = document.querySelector(hash + '.comment')
+        if (focusedComment) {
+            focusedComment.scrollIntoView({ behavior: 'smooth' })
+            // glow
+            focusedComment.classList.add('focus');
+            setTimeout(() => {
+                focusedComment.classList.remove('focus');
+            }, 1500)
+        }
+    }
+
     commentCountElement.textContent = commentsCount + ' comment'
     if (commentsCount != 1) {
         commentCountElement.textContent += 's'
@@ -144,11 +159,11 @@ async function displayComments(route) {
                     display_name: u.display_name
                 }
             }
-            postComment(route, val)
+            const newID = await postComment(route, val)
             if (commentParent.children.length < 1) {
-                commentParent.appendChild(createCommentElement(data, 1))
+                commentParent.appendChild(createCommentElement(data, newID))
             } else {
-                commentParent.insertBefore(createCommentElement(data, count + 1), commentParent.children[0])
+                commentParent.insertBefore(createCommentElement(data, newID), commentParent.children[0])
             }
 
             count++

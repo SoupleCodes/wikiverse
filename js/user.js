@@ -132,24 +132,24 @@ async function fetchProfilePage(user) {
 
     const mainEl = document.getElementById('main')
     const followButton = document.getElementById('follow')
-    let ifFollowed = data.followed
+    let isFollowed = data.followed
     if (!token || (data.username === u.username)) { followButton.remove() }
-    if (ifFollowed = 1) { 
+    if (isFollowed = 1) { 
         followButton.textContent = '-'; 
         followButton.title = 'Unfollow this user?' 
         followButton.classList.toggle('followed')
     }
     followButton.addEventListener("click", async () => {
-        await followUser(user, Boolean(ifFollowed))
+        await followUser(user, Boolean(isFollowed))
         followButton.classList.toggle('followed')
         if (followButton.classList.contains('followed')) {
             followButton.textContent = '-'; 
             followButton.title = 'Unfollow this user?'
-            ifFollowed = 1
+            isFollowed = 1
         } else {
             followButton.textContent = '+'; 
             followButton.title = 'Follow this user?' 
-            ifFollowed = 0
+            isFollowed = 0
         }
     })
     if (data.theme) {

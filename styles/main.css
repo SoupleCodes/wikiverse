@@ -311,6 +311,14 @@ textarea {
 .comment { 
     display: flex;
     margin: 4px 0px 13px 0px;
+    transition: all 1s ease;
+    outline-offset: 0px;
+    background: none
+}
+.comment.focus {
+    background: #eee;
+    outline: 1px solid #eee;
+    outline-offset: 2px;
 }
 .post { 
     margin-left: 3px; 
