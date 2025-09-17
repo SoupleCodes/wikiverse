@@ -39,7 +39,7 @@ async function fetchTheme(id) {
             }
         })
     }
-    const data = await fetchGET('theme/' + id)
+    const data = await fetchGET('theme/' + id, true)
 
     document.title = data.title + ' - '
     if (data.author.endsWith('s')) {
