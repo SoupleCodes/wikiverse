@@ -412,7 +412,7 @@ async function fetchProfilePage(user) {
 
         window.musicPlayer = new MusicPlayer(music, controls, songSlider.querySelector('#seek-slider input'))
     } else {
-        document.querySelector('#music.w-modul').remove()
+        document.querySelector('#music.w-modul') && document.querySelector('#music.w-modul').remove()
     }
 
     let following
@@ -443,7 +443,7 @@ async function fetchProfilePage(user) {
         }))
         setupCarousel('following-carousel', carouselContent, 61)
     } else {
-        document.querySelector('#following.w-modul').remove()
+        document.querySelector('#following.w-modul') && document.querySelector('#following.w-modul').remove()
     }
 
     let followers
@@ -473,7 +473,7 @@ async function fetchProfilePage(user) {
         }))
         setupCarousel('followers-carousel', carouselContent, 61)
     } else {
-        document.querySelector('#followers.w-modul').remove()
+        document.querySelector('#followers.w-modul') && document.querySelector('#followers.w-modul').remove()
     }
 }
 
