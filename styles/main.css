@@ -86,7 +86,7 @@ code {
     background: black;
     font-family: monospace;
 }
-#entry-body img, .blog-body img {
+#entry-body img, .blog-body img, .group img {
     max-width: 330px;
 }
 select {
@@ -217,6 +217,26 @@ ul#site-options { float: left } ul#user-options { float: right }
 #main { 
     padding: 10px;
     height: 100%;
+}
+#page-nav {
+    padding: 0px 0px 20px 0px;
+    text-align: center;
+}
+#page-nav button.current {
+    text-decoration: none;
+    margin: 2px;
+    font-weight: bold;
+    background: white;
+    border: none;
+    color: #888;
+}
+#page-nav * {
+    text-decoration: none;
+    border: 1px solid #c8c8c8;
+    padding: 3px 5px;
+    margin: 2px;
+    color: #c8c8c8;
+    background: white;
 }
 #left { width: 640px }
 .expand-x { width: 100% }

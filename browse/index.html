@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    <script type="text/javascript" src="/js/helper.js"></script>
+</head>
+<nav id="topbar"></nav>
+<body>
+    <div id="main" style="display:flex">
+        <div class="col1">
+            <h4 class="title">Browse...</h4>
+            <table id="browse-options" class="list">
+                <tbody>
+                    <tr>
+                        <td id="articles"><a href="/browse/">articles »</a></td>
+                    </tr>
+                    <tr>
+                        <td id="blogs"><a href="/browse/?type=blogs">blogs »</a></td>
+                    </tr>
+                    <tr>
+                        <td id="themes"><a href="/browse/?type=themes">themes »</a></td>
+                    </tr>
+                    <tr>
+                        <td id="polls"><a href="/browse/?type=polls">polls »</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col2" id="content">
+            <div id="results"></div>
+            <div id="page-nav"><small id="pages"></small></div></div>
+    </div>
+</body>
+<script type="text/javascript" src="/js/browse.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+
+</html>

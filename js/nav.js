@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <ul id="site-options">
                 <a href="/browse"><li>browse</li></a>
                 <a id="create"><li class="link">create</li></a>
-                <a href="/themes"><li>themes</li></a>
+                <a href="/about"><li>about</li></a>
                 <a href="/tos"><li>tos</li></a>
                 <a href="/docs"><li>documentation</li></a>
             </ul>

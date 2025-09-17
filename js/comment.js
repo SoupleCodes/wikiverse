@@ -1,28 +1,6 @@
 let token = localStorage.token
 let u = JSON.parse(localStorage.user || '[]')
 
-function dateDiff(a, b) {
-    // https://stackoverflow.com/a/15289883
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-
-    let r = Math.floor((utc2 - utc1) / _MS_PER_DAY)
-    let msg
-    if (r > 1) {
-        msg = r + ' days ago'
-    } else {
-        msg = r + ' day ago'
-    }
-    
-    if (r == 0) {
-        r = new Date(a).toLocaleString('UTC',{ hour: 'numeric', minute: 'numeric'}).toLowerCase()
-        msg = r
-    }
-  
-    return msg;
-}
-
 async function postComment(route, val) {
     try {
       const response = await fetch('https://wiki.souple.workers.dev/' + route + '/comment', {

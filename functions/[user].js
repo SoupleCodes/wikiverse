@@ -4,7 +4,7 @@ export async function onRequest(context) {
 
     try {
       if (!pathSegment.startsWith('~')) {
-        return new Response("Not user path")
+        return new Response("Page not found!")
       }
 
       const assetUrl = new URL('/user/index.html', request.url);
