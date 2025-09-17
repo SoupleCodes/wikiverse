@@ -215,9 +215,8 @@ async function submitTheme() {
     });
 
     if (response.ok) {
-      const re = await response.json();
-      alert("Theme submitted successfully!");
-      window.location.href = `/theme/${re.id}`
+      alert("Theme submitted successfully! Awaiting to be accepted by a reviewer!");
+      window.location.href = `/`
     }
   } catch (error) {
     alert(`Error submitting theme: ` + error);
