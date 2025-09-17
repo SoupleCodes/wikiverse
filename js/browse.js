@@ -36,12 +36,69 @@ function createContentEl(data, type) {
     return contentEl
 }
 
+function createPollBody(data) {
+  const contentEl = document.createElement('div')
+  contentEl.classList.add('group')
+
+  const heading = document.createElement('h3')
+  heading.textContent = data.question
+  contentEl.appendChild(heading)
+
+  const table = document.createElement('table')
+  const tbody = document.createElement('tbody')
+
+  data.options.map(data => {
+    let optionsTr = document.createElement('tr')
+    optionsTr.height = 18
+      let optionTd = document.createElement('td')
+        let optionInputRadio = document.createElement('input')
+        optionInputRadio.name = data.option
+        optionInputRadio.type = "radio"
+      optionTd.appendChild(optionInputRadio)
+      let optionNameTd = document.createElement('td')
+        let nameSmall = document.createElement('small')
+          nameSmall.textContent = data.option
+      optionNameTd.appendChild(nameSmall)
+
+    optionsTr.appendChild(optionTd)
+    optionsTr.appendChild(optionNameTd)
+    tbody.appendChild(optionsTr)
+  })
+  
+  table.appendChild(tbody)
+  contentEl.appendChild(table)
+
+  const pollButtons = document.createElement('div')
+  pollButtons.classList.add('poll-buttons')
+  const voteButton = document.createElement('button')
+  voteButton.textContent = 'Vote'
+  const resultsButton = document.createElement('button')
+  resultsButton.textContent = 'Results'
+
+  pollButtons.appendChild(voteButton)
+  pollButtons.appendChild(resultsButton)
+
+  contentEl.appendChild(pollButtons)
+
+  return contentEl
+}
+
 async function fetchAll() {
     const contentParent = document.getElementById('results')
     const data = await fetchGET('all/' + type + '/' + page)
     
     data[type].map(data => {
-        contentParent.appendChild(createContentEl(data, type))
+        let child
+        if (type === 'polls') {
+          child = createPollBody(data)
+        } else {
+          if (type === 'themes') {
+
+          } else {
+            child = createContentEl(data, type)
+          }
+        }
+        contentParent.appendChild(child)
     })
 
     pageNav(data.totalPages)
@@ -70,28 +127,3 @@ function pageNav(len) {
 }
 
 fetchAll()
-/*
-<div class="poll-group">
-  <h5 class="title">Poll title</h5>
-  <table>
-    <tbody><tr height="18">
-      <td>
-        <input name="option-1" type="radio">
-      </td><td>
-        
-        <small>Option 1</small>
-      </td>
-    </tr><tr height="18">
-      <td>
-        <input name="option-1" type="radio">
-      </td><td>
-        
-        <small>Option 1</small>
-      </td>
-    </tr>
-  </tbody></table>
-<div style="display: flex;justify-content: center;margin-top: 11px;">
-      
-  <button>Vote</button><div style="width:20px"></div><button>Results</button>
-  </div></div>
-*/

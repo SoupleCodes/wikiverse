@@ -172,6 +172,14 @@ table.list {
     overflow: clip;
     box-shadow: inset -1px 2px 2px -2px black;
 }
+.poll-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 11px;
+}
+.poll-buttons button {
+    margin-left: 20px
+}
 .poll .tube {
     position: relative;
     background: repeating-linear-gradient(210deg, var(--main-color) 0 5%, RGB(179, 72, 72) 0 10%);
