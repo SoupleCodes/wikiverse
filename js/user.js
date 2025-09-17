@@ -131,6 +131,13 @@ async function fetchProfilePage(user) {
     }
 
     const mainEl = document.getElementById('main')
+    if (data.theme) {
+        mainEl.innerHTML = data.theme.layout_html
+        const scriptEl = document.createElement('script')
+        scriptEl.innerHTML = data.theme.layout_javascript
+
+        mainEl.appendChild(scriptEl)
+    }
     const followButton = document.getElementById('follow')
     if (followButton) {
         let isFollowed = data.followed
@@ -153,13 +160,6 @@ async function fetchProfilePage(user) {
                 isFollowed = 0
             }
         })
-    }
-    if (data.theme) {
-        mainEl.innerHTML = data.theme.layout_html
-        const scriptEl = document.createElement('script')
-        scriptEl.innerHTML = data.theme.layout_javascript
-
-        mainEl.appendChild(scriptEl)
     }
     const headerDisplay = document.querySelector('#header #display')
     if (user.endsWith('s')) {
