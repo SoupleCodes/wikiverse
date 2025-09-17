@@ -47,17 +47,19 @@ function createPollBody(data) {
   const table = document.createElement('table')
   const tbody = document.createElement('tbody')
 
-  data.options.map(data => {
+  data.options.map((o, index) => {
     let optionsTr = document.createElement('tr')
     optionsTr.height = 18
       let optionTd = document.createElement('td')
         let optionInputRadio = document.createElement('input')
-        optionInputRadio.name = data.option
+        optionInputRadio.name = data.question
+        optionInputRadio.id = index + "-" + o.option
+        optionInputRadio.value = o.option
         optionInputRadio.type = "radio"
       optionTd.appendChild(optionInputRadio)
       let optionNameTd = document.createElement('td')
         let nameSmall = document.createElement('small')
-          nameSmall.textContent = data.option
+          nameSmall.textContent = o.option
       optionNameTd.appendChild(nameSmall)
 
     optionsTr.appendChild(optionTd)
@@ -72,13 +74,59 @@ function createPollBody(data) {
   pollButtons.classList.add('poll-buttons')
   const voteButton = document.createElement('button')
   voteButton.textContent = 'Vote'
+  voteButton.onclick = async () => {
+    const response = await fetch("https://wiki.souple.workers.dev/poll/" + data.poll_id + '/vote', {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.token}` 
+      },
+      body: JSON.stringify({
+          option: Number(tbody.querySelector('tr input:checked').id.split("-")[0]) + 1
+      })
+    });
+    if(!response.ok) {
+        throw new Error(response.message)
+    }
+  }
   const resultsButton = document.createElement('button')
   resultsButton.textContent = 'Results'
+  resultsButton.onclick = () => {
+    location.href=`/poll/${data.poll_id}`
+  }
 
   pollButtons.appendChild(voteButton)
   pollButtons.appendChild(resultsButton)
 
   contentEl.appendChild(pollButtons)
+
+  return contentEl
+}
+
+function createThemeBody(data) {
+  const contentEl = document.createElement('div')
+  contentEl.classList.add('group', 'column', 'theme')
+
+  const thum = document.createElement('img')
+  thum.classList.add('link')
+  thum.src = data.thumbnail
+  thum.onclick = () => {
+    location.href=`/theme/${data.id}`
+  }
+  contentEl.appendChild(thum)
+
+  const h5 = document.createElement('h5')
+  h5.textContent = data.title
+  contentEl.appendChild(h5)
+
+  const smallEl = document.createElement('small')
+  smallEl.textContent = 'by '
+  const a = document.createElement('a')
+  a.href = '/~' + data.author
+  a.textContent = '~' + data.author
+  smallEl.appendChild(a)
+
+  contentEl.appendChild(smallEl)
 
   return contentEl
 }
@@ -93,7 +141,7 @@ async function fetchAll() {
           child = createPollBody(data)
         } else {
           if (type === 'themes') {
-
+            child = createThemeBody(data)
           } else {
             child = createContentEl(data, type)
           }

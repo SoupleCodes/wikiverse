@@ -167,6 +167,13 @@ table.list {
     width: 100%;
     color: #9D9D9D;
 }
+.column {
+    display: flex;
+    flex-direction: column
+}
+.theme img {
+    margin: 5px 0;
+}
 .poll {
     overflow: hidden;
     overflow: clip;
