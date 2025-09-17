@@ -134,7 +134,7 @@ async function fetchProfilePage(user) {
     const followButton = document.getElementById('follow')
     if (followButton) {
         let isFollowed = data.followed
-        if (!token || (data.username === u.username)) { followButton.remove() }
+        if (!localStorage.token || (data.username === u.username)) { followButton.remove() }
         if (Boolean(isFollowed)) { 
             followButton.textContent = '-'; 
             followButton.title = 'Unfollow this user?' 
