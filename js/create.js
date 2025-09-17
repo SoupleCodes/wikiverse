@@ -402,7 +402,6 @@ function popupPreview(disableJS) {
   }
 </style>
 <style id="user-style">
-  ${document.querySelector('#edit-style textarea').value}
 </style>
 <body>
     <div id="main">
@@ -419,7 +418,7 @@ function popupPreview(disableJS) {
 
   console.log(iframe)
   iframe.onload = function() {
-    iframe.contentWindow.document.body.querySelector('#user-style').innerHTML += document.querySelector('#edit-style textarea').value
+    iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = document.querySelector('#edit-style textarea').value
     if (disableJS) {
       iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
     }
