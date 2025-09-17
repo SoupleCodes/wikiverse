@@ -33,7 +33,7 @@ function createBlog(data) {
     return blog
 }
 
-function createModule(id, title) {
+function formExistingModule(id, title) {
     let titleElement = document.createElement('h4')
     titleElement.textContent = title
     titleElement.classList.add('w-title')
@@ -45,9 +45,7 @@ function createModule(id, title) {
     let content = document.createElement('div')
     content.classList.add('w-content')
 
-    let module = document.createElement('div')
-    module.classList.add('w-modul')
-    module.id = id
+    let module = document.querySelector(`#${id}`)
     module.appendChild(header)
     module.appendChild(content)
 
@@ -329,7 +327,7 @@ async function fetchProfilePage(user) {
     const side4 = document.getElementById('modules')
 
     if (side4 && (!data.music == null || (data.music && data.music.length > 0))) {
-        const musicModule = createModule('music', 'Music player.')
+        const musicModule = formExistingModule('music', 'Music player.')
         const musicContent = musicModule.querySelector('.w-content')
         let nowPlaying = newElement('now-playing')
             const nowPlayingIMG = newElement('song-thum', 'img')
@@ -413,6 +411,8 @@ async function fetchProfilePage(user) {
         };
 
         window.musicPlayer = new MusicPlayer(music, controls, songSlider.querySelector('#seek-slider input'))
+    } else {
+        document.querySelector('#music.w-modul').remove()
     }
 
     let following
@@ -423,7 +423,7 @@ async function fetchProfilePage(user) {
     }
 
     if (side4 && following && following.length > 0) {
-        const fwngModule = createModule('following', 'Following.')
+        const fwngModule = formExistingModule('following', 'Following.')
         const fwngContent = fwngModule.querySelector('.w-content')
         const fwngCarousel = newElement('following-carousel', 'div', null)
         fwngContent.appendChild(fwngCarousel)
@@ -442,6 +442,8 @@ async function fetchProfilePage(user) {
             carouselContent.appendChild(a)
         }))
         setupCarousel('following-carousel', carouselContent, 61)
+    } else {
+        document.querySelector('#following.w-modul').remove()
     }
 
     let followers
@@ -451,7 +453,7 @@ async function fetchProfilePage(user) {
         followers = await fetchGET('user/' + user + '/followers')
     }
     if (side4 && followers && followers.length > 0) {
-        const fwrsModule = createModule('followers', 'Followers.')
+        const fwrsModule = formExistingModule('followers', 'Followers.')
         const fwrsContent = fwrsModule.querySelector('.w-content')
         const fwrsCarousel = newElement('followers-carousel', 'div', null)
         fwrsContent.appendChild(fwrsCarousel)
@@ -470,6 +472,8 @@ async function fetchProfilePage(user) {
             carouselContent.appendChild(a)
         }))
         setupCarousel('followers-carousel', carouselContent, 61)
+    } else {
+        document.querySelector('#followers.w-modul').remove()
     }
 }
 

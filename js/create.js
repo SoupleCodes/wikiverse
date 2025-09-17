@@ -23,7 +23,7 @@ if (txtHTML) {
             <small id="user-location"></small>
         </div>
     </div>
-    <div class="col2">
+    <div id="userinfo" class="col2">
         <div class="group">
             <h5 class="title">About me:</h5>
             <p id="aboutme"></p>
@@ -49,6 +49,9 @@ if (txtHTML) {
         <h5 class="title">My weblog...</h5>
     </div>
     <div id="modules" class="col4">
+      <div class="w-modul" id="music"></div>
+      <div class="w-modul" id="following"></div>
+      <div class="w-modul" id="followers"></div>
     </div>
 </div>
 <div id="comments-section">
@@ -419,7 +422,7 @@ function popupPreview(disableJS) {
   console.log(iframe)
   iframe.onload = function() {
     iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = document.querySelector('#edit-style textarea').value
-    if (disableJS) {
+    if (!disableJS) {
       iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
     }
   }
