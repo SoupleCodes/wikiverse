@@ -17,6 +17,7 @@ async function useTheme(num) {
   }
 
 async function fetchTheme(id) {
+    const data = await fetchGET('theme/' + id, true)
     const useThisButton = document.querySelector('button#use-this')
     if (!localStorage.token) {
         useThisButton.remove()
@@ -39,8 +40,6 @@ async function fetchTheme(id) {
             }
         })
     }
-    const data = await fetchGET('theme/' + id, true)
-
     document.title = data.title + ' - '
     if (data.author.endsWith('s')) {
         document.title+=data.author + "' theme"
