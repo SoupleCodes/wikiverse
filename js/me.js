@@ -172,6 +172,7 @@ const archiveEl = makeGroup('Archive:', 'archive', 'table')
 archiveEl.innerHTML = `<tbody><tr><td class="social-name"><a href="/~${u.username}/archive">December 1969</a> (999)</td></tr></tbody>`
 
 const socialLinksEl = makeGroup('Contact me:', 'contactme', 'table')
+socialLinksEl.classList.add('link')
 Array.from(u.social_links).map((s) => {
     let trEl = previewIframeEl.createElement('tr')
 
