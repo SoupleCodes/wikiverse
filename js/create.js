@@ -3,7 +3,7 @@ const textarea = document.querySelector('textarea#content')
 let txtHTML = document.querySelector('#edit-html textarea')
 let txtCSS = document.querySelector('#edit-style textarea')
 let txtJS = document.querySelector('#edit-scripts textarea')
-if (txtHTML = '') {
+if (!txtHTML.value) {
   txtHTML.value = 
 `<div id="header">
     <h5 id="display"></h5>
