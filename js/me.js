@@ -328,8 +328,8 @@ async function updateProfile() {
 
     Array.from(musicDetails.children).map(m => {
         music.push({
-            artist_name: m.childNodes[1].childNodes[0].textContent,
-            song_name: m.childNodes[1].childNodes[1].textContent,
+            artist_name: m.childNodes[1].childNodes[1].textContent,
+            song_name: m.childNodes[1].childNodes[0].textContent,
             song_url: m.getAttribute('songurl'),
             cover_art: m.childNodes[0].src,
             published: Number(m.childNodes[2].textContent),

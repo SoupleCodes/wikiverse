@@ -1,6 +1,7 @@
 const form = document.querySelector('form#create-form')
 const textarea = document.querySelector('textarea#content')
 const txtHTML = document.querySelector('#edit-html textarea')
+const txtCSS = document.querySelector('#edit-style textarea')
 if (txtHTML) {
   txtHTML.value = 
 `<div id="header">
@@ -421,7 +422,7 @@ function popupPreview(disableJS) {
 
   console.log(iframe)
   iframe.onload = function() {
-    iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = document.querySelector('#edit-style textarea').value
+    iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = txtCSS.value
     if (!disableJS) {
       iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
     }

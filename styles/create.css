@@ -1,4 +1,5 @@
-nav#topbar, .dropdown { background-color: #5193CE }; .dropdown ul a:hover { background-color: #8ecaff !important }
+nav#topbar, .dropdown { background-color: #5193CE }
+.dropdown ul a:hover { background-color: #8ecaff !important }
 label { width: 100%; margin: 5px 0px }
 textarea#content { width: 100%; height: 317px }
 button#post-button, button#preview-button { 
