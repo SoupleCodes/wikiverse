@@ -1,8 +1,8 @@
 const form = document.querySelector('form#create-form')
 const textarea = document.querySelector('textarea#content')
-const txtHTML = document.querySelector('#edit-html textarea')
-const txtCSS = document.querySelector('#edit-style textarea')
-const txtJS = document.querySelector('#edit-scripts textarea')
+let txtHTML = document.querySelector('#edit-html textarea')
+let txtCSS = document.querySelector('#edit-style textarea')
+let txtJS = document.querySelector('#edit-scripts textarea')
 if (txtHTML = '') {
   txtHTML.value = 
 `<div id="header">
