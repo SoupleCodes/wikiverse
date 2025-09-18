@@ -1,6 +1,7 @@
 function createBlog(data) {
     const blog = document.createElement('div')
     blog.classList.add('weblog')
+    blog.id = 'blog-' + data.title
 
     const blogDate = document.createElement('p')
     blogDate.classList.add('blog-date')
@@ -10,7 +11,10 @@ function createBlog(data) {
     blogBody.innerHTML = bbcodeparse(data.content)
 
     const blogTitle = document.createElement('h6')
-    blogTitle.classList.add('entry-title')
+    blogTitle.classList.add('entry-title', 'link')
+    blogTitle.onclick = function() {
+        window.location.href = '/blog/' + data.id
+    }
     blogTitle.textContent = data.title
 
     const blogContent = document.createElement('div')
@@ -294,8 +298,12 @@ async function fetchProfilePage(user) {
     }
 
     const blogsDIV = document.getElementById('weblogs')
+    let sliceVal = 2
+    if (typeof weblogsShown !== 'undefined') {
+        sliceVal = weblogsShown
+    }
     if (blogsDIV && blogResponse.totalBlogs > 0) {
-        const blogs = blogResponse.blogs.slice(0, 2)
+        const blogs = blogResponse.blogs.slice(0, sliceVal)
         blogs.forEach(blog => {
             blogsDIV.appendChild(createBlog(blog))
         })

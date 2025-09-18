@@ -2,7 +2,8 @@ const form = document.querySelector('form#create-form')
 const textarea = document.querySelector('textarea#content')
 const txtHTML = document.querySelector('#edit-html textarea')
 const txtCSS = document.querySelector('#edit-style textarea')
-if (txtHTML) {
+const txtJS = document.querySelector('#edit-scripts textarea')
+if (txtHTML === '') {
   txtHTML.value = 
 `<div id="header">
     <h5 id="display"></h5>
@@ -413,18 +414,17 @@ function popupPreview(disableJS) {
     </div>
 </body>
 <script type="text/javascript" src="/js/nav.js"></script>
-<script>window.inIframe = true</script>
+<script>
+  window.inIframe = true
+  ${disableJS ? '' : txtJS.value}
+</script>
 <script type="text/javascript" src="/js/music.js"></script>
 <script type="text/javascript" src="/js/user.js"></script>
 `
   iframe.srcdoc = html;
   setupPopup(iframe)
 
-  console.log(iframe)
   iframe.onload = function() {
     iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = txtCSS.value
-    if (!disableJS) {
-      iframe.contentWindow.eval(document.querySelector('#edit-scripts textarea').value)
-    }
   }
 }
