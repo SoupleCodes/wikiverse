@@ -402,7 +402,6 @@ async function fetchProfilePage(user) {
 
         musicContent.appendChild(trackList)
         musicModule.appendChild(musicContent)
-        side4.appendChild(musicModule)
 
         const controls = {
             prev: document.getElementById('prev-btn'),
@@ -428,7 +427,6 @@ async function fetchProfilePage(user) {
         const fwngCarousel = newElement('following-carousel', 'div', null)
         fwngContent.appendChild(fwngCarousel)
         fwngModule.appendChild(fwngContent)
-        side4.appendChild(fwngModule)
 
         let carouselContent = document.createDocumentFragment();
         following.map((u => {
@@ -458,7 +456,6 @@ async function fetchProfilePage(user) {
         const fwrsCarousel = newElement('followers-carousel', 'div', null)
         fwrsContent.appendChild(fwrsCarousel)
         fwrsModule.appendChild(fwrsContent)
-        side4.appendChild(fwrsModule)
 
         let carouselContent = document.createDocumentFragment();
         followers.map((u => {
