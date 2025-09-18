@@ -58,7 +58,7 @@ function addLink(data) {
     return parent
 }
 
-if (linksEl) {
+if (linksEl && u.social_links) {
     u.social_links.map((s) => {
         linksEl.appendChild(addLink(
             {
@@ -174,27 +174,29 @@ archiveEl.innerHTML = `<tbody><tr><td class="social-name"><a href="/~${u.usernam
 
 const socialLinksEl = makeGroup('Contact me:', 'contactme', 'table')
 socialLinksEl.classList.add('list')
-Array.from(u.social_links).map((s) => {
-    let trEl = previewIframeEl.createElement('tr')
+if (u.social_links) {
+    Array.from(u.social_links).map((s) => {
+        let trEl = previewIframeEl.createElement('tr')
 
-    let tdEl = previewIframeEl.createElement('td');
-    tdEl.classList.add('social-name')
-    tdEl.width = '25%'
-    tdEl.textContent = s.name
-    
-    let tdEl2 = previewIframeEl.createElement('td');
-    tdEl2.classList.add('social-name')
-    tdEl2.width = '75%'
+        let tdEl = previewIframeEl.createElement('td');
+        tdEl.classList.add('social-name')
+        tdEl.width = '25%'
+        tdEl.textContent = s.name
+        
+        let tdEl2 = previewIframeEl.createElement('td');
+        tdEl2.classList.add('social-name')
+        tdEl2.width = '75%'
 
-    let aEl = previewIframeEl.createElement('a');
-    aEl.href = s.url
-    aEl.textContent = s.username
-    tdEl2.appendChild(aEl)
+        let aEl = previewIframeEl.createElement('a');
+        aEl.href = s.url
+        aEl.textContent = s.username
+        tdEl2.appendChild(aEl)
 
-    trEl.appendChild(tdEl)
-    trEl.appendChild(tdEl2)
-    socialLinksEl.appendChild(trEl)
-})
+        trEl.appendChild(tdEl)
+        trEl.appendChild(tdEl2)
+        socialLinksEl.appendChild(trEl)
+    })
+}
 
 
 const side3 = previewIframeEl.createElement('div'); side3.classList.add('col3')
@@ -280,7 +282,7 @@ function addMusicDetail(m) {
 
         return group
 }
-if (musicDetails && u) {
+if (musicDetails && u && u.music) {
     Array.from(u.music).map(m => {
         musicDetails.appendChild(addMusicDetail(m, m.song_url, m.link))
     })
