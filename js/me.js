@@ -169,10 +169,11 @@ urecentlyCommentsEl.innerHTML = `
     <li><a href="#">souple</a><p>on your blog</p></li>
 `
 const archiveEl = makeGroup('Archive:', 'archive', 'table')
+archiveEl.classList.add('list')
 archiveEl.innerHTML = `<tbody><tr><td class="social-name"><a href="/~${u.username}/archive">December 1969</a> (999)</td></tr></tbody>`
 
 const socialLinksEl = makeGroup('Contact me:', 'contactme', 'table')
-socialLinksEl.classList.add('link')
+socialLinksEl.classList.add('list')
 Array.from(u.social_links).map((s) => {
     let trEl = previewIframeEl.createElement('tr')
 
