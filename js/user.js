@@ -417,7 +417,9 @@ async function fetchProfilePage(user) {
             next: document.getElementById('next-btn'),
         };
 
-        window.musicPlayer = new MusicPlayer(music, controls, songSlider.querySelector('#seek-slider input'))
+        if (typeof preview_user === 'undefined') {
+            window.musicPlayer = new MusicPlayer(music, controls, songSlider.querySelector('#seek-slider input'))
+        }
     } else {
         document.querySelector('#music.w-modul') && document.querySelector('#music.w-modul').remove()
     }

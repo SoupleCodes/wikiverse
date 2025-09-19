@@ -71,7 +71,7 @@ async function fetchBlog(id) {
         entry.insertBefore(mPlayer, document.getElementById('entry-body'))
 
         const controls = {
-            toggle: mPlayer.getElementById('play-toggle'),
+            toggle: mPlayer.querySelector('#play-toggle'),
         };
 
         window.musicPlayer = new MusicPlayer([data.music], controls, mPlayer.querySelector('#seek-slider input'))
