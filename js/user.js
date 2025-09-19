@@ -482,11 +482,16 @@ async function fetchProfilePage(user) {
     }
 }
 
-let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
-let user = (new URLSearchParams(window.location.search).get("") || test)
-if (window.inIframe) {
-    user = window.dummyData.user.username
-    fetchProfilePage(user)
+let user
+if (typeof preview_user === 'undefined') {
+    let test = window.location.hostname == 'wikiverse.pages.dev' ? window.location.pathname.slice(2) : null
+    if (window.inIframe) {
+        user = window.dummyData.user.username
+        fetchProfilePage(user)
+    } else {
+        user = new URLSearchParams(window.location.search).get("") || test
+        fetchProfilePage(user)
+    }
 } else {
-    fetchProfilePage(user)
+    fetchProfilePage(preview_user)
 }

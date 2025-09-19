@@ -1,16 +1,23 @@
+/* Intialise vars */
 const token = localStorage.token
 let u = localStorage.user
-
-const previewIframeEl = document.querySelector('#preview-window iframe').contentWindow.document
+const iframe = document.querySelector('#preview-window iframe')
+window.frames = iframe
 const displayInputEl = document.querySelector('input[name="display_name"]')
 const pfpUrlEl = document.querySelector('input[name="pfp_url"]')
 const bannerUrlEl = document.querySelector('input[name="banner_url"]')
 const locationEl = document.querySelector('input[name="location"]')
 const aboutMeEl = document.querySelector('#edit-content textarea#content')
 const styleEl = document.querySelector('#edit-style textarea#content')
+if (u.theme) {
+    styleEl.disabled = true;
+    styleEl.title = 'You can\'t edit your css because you have a theme enabled'
+}
 const linksEl = document.getElementById('social-links')
 const typelinksEl = document.getElementById('social-links-inputarea').querySelectorAll('input')
 const addLinkEl = document.getElementById('add-link')
+
+/* Autofill input fields */
 if (u) {
     u = JSON.parse(u)
     displayInputEl.value = u.display_name
@@ -21,220 +28,135 @@ if (u) {
     styleEl.value = u.style
 }
 
-function addLink(data) {
-    const parent = document.createElement('div')
-    parent.classList.add('s-link')
-
-    const userLabel = document.createElement('label')
-    const linkUserInput = document.createElement('input')
-    linkUserInput.name = 'link-user'
-    linkUserInput.value = data.username
-    userLabel.appendChild(linkUserInput)
-
-    const siteNameLabel = document.createElement('label')
-    const siteNameInput = document.createElement('input')
-    siteNameInput.name = 'link-sitename'
-    siteNameInput.value = data.name
-    siteNameLabel.appendChild(siteNameInput)
-
-    const urlLabel = document.createElement('label')
-    const urlInput = document.createElement('input')
-    urlInput.name = 'link-sitename'
-    urlInput.value = data.url
-    urlLabel.appendChild(urlInput)
-
-    const button = document.createElement('button')
-    button.classList.add('remove-link')
-    button.textContent = '-'
-    button.addEventListener('click', function() {
-        parent.remove()
-    })
-
-    parent.appendChild(userLabel)
-    parent.appendChild(siteNameLabel)
-    parent.appendChild(urlLabel)
-    parent.appendChild(button)
-
-    return parent
-}
-
-if (linksEl && u.social_links) {
-    u.social_links.map((s) => {
-        linksEl.appendChild(addLink(
-            {
-                username: s.username,
-                name: s.name,
-                url: s.url
-            }
-        ))
-    })
-
-    addLinkEl.addEventListener('click', function() {
-        linksEl.appendChild(addLink(
-            {
-                username: typelinksEl[0].value,
-                name: typelinksEl[1].value,
-                url: typelinksEl[2].value
-            }
-        ))
-    })
-}
-
-const content = previewIframeEl.createElement('div'); content.id = 'content'
-const userStyle = previewIframeEl.createElement('style'); userStyle.id = 'user-style'
-
-function updateStyle() { userStyle.innerHTML = styleEl.value }
-
-const header = previewIframeEl.createElement('div'); header.id = 'header';
-const headerDisplay = previewIframeEl.createElement('h5'); headerDisplay.id = 'display';
-if (u.username.endsWith('s')) {
-    headerDisplay.textContent= u.username + "' profile"
-} else {
-    headerDisplay.textContent= u.username + "'s profile"
-}
-headerDisplay.title = 'h5#display'
-header.appendChild(headerDisplay)
-
-const banner = previewIframeEl.createElement('div'); banner.id = 'banner';
-if (u.banner_url) {
-    const img = previewIframeEl.createElement('img')
-    img.src = u.banner_url
-    banner.appendChild(img)
-}
-banner.title = '#banner img'
-function updateBanner() { banner.querySelector('img').src = bannerUrlEl.value }
-
-const side1 = previewIframeEl.createElement('div'); side1.classList.add = 'col1';
-    const avatarDiv = previewIframeEl.createElement('div'); avatarDiv.id = 'avatar'
-    const img = previewIframeEl.createElement('img'); img.src = u.pfp_url || '/images/ui/default.png'; 
-    img.title = '#avatar img'
-    avatarDiv.appendChild(img); side1.appendChild(avatarDiv)
-    const h5display = previewIframeEl.createElement('h5'); h5display.id = 'display_name'; h5display.textContent = u.display_name || ''
-    h5display.title = 'h5#display_name'
-    side1.appendChild(h5display)
-
-    const statsEl = previewIframeEl.createElement('div'); statsEl.id = 'stats'; statsEl.title = '#stats'
-        const ustatsM = previewIframeEl.createElement('h6'); ustatsM.textContent = 'Member since:'
-        const ujoinDateEl = previewIframeEl.createElement('small'); ujoinDateEl.id = 'join-date'; ujoinDateEl.textContent = returnUTCTime(u.created_at)
-        const ustatsEl = previewIframeEl.createElement('h6'); ustatsEl.textContent = 'Last seen:'
-        const ulastSeenEl = previewIframeEl.createElement('small'); ulastSeenEl.id = 'last-seen'; ulastSeenEl.textContent = returnUTCTime(u.last_activity)
-        const uLocationEl = previewIframeEl.createElement('h6'); uLocationEl.textContent = 'Location:'
-        const uLocationSmallEl = previewIframeEl.createElement('small'); uLocationSmallEl.id = 'user-location'; uLocationSmallEl.textContent = u.location
-    statsEl.appendChild(ustatsM)
-    statsEl.appendChild(ujoinDateEl)
-    statsEl.appendChild(ustatsEl)
-    statsEl.appendChild(ulastSeenEl)
-    statsEl.appendChild(uLocationEl)
-    statsEl.appendChild(uLocationSmallEl)
-side1.appendChild(statsEl)
-
-function updateDisplayName() { h5display.textContent = displayInputEl.value }
-function updateLocation() { uLocationSmallEl.textContent = locationEl.value }
-function updatePfp() { avatarDiv.querySelector('img').src = pfpUrlEl.value }
-
-const side2 = previewIframeEl.createElement('div'); side2.classList.add('col2')
-function makeGroup(title, contentID, contentElType) {
-    const group = previewIframeEl.createElement('div');
-    group.classList.add('group')
-    
-    const titleEl = previewIframeEl.createElement('h5');
-    titleEl.classList.add('title')
-    titleEl.textContent = title
-    group.appendChild(titleEl)
-
-    const contentEl = previewIframeEl.createElement(contentElType || 'ul');
-    contentEl.id = contentID
-    contentEl.title = contentElType + '#' + (contentID || 'ul')
-    group.appendChild(contentEl)
-
-    side2.appendChild(group)
-    return contentEl
-}
-const uAboutMeEl = makeGroup('About me:', 'aboutme', 'p')
-uAboutMeEl.innerHTML = bbcodeparse(u.about_me)
-function updateAboutMe() { uAboutMeEl.innerHTML = bbcodeparse(aboutMeEl.value) }
-
-const urecentlyEl = makeGroup('Recently edited articles:', 'recent-articles')
-urecentlyEl.innerHTML = `
-    <li><a href="#">Article</a><p>by someone</p></li>
-    <li><a href="#">Article</a><p>by someone</p></li>
-    <li><a href="#">Article</a><p>by someone</p></li>
-    <li><a href="#">Article</a><p>by someone</p></li>
-`
-const urecentlyCommentsEl = makeGroup('Recent comments:', 'recent-comments')
-urecentlyCommentsEl.innerHTML = `
-    <li><a href="#">souple</a><p>on your blog</p></li>
-    <li><a href="#">souple</a><p>on your blog</p></li>
-    <li><a href="#">souple</a><p>on your blog</p></li>
-    <li><a href="#">souple</a><p>on your blog</p></li>
-`
-const archiveEl = makeGroup('Archive:', 'archive', 'table')
-archiveEl.classList.add('list')
-archiveEl.innerHTML = `<tbody><tr><td class="social-name"><a href="/~${u.username}/archive">December 1969</a> (999)</td></tr></tbody>`
-
-const socialLinksEl = makeGroup('Contact me:', 'contactme', 'table')
-socialLinksEl.classList.add('list')
-if (u.social_links) {
-    Array.from(u.social_links).map((s) => {
-        let trEl = previewIframeEl.createElement('tr')
-
-        let tdEl = previewIframeEl.createElement('td');
-        tdEl.classList.add('social-name')
-        tdEl.width = '25%'
-        tdEl.textContent = s.name
-        
-        let tdEl2 = previewIframeEl.createElement('td');
-        tdEl2.classList.add('social-name')
-        tdEl2.width = '75%'
-
-        let aEl = previewIframeEl.createElement('a');
-        aEl.href = s.url
-        aEl.textContent = s.username
-        tdEl2.appendChild(aEl)
-
-        trEl.appendChild(tdEl)
-        trEl.appendChild(tdEl2)
-        socialLinksEl.appendChild(trEl)
-    })
-}
-
-
-const side3 = previewIframeEl.createElement('div'); side3.classList.add('col3')
-side3.innerHTML = `
-    <h5 class="title">My weblog...</h5>
-        <div class="weblog">
-            <p class="blog-date">December 31, 1969 ~ 12:59 pm</p>
-            <div class="blog-content">
-                <h6 class="entry-title">Lorem ipsum</h6>
-                <p class="blog-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+/* Update iframe */
+var html = `
+<head>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="stylesheet" href="/styles/user.css"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    <script type="text/javascript" src="/js/helper.js"></script>
+    <script type="text/javascript" src="/js/comment.js"></script>
+    <script type="text/javascript" src="/js/carousel.js"></script>
+</head>
+<nav id="topbar"></nav>
+<style>
+    body {
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+    }
+    body::-webkit-scrollbar { 
+        display: none;  /* Older Safari and Chromium */
+    }
+</style>
+<style id="user-style">
+</style>
+<body>
+    <div id="main">
+        <div id="header">
+            <h5 id="display"></h5>
+        </div>
+        <div id="banner">
+        </div>
+        <div id="content">
+            <div id="userside" class="col1">
+                <div id="avatar">
+                    <img src="/images/ui/default.png"/>
+                    <button title="Follow this user?" id="follow">+</button>
+                </div>
+                <h5 id="display_name"></h5>
+                <div id="stats">
+                    <h6>Member since:</h6>
+                    <small id="join-date"></small>
+                    <h6>Last seen:</h6>
+                    <small id="last-seen"></small>
+                    <h6>Location:</h6>
+                    <small id="user-location"></small>
+                </div>
             </div>
-            <div class="blog-links">
-                <p>47 views</p><p> - </p><p><a href="#">0 comments</a></p>
+            <div id="userinfo" class="col2">
+                <div class="group">
+                    <h5 class="title">About me:</h5>
+                    <p id="aboutme"></p>
+                </div>
+                <div class="group">
+                    <h5 class="title">Recently edited articles:</h5>
+                    <ul id="recent-articles"></ul>
+                </div>
+                <div class="group">
+                    <h5 class="title">Recent comments:</h5>
+                    <ul id="recent-comments"></ul>
+                </div>
+                <div class="group">
+                    <h5 class="title">Archive:</h5>
+                    <table id="archive" class="list noline"></table>
+                </div>
+                <div class="group">
+                    <h5 class="title">Contact me:</h5>
+                    <table id="contactme" class="list"></table>
+                </div>
+            </div>
+            <div id="weblogs" class="col3">
+                <h5 class="title">My weblog...</h5>
+            </div>
+            <div id="modules" class="col4">
+            <div class="w-modul" id="music"></div>
+            <div class="w-modul" id="following"></div>
+            <div class="w-modul" id="followers"></div>
+            </div>
+        </div>
+        <div id="comments-section">
+            <h5 id="comment-count" class="title"></h5>
+            <p id="showing"></p>
+            <div id="comments"></div>
+            <div id="comment-box">
+                <textarea id="typearea" placeholder="Type something here!"></textarea>
+                <button id="submit">submit</button>
             </div>
         </div>
     </div>
+</body>
+<script type="text/javascript" src="/js/nav.js"></script>
+<script>
+    let preview_user = '${u.username}'
+</script>
+<script type="text/javascript" src="/js/music.js"></script>
+<script type="text/javascript" src="/js/user.js"></script>
 `
+iframe.srcdoc = html;
+iframe.onload = function () {
+    const iframeContent = iframe.contentWindow.document.body
+    iframeContent.querySelector('#user-style').innerHTML = u.theme ? u.theme.layout_style : ''
+    if (u.theme) {
+        iframe.contentWindow.eval(u.theme.layout_javascript)
+    }
+}
 
-const side4 = previewIframeEl.createElement('div'); side4.classList.add('col4')
+function updateStyle() { iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = styleEl.value }
+function updateBanner() { 
+    const select = iframe.contentWindow.document.body.querySelector('#banner')
+    if (!select.querySelector('img')) {
+        const img = document.createElement('img')
+        img.src = bannerUrlEl.value
+        select.appendChild(img)
+    } else {
+        if (bannerUrlEl.value) {
+            select.querySelector('img').src = bannerUrlEl.value 
+        } else {
+            if (select.querySelector('img')) {
+                select.querySelector('img').remove()
+            }
+            return ''
+        }
+    }
+}
+function updateDisplayName() { iframe.contentWindow.document.body.querySelector('#display_name').textContent = displayInputEl.value }
+function updateLocation() { iframe.contentWindow.document.body.querySelector('#user-location').textContent = locationEl.value }
+function updatePfp() { iframe.contentWindow.document.body.querySelector('#avatar img').src = pfpUrlEl.value }
 
-previewIframeEl.querySelector('body').appendChild(header); previewIframeEl.querySelector('body').appendChild(banner);
-content.appendChild(side1); content.appendChild(side2);
-content.appendChild(side3); content.appendChild(side4);
-previewIframeEl.querySelector('body').appendChild(content)
-previewIframeEl.querySelector('body').appendChild(userStyle)
-
-var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = '/styles/main.css'
-previewIframeEl.querySelector('head').appendChild(link)
-
-var link2 = document.createElement('link');
-    link2.type = 'text/css';
-    link2.rel = 'stylesheet';
-    link2.href = '/styles/user.css'
-previewIframeEl.querySelector('head').appendChild(link2)
-
+/* Left side (user-edit) */
 let musicDetails = document.getElementById('music-details')
 let addMusicDetailButton = document.querySelector('#music-input button')
 function addMusicDetail(m) {
@@ -277,12 +199,14 @@ function addMusicDetail(m) {
         button.textContent = '-'
         button.addEventListener('click', function() {
             group.remove()
+            let index = Array.prototype.indexOf.call(musicDetails.children, group)
+            frame.contentWindow.document.querySelector('#tracklist').children[index].remove()
         })
         group.appendChild(button)
 
         return group
 }
-if (musicDetails && u && u.music) {
+if (musicDetails && u) {
     Array.from(u.music).map(m => {
         musicDetails.appendChild(addMusicDetail(m, m.song_url, m.link))
     })
