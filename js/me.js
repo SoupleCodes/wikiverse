@@ -206,6 +206,42 @@ function addMusicDetail(m) {
 
         return group
 }
+function addLink(data) {
+    const parent = document.createElement('div')
+    parent.classList.add('s-link')
+
+    const userLabel = document.createElement('label')
+    const linkUserInput = document.createElement('input')
+    linkUserInput.name = 'link-user'
+    linkUserInput.value = data.username
+    userLabel.appendChild(linkUserInput)
+
+    const siteNameLabel = document.createElement('label')
+    const siteNameInput = document.createElement('input')
+    siteNameInput.name = 'link-sitename'
+    siteNameInput.value = data.name
+    siteNameLabel.appendChild(siteNameInput)
+
+    const urlLabel = document.createElement('label')
+    const urlInput = document.createElement('input')
+    urlInput.name = 'link-sitename'
+    urlInput.value = data.url
+    urlLabel.appendChild(urlInput)
+
+    const button = document.createElement('button')
+    button.classList.add('remove-link')
+    button.textContent = '-'
+    button.addEventListener('click', function() {
+        parent.remove()
+    })
+
+    parent.appendChild(userLabel)
+    parent.appendChild(siteNameLabel)
+    parent.appendChild(urlLabel)
+    parent.appendChild(button)
+
+    return parent
+}
 if (musicDetails && u) {
     Array.from(u.music).map(m => {
         musicDetails.appendChild(addMusicDetail(m, m.song_url, m.link))
@@ -231,6 +267,27 @@ if (musicDetails && u) {
                 published: published,
                 album: detailOptions[5].value,
                 genre: detailOptions[6].value,
+            }
+        ))
+    })
+}
+if (linksEl && u.social_links) {
+    u.social_links.map((s) => {
+        linksEl.appendChild(addLink(
+            {
+                username: s.username,
+                name: s.name,
+                url: s.url
+            }
+        ))
+    })
+
+    addLinkEl.addEventListener('click', function() {
+        linksEl.appendChild(addLink(
+            {
+                username: typelinksEl[0].value,
+                name: typelinksEl[1].value,
+                url: typelinksEl[2].value
             }
         ))
     })
