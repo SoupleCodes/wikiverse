@@ -200,7 +200,6 @@ function addMusicDetail(m) {
         button.addEventListener('click', function() {
             group.remove()
             let index = Array.prototype.indexOf.call(musicDetails.children, group)
-            frame.contentWindow.document.querySelector('#tracklist').children[index].remove()
         })
         group.appendChild(button)
 
