@@ -152,6 +152,7 @@ function updateBanner() {
         }
     }
 }
+function updateAboutMe() { iframe.contentWindow.document.body.querySelector('#aboutme').innerHTML = bbcodeparse(aboutMeEl.value) }
 function updateDisplayName() { iframe.contentWindow.document.body.querySelector('#display_name').textContent = displayInputEl.value }
 function updateLocation() { iframe.contentWindow.document.body.querySelector('#user-location').textContent = locationEl.value }
 function updatePfp() { iframe.contentWindow.document.body.querySelector('#avatar img').src = pfpUrlEl.value }
