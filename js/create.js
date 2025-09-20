@@ -241,7 +241,7 @@ async function submitBlog() {
   let includeglobal = globalCSSToggl.checked | 0
   let style = document.querySelector('#edit-style textarea').value
   let tags = []
-  let music = {}
+  let music = null
   if (musicToggl.checked) {
     const detailOptions = document.querySelector('#tabs-music.tab-content').children
 
