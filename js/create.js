@@ -242,7 +242,7 @@ async function submitBlog() {
   let style = document.querySelector('#edit-style textarea').value
   let tags = []
   let music = {}
-  if (musicToggl) {
+  if (musicToggl.checked {
     const detailOptions = document.querySelector('#tabs-music.tab-content').children
 
     let artist_name = detailOptions[0].value

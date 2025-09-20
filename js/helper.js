@@ -246,6 +246,10 @@ const bbcodeTags = [
     { html: "<img class='emoji' src='https://www.pixelcatsend.com/images/catmojis/$attr$.png'></img>", tag: "catmoji" },
 ];
 
+/*
+<button onclick="this.offsetParent.innerHTML+=`<img src='https://web.archive.org/web/20250430162751/https://media1.tenor.com/m/nZsn90X3OpYAAAAC/baby-cat-dancing-png.gif' width='48px' height='48px'>`;">add cat!</button>
+*/
+
 function putStrOntoChild(a, b) {
     if (typeof a !== "string" || typeof b !== "string") {
       return "";
