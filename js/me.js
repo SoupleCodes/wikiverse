@@ -200,9 +200,13 @@ function addMusicDetail(m) {
                 let currentIdx = Array.prototype.indexOf.call(this.parentNode.children, this)
                 let targetChild = parent.children[currentIdx + idx]
                 let child = group
-                let childCount = parent.children.length
 
                 var temp = document.createElement("div");
+                if (!targetChild) {
+                    this.style.transform = 'translate(0px, 0px)'
+                    this.style.zIndex = '0'
+                    return null
+                }
                 targetChild.parentNode.insertBefore(temp, targetChild);
                 child.parentNode.insertBefore(targetChild, child);
                 temp.parentNode.insertBefore(child, temp);
