@@ -116,6 +116,8 @@ button#add-link, button.remove-link {
     display: flex;
     padding: 5px 0px 0px 0px;
     cursor: pointer;
+    height: 23px;
+    position: relative
 }
 .song-group:hover {
     background: #EAEAEA;
@@ -131,6 +133,7 @@ button#add-link, button.remove-link {
     background: gray;
     border: none !important;
     height: 25px;
+    pointer-events: none;
 }
 .song-group p {
     margin: 0;
