@@ -22,14 +22,14 @@ async function fetchTheme(id) {
     if (!localStorage.token) {
         useThisButton.remove()
     } else {
-        if (u.theme !== null && u.theme.id === id) {
+        if (u.theme === id) {
             useThisButton.textContent = 'Remove this theme'
             useThisButton.classList.add('tog')
         }
         useThisButton.addEventListener('click', async () => {
             const response = useTheme(id)
             if (response) {
-                if (u.theme === null && u.theme.id === id) {
+                if (u.theme === id) {
                     useThisButton.textContent = 'Remove this theme'
                     useThisButton.classList.add('tog')
                 } else {

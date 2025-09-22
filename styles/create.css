@@ -112,6 +112,7 @@ button#add-link, button.remove-link {
     display: flex;
 }
 
+#music-details { user-select: none }
 .song-group {
     display: flex;
     padding: 5px 0px 0px 0px;
