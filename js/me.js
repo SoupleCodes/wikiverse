@@ -217,6 +217,43 @@ function addMusicDetail(m) {
             let index = Array.prototype.indexOf.call(musicDetails.children, group)
         })
         group.appendChild(button)
+        group.addEventListener("mousedown", function(e) { 
+            e.preventDefault();
+            e.stopPropagation(); 
+    
+            startDragY = e.pageY
+            isDragging = true
+            document.body.focus()
+            
+            group.addEventListener("mousemove", onDrag, false)
+        }, false)
+        group.addEventListener("mouseup", function(e) {
+            e.preventDefault();
+            e.stopPropagation(); 
+            if (isDragging) {
+                isDragging = false
+                let idx = Math.floor(diffY / 28)
+                let parent = group.parentElement
+                let currentIdx = Array.prototype.indexOf.call(this.parentNode.children, this)
+                let targetChild = parent.children[currentIdx + idx]
+                let child = group
+    
+                var temp = document.createElement("div");
+                if (!targetChild) {
+                    this.style.transform = 'translate(0px, 0px)'
+                    this.style.zIndex = '0'
+                    return null
+                }
+                targetChild.parentNode.insertBefore(temp, targetChild);
+                child.parentNode.insertBefore(targetChild, child);
+                temp.parentNode.insertBefore(child, temp);
+                temp.parentNode.removeChild(temp);
+                
+                group.removeEventListener("mousemove", onDrag, false)
+                this.style.transform = 'translate(0px, 0px)'
+                this.style.zIndex = '0'
+            }
+        })
 
         return group
 }
@@ -284,44 +321,6 @@ if (musicDetails && u) {
             }
         ))
 
-    })
-
-    group.addEventListener("mousedown", function(e) { 
-        e.preventDefault();
-        e.stopPropagation(); 
-
-        startDragY = e.pageY
-        isDragging = true
-        document.body.focus()
-        
-        group.addEventListener("mousemove", onDrag, false)
-    }, false)
-    group.addEventListener("mouseup", function(e) {
-        e.preventDefault();
-        e.stopPropagation(); 
-        if (isDragging) {
-            isDragging = false
-            let idx = Math.floor(diffY / 28)
-            let parent = group.parentElement
-            let currentIdx = Array.prototype.indexOf.call(this.parentNode.children, this)
-            let targetChild = parent.children[currentIdx + idx]
-            let child = group
-
-            var temp = document.createElement("div");
-            if (!targetChild) {
-                this.style.transform = 'translate(0px, 0px)'
-                this.style.zIndex = '0'
-                return null
-            }
-            targetChild.parentNode.insertBefore(temp, targetChild);
-            child.parentNode.insertBefore(targetChild, child);
-            temp.parentNode.insertBefore(child, temp);
-            temp.parentNode.removeChild(temp);
-            
-            group.removeEventListener("mousemove", onDrag, false)
-            this.style.transform = 'translate(0px, 0px)'
-            this.style.zIndex = '0'
-        }
     })
 }
 if (linksEl && u.social_links) {
