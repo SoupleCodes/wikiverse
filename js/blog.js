@@ -76,7 +76,11 @@ async function fetchBlog(id) {
 
         window.musicPlayer = new MusicPlayer([data.music], controls, mPlayer.querySelector('#seek-slider input'))
     }
-    document.querySelector('style#blog-style').innerHTML = data.style
+    if (data.style) {
+        document.querySelector('style#blog-style').innerHTML = data.style
+    } else {
+        document.querySelector('style#blog-style').innerHTML = data.profile.global_blog_css
+    }
     
     document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/~' + data.author
     document.querySelector('table#profile-link-options td#linkTo-articles a').href = '/~' + data.author + '/articles'
