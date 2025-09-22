@@ -27,6 +27,7 @@ if (u) {
     locationEl.value = u.location
     aboutMeEl.value = u.about_me
     styleEl.value = u.style
+    defaultBlogStyleEl.value = u.global_blog_css
 }
 
 /* Update iframe */
