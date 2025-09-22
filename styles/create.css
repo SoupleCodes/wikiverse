@@ -27,7 +27,7 @@ input[name=toggle-preview] {
     height: 8px
 }
 #preview-window {width:100%;height:100%}
-#edit-content, #edit-tags, #edit-style, 
+#edit-content, #edit-tags, #edit-style, #edit-default-blog-style,
 #edit-parentpart, #edit-comments-toggle, #edit-globalcss-toggle, 
 #edit-social-links, #edit-music, #edit-html, #edit-scripts {
     width: 100%;

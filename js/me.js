@@ -9,6 +9,7 @@ const bannerUrlEl = document.querySelector('input[name="banner_url"]')
 const locationEl = document.querySelector('input[name="location"]')
 const aboutMeEl = document.querySelector('#edit-content textarea#content')
 const styleEl = document.querySelector('#edit-style textarea#content')
+const defaultBlogStyleEl = document.querySelector('#edit-default-blog-style textarea#content')
 if (u.theme) {
     styleEl.disabled = true;
     styleEl.title = 'You can\'t edit your css because you have a theme enabled'
@@ -352,6 +353,7 @@ async function updateProfile() {
     let location = locationEl.value
     let about_me = aboutMeEl.value
     let style = styleEl.value
+    let global_blog_css = defaultBlogStyleEl.value || null
     let social_links = []
     let music = []
 
@@ -390,7 +392,8 @@ async function updateProfile() {
             about_me,
             style,
             social_links,
-            music
+            music,
+            global_blog_css
         })
     });
     try {
