@@ -167,6 +167,8 @@ function addMusicDetail(m) {
     let diffY
     let isDragging = false
 
+    let group = document.createElement('div')
+
     const onDrag = function(e) {
         if (!isDragging) return
         e = e || window.event
@@ -174,9 +176,20 @@ function addMusicDetail(m) {
         diffY = dragY - startDragY
         this.style.zIndex = '99999'
         this.style.transform = 'translate(' + '0px, ' + diffY + 'px)'
-    }
 
-    let group = document.createElement('div')
+        let idx = Math.floor(diffY / 28)
+        let parent = group.parentElement
+        let currentIdx = Array.prototype.indexOf.call(this.parentNode.children, this)
+        let targetChild = parent.children[currentIdx + idx]
+        if (!targetChild) {
+            this.style.transform = 'translate(0px, 0px)'
+            this.style.zIndex = '0'
+            isDragging = false
+            group.removeEventListener("mousemove", onDrag, false)
+            return null
+        }
+    }
+    
         group.classList.add('song-group')
         group.setAttribute('songurl', m.song_url || '')
         group.setAttribute('link', m.link || '')
