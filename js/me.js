@@ -32,6 +32,8 @@ if (u) {
 
 /* Update iframe */
 var html = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 <head>
     <link rel="stylesheet" href="/styles/main.css"/>
     <link rel="stylesheet" href="/styles/user.css"/>
@@ -54,6 +56,7 @@ var html = `
     }
 </style>
 <style id="user-style">
+${u.theme ? u.theme.layout_style : ''}
 </style>
 <body>
     <div id="main">
@@ -126,15 +129,12 @@ var html = `
 </script>
 <script type="text/javascript" src="/js/music.js"></script>
 <script type="text/javascript" src="/js/user.js"></script>
+${u.theme ? `<script type="text/javascript">${u.theme.layout_javascript}</script>` : ''}
+</html>
 `
-iframe.srcdoc = html;
-iframe.onload = function () {
-    const iframeContent = iframe.contentWindow.document.body
-    iframeContent.querySelector('#user-style').innerHTML = u.theme ? u.theme.layout_style : ''
-    if (u.theme) {
-        iframe.contentWindow.eval(u.theme.layout_javascript)
-    }
-}
+iframe.contentDocument.open()
+iframe.contentDocument.write(html)
+iframe.contentDocument.close()
 
 function updateStyle() { iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = styleEl.value }
 function updateBanner() { 

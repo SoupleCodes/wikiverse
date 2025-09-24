@@ -88,6 +88,58 @@ window.setupPopup = function setupPopup(content) {
     popupEl.addEventListener("click", () => popupEl.remove() )
 }
 
+window.previewTheme = function previewTheme(layout_html, css, js) {
+    var iframe = document.createElement('iframe');
+    var html = `
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="stylesheet" href="/styles/user.css"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="friends online social networking wiki articles blog poll">
+    <script type="text/javascript" src="/js/helper.js"></script>
+    <script type="text/javascript" src="/js/comment.js"></script>
+    <script type="text/javascript" src="/js/carousel.js"></script>
+</head>
+<nav id="topbar"></nav>
+<style>
+    body {
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
+    }
+    body::-webkit-scrollbar { 
+        display: none;  /* Older Safari and Chromium */
+    }
+</style>
+<body>
+    <div id="main">
+        ${layout_html}
+    </div>
+</body>
+<script type="text/javascript" src="/js/nav.js"></script>
+<script>window.inIframe = true</script>
+<script type="text/javascript" src="/js/music.js"></script>
+<script type="text/javascript" src="/js/user.js"></script>
+</html>`
+
+    setupPopup(iframe)
+  
+    iframe.onload = function() {
+        iframe.contentDocument.open()
+        iframe.contentDocument.write(html)
+        iframe.contentDocument.close()
+        const style = document.createElement("style");
+        style.textContent = css
+        iframe.contentDocument.head.appendChild(style);
+        if (js) {
+            iframe.contentWindow.eval(js)
+        }
+    }
+}
+
 window.setupDropdown = function setupDropdown(kv, parent) {
     const p = document.querySelector(parent)
     p.style.position = 'relative'

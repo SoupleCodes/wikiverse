@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let userOptions = nav.querySelector('#user-options')
         if(storage) {
             userOptions.innerHTML += `
-                <li>|</li>
+                <li id="separator">|</li>
                 <a id="my-profile"><li class="link">my profile</li></a>
             `
             setupDropdown({

@@ -60,21 +60,21 @@ async function spawnThemes() {
             const themeSourceEl = document.createElement('div')
             themeSourceEl.classList.add('theme-source')
             themeSourceEl.innerHTML = `
-        <div>
-            <small>HTML:</small>
-            <textarea disabled></textarea>
-        </div>
-        <div>
-            <small>Javascript</small>
-            <textarea disabled></textarea>
-            <div style="color: gray;font-size: 8px;float: right;">
-                <input type="checkbox" style="height: 8px;">Disable JS?
-            </div>
-        </div>
-        <div>
-            <small>CSS</small>
-            <textarea disabled></textarea>
-        </div>
+<div>
+    <small>HTML:</small>
+    <textarea disabled></textarea>
+</div>
+<div>
+    <small>Javascript</small>
+    <textarea disabled></textarea>
+    <div style="color: gray;font-size: 8px;float: right;">
+        <input type="checkbox" style="height: 8px;">Disable JS?
+    </div>
+</div>
+<div>
+    <small>CSS</small>
+    <textarea disabled></textarea>
+</div>
             `
 
             const htmlEl = themeSourceEl.querySelectorAll('div textarea')[0]
@@ -86,51 +86,11 @@ async function spawnThemes() {
             cssEl.innerHTML = data.layout_style
 
             thumbnailEl.addEventListener("click", function() {
-                var iframe = document.createElement('iframe');
-                var html = `
-                <head>
-                    <link rel="stylesheet" href="/styles/main.css"/>
-                    <link rel="stylesheet" href="/styles/user.css"/>
-                    <link rel="icon" type="image/png" href="/favicon.png"/>
-                    <title></title>
-                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                    <meta name="keywords" content="friends online social networking wiki articles blog poll">
-                    <script type="text/javascript" src="/js/helper.js"></script>
-                    <script type="text/javascript" src="/js/comment.js"></script>
-                    <script type="text/javascript" src="/js/carousel.js"></script>
-                </head>
-                <nav id="topbar"></nav>
-                <style>
-                body {
-                    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-                    scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
-                }
-                body::-webkit-scrollbar { 
-                    display: none;  /* Older Safari and Chromium */
-                }
-                </style>
-                <style id="user-style">
-                    ${data.layout_style}
-                </style>
-                <body>
-                    <div id="main">
-                        ${data.layout_html}
-                    </div>
-                </body>
-                <script type="text/javascript" src="/js/nav.js"></script>
-                <script>window.inIframe = true</script>
-                <script type="text/javascript" src="/js/music.js"></script>
-                <script type="text/javascript" src="/js/user.js"></script>
-                `
-                iframe.srcdoc = html;
-                setupPopup(iframe)
-              
-                iframe.onload = function() {
-                    iframe.contentWindow.document.body.querySelector('#user-style').innerHTML += data.layout_style
-                    if (!disableJS) {
-                        iframe.contentWindow.eval(data.layout_javascript)
-                    }
-                }
+                previewTheme(
+                    data.layout_html, 
+                    data.layout_style, 
+                    disableJS ? null : data.layout_javascript
+                )
             })
 
             themeEl.appendChild(themeSourceEl)

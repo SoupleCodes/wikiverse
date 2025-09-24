@@ -83,50 +83,11 @@ async function fetchTheme(id) {
     const thumbnailEl = document.querySelector('#thumbnail-preview img')
     thumbnailEl.src = data.thumbnail
     thumbnailEl.addEventListener("click", function() {
-        var iframe = document.createElement('iframe');
-        var html = `
-        <head>
-            <link rel="stylesheet" href="/styles/main.css"/>
-            <link rel="stylesheet" href="/styles/user.css"/>
-            <link rel="icon" type="image/png" href="/favicon.png"/>
-            <title></title>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <meta name="keywords" content="friends online social networking wiki articles blog poll">
-            <script type="text/javascript" src="/js/helper.js"></script>
-            <script type="text/javascript" src="/js/comment.js"></script>
-            <script type="text/javascript" src="/js/carousel.js"></script>
-        </head>
-        <nav id="topbar"></nav>
-        <style>
-            body {
-                -ms-overflow-style: none;  /* Internet Explorer 10+ */
-                scrollbar-width: none;  /* Firefox, Safari 18.2+, Chromium 121+ */
-            }
-            body::-webkit-scrollbar { 
-                display: none;  /* Older Safari and Chromium */
-            }
-        </style>
-        <style id="user-style">
-        </style>
-        <body>
-            <div id="main">
-                ${data.layout_html}
-            </div>
-        </body>
-        <script type="text/javascript" src="/js/nav.js"></script>
-        <script>window.inIframe = true</script>
-        <script type="text/javascript" src="/js/music.js"></script>
-        <script type="text/javascript" src="/js/user.js"></script>
-        `
-        iframe.srcdoc = html;
-        setupPopup(iframe)
-      
-        iframe.onload = function() {
-            iframe.contentWindow.document.body.querySelector('#user-style').innerHTML = data.layout_style
-            if (!disableJS) {
-                iframe.contentWindow.eval(data.layout_javascript)
-            }
-        }
+        previewTheme(
+            data.layout_html, 
+            data.layout_style, 
+            disableJS ? null : data.layout_javascript
+        )
     })
 
     document.querySelector('#more-info #created-at').textContent = returnUTCTime(new Date(data.created_at))
