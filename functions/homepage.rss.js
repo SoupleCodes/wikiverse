@@ -1,6 +1,6 @@
 export async function onRequest(context) {
     try {
-      const response = await fetch('https://wiki.souple.workers.dev', {
+      const response = await fetch('https://wiki.souple.workers.dev/blog/latest', {
         method: "GET"
       })
 
@@ -32,7 +32,7 @@ export async function onRequest(context) {
 
       return new Response(
         xml,
-        { headers: { 'Content-Type': 'application/xml'} }
+        { headers: { 'Content-Type': 'application/rss+xml'} }
       );
 
     } catch (error) {
