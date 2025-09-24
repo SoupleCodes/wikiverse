@@ -34,6 +34,6 @@ export async function onRequest(context) {
       );
 
     } catch (error) {
-      return new Response("Internal Server Error", { status: 500 });
+      return new Response("Internal Server Error", { status: 500, error });
     }
   }
