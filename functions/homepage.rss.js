@@ -1,6 +1,8 @@
 export async function onRequest(context) {
     try {
-      const response = await fetchGET('/')
+      const response = await fetch('https://wiki.souple.workers.dev', {
+        method: "GET"
+      })
 
       if (!response.ok) {
         console.error("Failed to fetch root endpoint", response.status);
