@@ -31,8 +31,10 @@ export async function onRequest(context) {
       xml += '</rss>'
 
       return new Response(
-        xml,
-        { headers: { 'Content-Type': 'application/rss+xml'} }
+        { 
+          body: xml,
+          headers: { 'Content-Type': 'application/xml'} 
+        }
       );
 
     } catch (error) {
