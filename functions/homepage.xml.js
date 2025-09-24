@@ -1,3 +1,12 @@
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function onRequest(context) {
     try {
       const response = await fetch('https://wiki.souple.workers.dev/blog/latest', {
@@ -22,7 +31,7 @@ export async function onRequest(context) {
         xml += '<title>', xml += b.title, xml += '</title>'
         xml += '<author>', xml += b.author, xml += '</author>'
         xml += '<link>', xml += 'https://wikiverse.pages.dev/blog/' + b.id, xml += '</link>'
-        xml += '<description>', xml += b.content, xml += '</description>'
+        xml += '<description>', xml += escapeHtml(b.content), xml += '</description>'
 
         xml += '</item>'
       })
@@ -31,8 +40,8 @@ export async function onRequest(context) {
       xml += '</rss>'
 
       return new Response(
+        xml,
         { 
-          body: xml,
           headers: { 'Content-Type': 'application/xml'} 
         }
       );
