@@ -11,6 +11,31 @@ async function acceptTheme(id) {
     }
 }
 
+async function getInbox() {
+    const data = await fetchGET('inbox', true)
+    const inbox = document.querySelector('ul#inbox')
+    data.inbox.forEach(message => {
+        const li = document.createElement('li')
+        let link
+        if(message.origin_type === 'user') {
+            link = '/~' + message.origin_id
+        } else {
+            link = '/' + message.origin_type + '/' + message.origin_id
+        }
+        li.innerHTML = `
+            <div class="row">
+                <a href="#" style="padding-left: 12px;">@${message.sender || 'unnamed'}</a>
+                <a href="#" class="date">${returnUTCTime(message.created_at)}</a>
+            </div>
+            <div class="row">
+                <p>${message.content}</p>
+                <a href="${link}${message.comment_id ? `#comment-${message.comment_id}` : ''}" class="date">${message.comment_id ?? '(View this comment.)'}</a>
+            </div>
+        `
+        inbox.appendChild(li)
+    })
+}
+
 async function spawnThemes() {
     const pendingThemesEl = document.getElementById('pending-themes')
     const data = await fetchGET('theme/pending', true)
@@ -99,4 +124,11 @@ async function spawnThemes() {
     }
 }
 
-spawnThemes()
+document.addEventListener('DOMContentLoaded', function() {
+    const main = document.getElementById('main')
+    let u = localStorage.getItem('user')
+    if (u) u = JSON.parse(u)
+    if (u.role === 'reviewer') main.insertAdjacentHTML('afterbegin', '<label><h5>Themes pending for review:</h5><div id="pending-themes"></div></label>'); spawnThemes()
+
+    getInbox()
+})
