@@ -113,6 +113,10 @@ async function changePage(route, num) {
 
 function commentNav(route, len) {
     const pageNav = document.getElementById('page-nav')
+    if (len < 1) {
+        pageNav.remove()
+        return null 
+    }
     const page = Number(pageNav.getAttribute("currentpage"))
     pageNav.querySelector('#pages').textContent = 'Page ' + page + ' of ' + len
     let limit = Math.min(len, 10)
