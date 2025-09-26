@@ -23,11 +23,11 @@ async function getInbox() {
             link = '/' + message.origin_type + '/' + message.origin_id
         }
         li.innerHTML = `
-            <div class="row">
+            <div>
                 <a href="#" style="padding-left: 12px;">@${message.sender || 'unnamed'}</a>
                 <a href="#" class="date">${returnUTCTime(message.created_at)}</a>
             </div>
-            <div class="row">
+            <div>
                 <p>${message.content}</p>
                 <a href="${link}${message.comment_id ? `#comment-${message.comment_id}` : ''}" class="date">${message.comment_id ?? '(View this comment.)'}</a>
             </div>

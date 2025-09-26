@@ -234,7 +234,7 @@ ul#site-options { float: left } ul#user-options { float: right }
     height: 100%;
 }
 #page-nav {
-    padding: 0px 0px 20px 0px;
+    padding: 12px 0px 20px 0px;
     text-align: center;
 }
 #page-nav button.current {

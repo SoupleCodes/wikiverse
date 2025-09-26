@@ -40,3 +40,10 @@ img.thumbnail {
     margin: 0;
     height: 100%;
 }
+
+#inbox li {
+    display: flex;
+    padding: 10px;
+    background: #eeeae5;
+    flex-direction: column;
+}

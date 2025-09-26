@@ -27,7 +27,7 @@ async function postComment(route, val) {
     }
 }
 
-function createCommentElement(data) {
+function createCommentElement(data, pg) {
     const comment = document.createElement('div')
     comment.classList.add('comment')
     comment.id = "comment-" + data.id
@@ -69,8 +69,69 @@ function createCommentElement(data) {
     post.appendChild(postMessage)
     post.appendChild(postDate)
     comment.appendChild(post)
+    comment.setAttribute("page", pg)
 
     return comment
+}
+
+async function changePage(route, num) {
+    let k = document.querySelector(`[page='${num}']`)
+    const pageNav = document.getElementById('page-nav')
+    const curr = Number(pageNav.getAttribute("currentpage"))
+    const comments = document.querySelectorAll('.comment')
+
+    if (k) { 
+        if (curr == num) { return '' }
+        for (var i = 0, len = comments.length; i < len; i++) {
+            let child = comments[i]
+            child.classList.add('hidden')
+        }
+        let hiddenElements = document.querySelectorAll(`.comment.hidden[page='${num}']`)
+        for (var i = 0, len = hiddenElements.length; i < len; i++) {
+            let child = hiddenElements[i]
+            child.classList.remove('hidden')
+        }
+        pageNav.setAttribute("currentpage", num)
+        return '' 
+    }
+
+    for (var i = 0, len = comments.length; i < len; i++) {
+        let child = comments[i]
+        child.classList.add('hidden')
+    }
+
+    const response = await fetchGET(route + '/comments' + '?page=' + num)
+    let commentParent = document.querySelector('#comments-section #comments')
+    if (response && response.comments.length > 0) {
+        response.comments.forEach(c => {
+            commentParent.appendChild(createCommentElement(c, num))
+        });
+    }
+
+    pageNav.setAttribute("currentpage", num)
+}
+
+function commentNav(route, len) {
+    const pageNav = document.getElementById('page-nav')
+    const page = Number(pageNav.getAttribute("currentpage"))
+    pageNav.querySelector('#pages').textContent = 'Page ' + page + ' of ' + len
+    let limit = Math.min(len, 10)
+    let start = Math.max(1, page - Math.floor(limit / 2));
+    let end = Math.min(len, start + limit - 1);
+
+    if (end - start < limit - 1) {
+      start = Math.max(1, end - limit + 1);
+    }
+
+    if (page > 1) {
+        pageNav.innerHTML += `<button id="first" onclick="javascript:changePage(;'${route}', 1);';">first ≤</button><button onclick="javascript:changePage('${route}', ${page - 1});" id="prev" >&lt;</button>`;
+    }
+    for (let i = start; i <= end; i++) {
+        pageNav.innerHTML += `<button onclick="javascript:changePage('${route}', ${i});">${i}</button>`;
+    }
+    if (page < len) {
+        pageNav.innerHTML += `<button id="next" onclick="javascript:changePage('${route}', ${page + 1});';">&gt;</button><button onclick="javascript:changePage('${route}', ${len});" id="last">≥ last</button>`;
+    }
 }
 
 async function displayComments(route) {
@@ -78,6 +139,8 @@ async function displayComments(route) {
     let commentCountElement = document.querySelector('#comments-section #comment-count')
     let showing = document.querySelector('#comments-section #showing')
     let commentParent = document.querySelector('#comments-section #comments')
+
+    commentParent.insertAdjacentHTML("afterend", '<div id="page-nav" currentpage="1"><small id="pages"></small></div></div>')
     
     let inframe = window.inIframe
     let c
@@ -86,11 +149,12 @@ async function displayComments(route) {
     } else {
         c = await fetchGET(route + '/comments')
     }
-    const commentsCount = c.length || 0
+    const commentsCount = c.comment_count || 0
+    commentNav(route, c.page_count)
 
     if (c && commentsCount > 0) {
-        c.slice(0, 40).forEach((c, idx) => {
-            commentParent.appendChild(createCommentElement(c, idx + 1))
+        c.comments.forEach(c => {
+            commentParent.appendChild(createCommentElement(c, 1))
         });
     }
 
