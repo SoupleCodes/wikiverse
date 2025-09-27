@@ -72,7 +72,7 @@ function createBlogBody(data, idx) {
     avatar.id = 'avatar'
     const avatarIMG = document.createElement('img')
     if (data.profile) {
-        avatarIMG.src = data.profile.pfp_url
+        avatarIMG.src = data.profile.pfp_url || '/images/ui/default.png'
     } else {
         avatarIMG.src = '/images/ui/default.png'
     }
