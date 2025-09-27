@@ -79,7 +79,7 @@ async function fetchBlog(id) {
     if (data.style) {
         document.querySelector('style#blog-style').innerHTML = data.style
     } else {
-        document.querySelector('style#blog-style').innerHTML = data.profile.global_blog_css
+        if (data.profile) document.querySelector('style#blog-style').innerHTML = data.profile.global_blog_css
     }
     
     document.querySelector('table#profile-link-options td#linkTo-profile a').href = '/~' + data.author
