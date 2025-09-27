@@ -492,7 +492,7 @@ if (typeof preview_user === 'undefined') {
         fetchProfilePage(user)
     } else {
         user = new URLSearchParams(window.location.search).get("") || test
-        fetchProfilePage(user)
+        fetchProfilePage(encodeURIComponent((user)))
     }
 } else {
     fetchProfilePage(preview_user)
