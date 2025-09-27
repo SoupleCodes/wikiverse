@@ -492,7 +492,13 @@ if (typeof preview_user === 'undefined') {
         fetchProfilePage(user)
     } else {
         user = new URLSearchParams(window.location.search).get("") || test
-        fetchProfilePage(encodeURIComponent(user))
+        const emojiRegex = /\p{Emoji}/u;
+        const ifEmoji = emojiRegex.test(user);
+        if (ifEmoji) {
+            fetchProfilePage(user)
+        } else {
+            fetchProfilePage(encodeURIComponent(user))
+        }
     }
 } else {
     fetchProfilePage(preview_user)
