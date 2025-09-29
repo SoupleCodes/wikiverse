@@ -1,10 +1,16 @@
 export async function onRequest(context) {
     const { request, env } = context;
-    const pathSegment = context.params.user
+    const segments = context.params.catchall
+    const user = segments[0]
+    const page = segments[1]
 
     try {
-      if (!pathSegment.startsWith('~')) {
+      if (!user.startsWith('~')) {
         return new Response("Page not found!")
+      }
+
+      if (page) {
+        return new Response("Viewing " + user + "'s " + page + " is currently not accessible. Try again later!")
       }
 
       const assetUrl = new URL('/user/index.html', request.url);
