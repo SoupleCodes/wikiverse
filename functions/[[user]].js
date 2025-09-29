@@ -1,8 +1,6 @@
 export async function onRequest(context) {
     const { request, env } = context;
-    console.log(request, env)
-    console.log('context: ', context)
-    const segments = JSON.stringify(context.params.catchall)
+    const segments = context.params.catchall.user
     const user = segments[0]
     const page = segments[1]
 
