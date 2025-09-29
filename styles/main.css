@@ -350,6 +350,9 @@ textarea {
     outline-offset: 0px;
     background: none
 }
+.comment img {
+    max-width: 100%;
+}
 .comment.focus {
     background: #eee;
     outline: 1px solid #eee;

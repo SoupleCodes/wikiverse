@@ -263,6 +263,21 @@ const smileys = [
     ":yinyang:", "/images/emoijs/smileys/yinyang.gif",
 ]
 
+const meower95emojis = {
+    "cat": "1.png",
+    "sad": "2.png",
+    "smile": "3.png",
+    "straightface": "4.png",
+    "angry": "5.png",
+    "evil": "6.png",
+    "happy": "7.png",
+    "evil": "8.png",
+    "playful": "9.png",
+    "annoyed": "10.png",
+    "dead": "11.png",
+    "joking": "12.png"
+}
+
 const bbcodeTags = [
     { html: "<b></b>", tag: "b" },
     { html: "<u></u>", tag: "u" },
@@ -365,6 +380,13 @@ window.bbcodeparse = function bbcodeparse(s, disableImages) {
           changed = changed || prevResult !== result
         }
     }
+
+    result = result.replace(/\[(.+?)\]/g, (match, $1) => {
+        if (!!meower95emojis[$1]) {
+            return `<img src="/images/emojis/meower95/${meower95emojis[$1]}" class="emoji" title="[${$1}]">`
+        }
+        return $1
+    }); 
 
     if (disableImages) {
         return replaceSmileysWithRegex(DOMPurify.sanitize(result, { FORBID_TAGS: ['img'] }))
