@@ -80,7 +80,7 @@ export async function onRequest(context) {
       }
 
       if (page) {
-        const html = await getPageContent(page, user, 1)
+        const html = await getPageContent(page, user.split('~')[1], 1)
         if (!html) {
           return new Response("Page doesn't exist!")
         }
